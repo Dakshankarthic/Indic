@@ -158,29 +158,56 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, orig_w, orig_h, region_idx):
         })
     return lines_data
 
+def merge_overlapping_regions(regions):
+    """Merge regions that overlap vertically into larger combined regions."""
+    if not regions:
+        return regions
+    regions = sorted(regions, key=lambda r: r[1])  # sort by y
+    merged = [list(regions[0])]
+    for rx, ry, rw, rh in regions[1:]:
+        prev = merged[-1]
+        prev_y2 = prev[1] + prev[3]
+        # If this region overlaps vertically with the previous one, merge
+        if ry < prev_y2 + 20:  # 20px tolerance
+            new_x = min(prev[0], rx)
+            new_y = min(prev[1], ry)
+            new_x2 = max(prev[0] + prev[2], rx + rw)
+            new_y2 = max(prev_y2, ry + rh)
+            merged[-1] = [new_x, new_y, new_x2 - new_x, new_y2 - new_y]
+        else:
+            merged.append([rx, ry, rw, rh])
+    return [tuple(r) for r in merged]
+
 def detect_lines_from_mask(text_mask, binary, orig_h, orig_w):
     mask_full = cv2.resize(text_mask * 255, (orig_w, orig_h), interpolation=cv2.INTER_NEAREST)
-    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
+    # Use a very aggressive dilation to ensure the text mask covers entire text block
+    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_RECT, (orig_w // 8, 15))
     mask_dilated = cv2.dilate(mask_full, kernel_dilate)
     binary_masked = cv2.bitwise_and(binary, mask_dilated)
-    kw, kh = int(orig_w // 15), int(orig_h // 35)
+    # Use a massive closing kernel to bridge all gaps across the page width
+    kw = int(orig_w // 3)
+    kh = int(orig_h // 15)
     if kw % 2 == 0: kw += 1
     if kh % 2 == 0: kh += 1
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (kw, kh))
-    closed = cv2.morphologyEx(mask_full, cv2.MORPH_CLOSE, kernel)
+    closed = cv2.morphologyEx(mask_dilated, cv2.MORPH_CLOSE, kernel)
     contours, _ = cv2.findContours(closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     min_area = 0.005 * (orig_w * orig_h)
     regions = []
     for c in contours:
         rx, ry, rw, rh = cv2.boundingRect(c)
         if rw * rh > min_area: regions.append((rx, ry, rw, rh))
+    # Merge overlapping/adjacent regions into large blocks
+    regions = merge_overlapping_regions(regions)
     if not regions: regions = [(0, 0, orig_w, orig_h)]
     regions.sort(key=lambda r: r[1])
     all_lines = []
     for r_idx, (rx, ry, rw, rh) in enumerate(regions, 1):
         pad_y, pad_x = 15, 30
-        ry_new, rh_new = max(0, ry - pad_y), min(orig_h - max(0, ry - pad_y), rh + 2 * pad_y)
-        rx_new, rw_new = max(0, rx - pad_x), min(orig_w - max(0, rx - pad_x), rw + 2 * pad_x)
+        ry_new = max(0, ry - pad_y)
+        rh_new = min(orig_h - ry_new, rh + 2 * pad_y)
+        rx_new = max(0, rx - pad_x)
+        rw_new = min(orig_w - rx_new, rw + 2 * pad_x)
         all_lines.extend(detect_lines_in_region(binary_masked, rx_new, ry_new, rw_new, rh_new, orig_w, orig_h, r_idx))
     all_lines.sort(key=lambda b: b['bbox'][1])
     return all_lines, mask_full, binary_masked
