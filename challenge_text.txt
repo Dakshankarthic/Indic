@@ -1,0 +1,326 @@
+
+=== PAGE 1 ===
+AutoAnn-Indic
+AutoAnn-Indic: Human-Effort Efficient Automated Annotation for Indic Manuscripts
+and Ram Charit Manas
+Challenge Proposal for NCVPRIPG 2026
+=== PAGE 2 ===
+1. Introduction
+Indic manuscripts—on paper as well as palm-leaf—exhibit extreme variability in script and calligraphic 
+styles, ink density, background texture, page geometry, and complex degradations such as bleed-through, 
+stains, cracks, holes, fading, marginal notes, ornaments, and inconsistent ruling. Although large-scale 
+digitization has produced extensive image collections, progress in Indic Document AI remains bottlenecked 
+by the lack of high-quality annotations for core structures such as layout regions, text lines/baselines, 
+damage masks, and reading order. Creating such ground truth manually is slow, costly, and expertisedependent, which prevents scaling datasets to the sizes needed for robust OCR/HTR, retrieval, and 
+preservation pipelines.
+AutoAnn-Indic proposes a challenge on automated annotation generation for Indian cultural heritage 
+documents, combining diverse Indic manuscripts with a focused, culturally significant subset—Ramcharit 
+Manas—to represent a realistic deployment scenario. The objective is to develop methods that produce 
+usable pre-annotations directly from raw page images with minimal supervision, enabling humans to 
+finalize annotations rapidly. Participants will be provided (i) a curated collection of manuscript pages across 
+styles and degradation levels (including Ramcharit Manas pages), (ii) a small seed set of expert-annotated 
+pages, and (iii) a larger unlabeled pool to encourage weak supervision, self-training, and active learning. 
+Teams will submit predictions in a standard format (e.g., PAGE-XML or COCO polygons) for tasks including 
+layout parsing (text regions, marginalia/notes, illustrations/diagrams, page/frame, and damage/holes) and 
+text-line/baseline extraction.
+The key novelty of AutoAnn-Indic is its practical, human-centered evaluation. Beyond measuring 
+annotation quality, we explicitly evaluate human effort saved. On a hidden evaluation subset, submitted 
+pre-annotations will be corrected by trained annotators using a fixed tool and protocol. On a hidden 
+evaluation subset, submitted pre-annotations will be corrected by trained annotators using a fixed tool and 
+protocol. We will record correction time per page (seconds/page). Rankings will therefore reflect both 
+accuracy and annotation efficiency, rewarding solutions that are not only correct but also fast to finalize.
+By benchmarking quality–cost trade-offs in a realistic setting, AutoAnn-Indic aims to catalyze scalable 
+ground-truth generation pipelines, robust learning under severe manuscript degradations, and practical 
+human-in-the-loop document understanding—accelerating the creation of high-value annotated datasets 
+for Indic cultural heritage.
+2. Impact & significance 
+AutoAnn-Indic addresses the primary bottleneck in Indic manuscript AI: scalable creation of reliable 
+ground-truth annotations. While advances in layout analysis and HTR/OCR have improved model 
+performance, real adoption on manuscripts remains limited due to the high cost, slow pace, and expertise 
+required for annotation—especially under severe degradations and high stylistic diversity. By reframing the 
+problem as automated annotation generation (rather than only recognition), and by including both a 
+diverse Indic manuscript corpus and a focused, culturally significant subset (Ramcharit Manas), this 
+challenge directly targets real-world dataset building and deployment needs.
+Research Impact
+=== PAGE 3 ===
+• A practical benchmark beyond accuracy: Most document challenges evaluate only segmentation 
+or OCR accuracy. AutoAnn-Indic introduces a Quality + Human-Effort evaluation, encouraging 
+methods that generate usable pre-annotations that are fast to finalize—an essential step for 
+building large datasets.
+• Advances in low-label learning: The setup of small seed labels + large unlabeled pool naturally 
+promotes research in weak supervision, self-training, semi-supervised learning, uncertainty-aware 
+predictions, and active learning—methods needed for heritage collections where labels are scarce.
+• Robustness under real degradations: Manuscripts frequently exhibit holes/tears, bleed-through, 
+ink spread, fading, warped pages, and non-uniform layouts. The benchmark explicitly drives 
+solutions that generalize across materials (paper/palm-leaf), writing styles, and damage patterns—
+where standard document models often fail.
+• Stronger downstream pipelines: High-quality auto-annotations unlock better training data for 
+OCR/HTR, reading-order modeling, keyword spotting, retrieval, and translation workflows—
+improving end-to-end manuscript understanding and restoration pipelines.
+Industry and Societal Impact
+• Direct value for libraries and archives: Methods that reduce correction time can be integrated into 
+digitization workflows, enabling institutions to convert large collections into structured, searchable 
+corpora faster and at lower cost.
+• Cultural heritage preservation and access: Improved annotations accelerate transcription and 
+indexing, supporting scholars, educators, and the public in discovering and preserving Indic 
+knowledge systems. The inclusion of Ramcharit Manas strengthens cultural relevance and 
+showcases a high-value, real deployment case.
+• Reusable community assets: The challenge will release standardized formats (e.g., PAGEXML/COCO), evaluation scripts, and annotation guidelines, creating a long-lived benchmark and 
+tooling ecosystem that can be adopted beyond the competition.
+Overall, AutoAnn-Indic positions NCVPRIPG’26 as a platform for a high-impact, practice-oriented 
+Document AI challenge that aligns research novelty with realistic digitization and annotation requirements 
+for Indian cultural heritage.
+3. Major rules for participation & evaluation criteria
+A) Major Rules for Participation
+1. Data Policy (Core):
+Participants may train using only the officially released AutoAnn-Indic dataset, consisting of a 
+seed-labeled set and a larger unlabeled pool (covering both Indic manuscripts and Ramcharit 
+Manas pages).
+2. External Pretraining (Allowed with Full Disclosure):
+Use of publicly available pretrained models/weights is allowed only if fully disclosed, including: 
+model name, source link, and any external data used during pretraining. Use of private, proprietary, 
+or undisclosed datasets is not permitted.
+=== PAGE 4 ===
+3. No Additional Manual Labeling:
+Teams must not manually annotate any additional pages beyond the released seed labels. Any 
+human labeling effort outside the provided seed set is prohibited to ensure fairness.
+4. Submission Outputs & Format:
+Submissions must follow the official schema and page identifiers, using PAGE-XML and/or COCOstyle JSON (final format confirmed at data release). Required outputs include:
+o Layout regions (instance polygons/masks) with class labels (e.g., text_region, 
+marginalia/notes, illustration/diagram, page_frame, damage/hole).
+o Text lines as line polygons and optional baselines as polylines.
+5. Submission Limits:
+To prevent test-set overfitting, the number of test submissions will be limited (e.g., 3–5 
+submissions per team). Validation submissions will be allowed as per organizer policy.
+6. Reproducibility (Required for Winner Verification):
+Shortlisted teams must provide a brief method description and runnable inference instructions 
+(script/container) to enable verification.
+7. Fair Use & Ethics:
+The dataset is provided strictly for research and challenge participation. Teams must respect 
+dataset licensing, avoid attempts to re-identify sources beyond provided metadata, and ensure 
+submissions/releases do not contain offensive, harmful, or sensitive content.
+B) Evaluation Criteria
+AutoAnn-Indic evaluates submissions on two complementary dimensions: annotation quality and 
+human effort required to finalize annotations.
+1) Annotation Quality Score (Q)
+Computed on the hidden test set using official evaluation scripts.
+Track 1: Layout Auto-Annotation
+• Region segmentation quality: mIoU and/or mask mAP (as applicable)
+• Instance-level quality: Panoptic Quality (PQ) where applicable
+Track 2: Text-Line / Baseline Auto-Annotation
+• Line extraction: Line IoU and/or Line F1-score
+• Baseline accuracy: tolerance-based baseline distance score (if baselines are provided)
+Note: The final class list, output schema, and official metric definitions will be released with the 
+dataset and evaluation toolkit.
+2) Human Effort Score (E) — Time-only
+Measured on a hidden Human-in-the-Loop subset. Trained annotators will correct each team’s preannotations to match the official annotation guidelines using a fixed tool and protocol (same UI, 
+same instructions). We record:
+𝐸 = Median(Time/page)
+=== PAGE 5 ===
+where Time/page is measured in seconds per page. Median is used to reduce the impact of outliers 
+(extremely hard pages).
+Fairness controls: same annotator pool across teams, randomized page order, and a balanced mix 
+of both domains (Indic manuscripts + Ramcharit Manas) and degradation levels.
+3) Final Ranking
+We will provide one of the following transparent approaches:
+Pareto Ranking
+Leaderboard highlights methods that dominate others in both higher quality (Q) and lower effort 
+(E).
+Combined Score (Single Number)
+𝑆 = 𝑄 × exp (−𝜆𝐸)
+(or an equivalent normalized weighted combination; 𝜆 published in advance).
+Tie-breakers:
+1. Higher performance on the Hard Subset (severe bleed-through, holes/tears, low contrast),
+2. Lower human effort (E),
+3. Faster inference runtime (optional, if standardized).
+4. Novelty of the Challenge Proposal
+AutoAnn-Indic is novel and differentiated from existing document AI challenges in the following key ways:
+1. Auto-annotation as the central objective:
+Instead of framing the task as accuracy-only layout analysis or OCR/HTR, AutoAnn-Indic explicitly 
+targets automated annotation generation—producing high-quality pre-annotations that can be 
+converted into final ground truth efficiently. This directly addresses the largest practical barrier in 
+Indic manuscript AI: scalable label creation.
+2. Human-in-the-loop, quality–cost evaluation:
+The challenge introduces a human-centered leaderboard that jointly measures (i) annotation 
+quality and (ii) human effort required to finalize labels, quantified via median correction time per 
+page (seconds/page) under a fixed tool and protocol. This “quality–cost” benchmark prioritizes 
+outputs that are not only accurate but also fast to finalize, making them directly usable in real 
+digitization and annotation workflows.
+3. Realistic low-label learning with domain diversity (Indic + Ramcharit Manas):
+AutoAnn-Indic provides a small seed-labeled set and a larger unlabeled pool, encouraging weak 
+supervision, self-training, semi-supervised learning, and uncertainty-aware predictions—methods 
+necessary for heritage collections where labels are scarce. Including both diverse Indic manuscripts
+=== PAGE 6 ===
+and a focused, culturally significant subset (Ramcharit Manas) strengthens novelty by enabling 
+evaluation across domain variation and showcasing a high-impact, real deployment scenario.
+Together, these elements make AutoAnn-Indic a practice-oriented and research-relevant challenge that 
+advances scalable dataset creation for Indic cultural heritage rather than merely optimizing recognition 
+accuracy.
+5. The team that will run the challenge 
+1. Challenge Chair: Dr. Indra Deep Mastan, Assistant Professor, IIT (BHU) Varanasi,
+indra.cse@iitbhu.ac.in, +91-9687034759
+2. Co-Organizer 1 (Conference Liaison + Coordination): Dr. Anukriti Bansal, Assistant Professor, 
+LNMIIT Jaipur, anukriti.bansal@lnmiit.ac.in — +91-8287593851
+3. Co-Organizer 2 (Evaluation & Baselines Lead): Dr. Aprajita Khan, Assistant Professor, IIT (BHU) 
+Varanasi, aparajita.cse@iitbhu.ac.in, +91-7384850465
+4. Annotation/Tools Lead (Annotation Protocol + Tool Setup + Annotator Management): Satyendra 
+Yadav, Research Scholar, IIT (BHU) Varanasi, satyendrayadav.rs.cse25@itbhu.ac.in, +91-
+9170795435
+5. Student Coordinator: To be confirmed
+6. Important dates 
+• Challenge Proposal Submission Starts: 7 Jan 2026
+• Challenge Proposal Submission Deadline: 15th Feb 2026
+• Challenge Website + Baseline Release: 1 Mar 2026 (tentative)
+• Dataset Release (seed labels + unlabeled pool): 5 Mar 2026 (tentative)
+• Validation Phase: 10 Mar 2026 – 15 Jun 2026 (tentative)
+• Test Release (no GT): 25 Jun 2026 (tentative)
+• Final Submission Deadline: 10 Jul 2026 (tentative)
+• Winners Announcement: During NCVPRIPG 2026 (22–24 Jul 2026)
+Awards proposed
+• Best Overall (Quality + Human-Effort)
+• Best Human-Efficiency (lowest correction time with strong quality)
+• Best Robustness (hard degradation subset)
+Awards: certificates + recognition; sponsored prizes (if available).
+REFERENCES 
+[1] OPenn, “Collection of Indic Manuscripts (Penn Libraries).” Available: 
+https://openn.library.upenn.edu/html/indic_contents.html
+[2] Penn Libraries, “South Asian Manuscript Collection (Overview).” Available: 
+https://www.library.upenn.edu/collections/notable/south-asian-manuscript
+=== PAGE 7 ===
+[3] A. Prusty, S. Aitha, A. Trivedi, and R. K. Sarvadevabhatla, “Indiscapes: Instance Segmentation Networks 
+for Layout Parsing of Historical Indic Manuscripts,” ICDAR 2019.
+ Paper (PDF):
+https://cvit.iiit.ac.in/images/ConferencePapers/2019/ICDAR_19_Indiscapes_camera_ready.pdf
+ arXiv: https://arxiv.org/abs/1912.07025
+[4] S. Pletschacher and A. Antonacopoulos, “The PAGE (Page Analysis and Ground-truth Elements) Format 
+Framework,” ICPR 2010.
+ PDF: https://www.primaresearch.org/www/assets/papers/ICPR2010_Pletschacher_PAGE.pdf
+[5] PRImA Research Lab, “PAGE-XML (schemas + format).” GitHub: https://github.com/PRImA-ResearchLab/PAGE-XML
+[6] OCR-D, “PAGE XML GT Guidelines.” Available: https://ocr-d.de/en/gt-guidelines/trans/trPage.html
+[7] PRImA Research Lab, “Aletheia (Ground Truthing Tool).” Available: 
+https://www.primaresearch.org/tools/aletheia
+[8] C. Clausner, S. Pletschacher, and A. Antonacopoulos, “Aletheia – An Advanced Document Layout and 
+Text Ground-Truthing System for Production Environments,” ICDAR 2011.
+ PDF: https://www.primaresearch.org/www/assets/papers/ICDAR2011_Clausner_Aletheia.pdf
+[9] C. Clausner, S. Pletschacher, and A. Antonacopoulos, “Efficient OCR Training Data Generation with 
+Aletheia,” DAS 2014.
+ PDF: 
+https://primaresearch.org/www/assets/papers/DAS2014_Clausner_OCRTrainingDataGeneration.pdf
+[10] University of Fribourg (DIVA), “DIVA-HisDB Dataset of Medieval Manuscripts.” Available: 
+https://www.unifr.ch/inf/diva/en/research/software-data/diva-hisdb.html
+[11] DIVA-DIA, “DIVA Layout Analysis Evaluator (ICDAR competition evaluator).” GitHub: 
+https://github.com/DIVA-DIA/DIVA_Layout_Analysis_Evaluator
+[12] DIVA-DIA, “DIVA Line Segmentation Evaluator.” GitHub: https://github.com/DIVADIA/DIVA_Line_Segmentation_Evaluator
+[13] T. Grüning, R. Labahn, M. Diem, F. Kleber, and S. Fiel, “READ-BAD: A New Dataset and Evaluation 
+Scheme for Baseline Detection in Archival Documents,” 2017.
+ arXiv: https://arxiv.org/abs/1705.03311
+[14] Zenodo, “ICDAR 2017 Competition on Baseline Detection in Archival Documents (cBAD) Dataset.” 
+Available: https://zenodo.org/records/835441
+=== PAGE 8 ===
+[15] M. Murdock, S. Reid, B. Hamilton, and J. Reese, “ICDAR 2015 competition on text line detection in 
+historical documents,” ICDAR 2015.
+ Publisher page: https://www.computer.org/csdl/proceedingsarticle/icdar/2015/07333945/12OmNBB0bYO
+[16] B. Pfitzmann et al., “DocLayNet: A Large Human-Annotated Dataset for Document-Layout Analysis,” 
+2022.
+ arXiv: https://arxiv.org/abs/2206.01062
+ ACM DOI page: https://dl.acm.org/doi/10.1145/3534678.3539043
+[17] DS4SD, “DocLayNet (dataset + code).” GitHub: https://github.com/DS4SD/DocLayNet
+[18] X. Zhong et al., “PubLayNet: largest dataset ever for document layout analysis,” 2019.
+ arXiv: https://arxiv.org/abs/1908.07836
+ GitHub: https://github.com/ibm-aur-nlp/PubLayNet
+[19] M. Li et al., “DocBank: A Benchmark Dataset for Document Layout Analysis,” 2020.
+ arXiv: https://arxiv.org/abs/2006.01038
+ GitHub: https://github.com/doc-analysis/DocBank
+[20] J. Li et al., “DiT: Self-supervised Pre-training for Document Image Transformer,” 2022.
+ arXiv: https://arxiv.org/abs/2203.02378
+ MS Research article: https://www.microsoft.com/en-us/research/articles/dit-self-supervised-pretraining-for-document-image-transformers
+[21] Hugging Face Transformers, “LayoutLMv3 Documentation.” Available: 
+https://huggingface.co/docs/transformers/en/model_doc/layoutlmv3
+[22] Kraken OCR/HTR, “kraken (GitHub).” Available: https://github.com/mittagessen/kraken
+ Kraken Docs: https://kraken.re/
+[23] eScriptorium, “Platform.” Available: https://escriptorium.rich.ru.nl/
+ eScriptorium Docs: https://escriptorium.readthedocs.io/
+[24] Transkribus, “Platform.” Available: https://www.transkribus.org/
+[25] Label Studio, “Open Source Data Labeling (optional tooling reference).” Available: https://labelstud.io/
+=== PAGE 9 ===
+ GitHub: https://github.com/HumanSignal/label-studio
+[26] ScriptNet (competition hosting reference; optional), “Baseline Detection competitions (cBAD).” 
+Available: https://scriptnet.iit.demokritos.gr/competitions/5/1/
+[27] DIBCO 2019 (optional if you mention a binarization/degradation auxiliary track), “Document Image 
+Binarization Competition.” Available: https://vc.ee.duth.gr/dibco2019/
+[28] National Mission for Manuscripts (NAMAMI), Govt. of India. Available: https://www.namami.gov.in/
+[29] Pandulipi Patala (National Manuscripts Portal / search & digital manuscripts access). Available: 
+https://www.pandulipipatala.nic.in/
+[30] Muktabodha Digital Library (MIRI), digitized manuscript collections. Available: 
+https://muktabodha.org/digital-library/
+[31] Endangered Archives Programme (British Library), digitized archives/manuscripts collections. Available: 
+https://eap.bl.uk/
+[32] Endangered Archives Programme – Example India manuscript collection page (use as exemplar 
+citation). Available: https://eap.bl.uk/collection/EAP636-4
+[33] IIT Kanpur – Ramcharitmanas digital resource (authoritative reference for text structure/sections). 
+Available: https://www.ramcharitmanas.iitk.ac.in/
+[34] Internet Archive – “Shri Ramcharitmanas by Gita Press (Code No. 790)” (scan source candidate). 
+Available: https://archive.org/details/GitaPress790
+[35] Internet Archive – “Shri Ramcharitmanas Mool – Gita Press (Hindi)” (scan source candidate). Available: 
+https://archive.org/details/shri-ramcharitmanas-mool
+[36] Hindi Wikisource – “रामचररतमानस” (structured edition; also links to scanned-page PDFs). Available: 
+https://hi.wikisource.org/wiki/रामचररतमानस
+[37] CVIT, IIIT-H – Indic Handwriting Word-level datasets (Devanagari etc.; useful baseline/data reference). 
+Available: https://cvit.iiit.ac.in/research/projects/cvit-projects/indic-hw-data
+[38] A. Maheshwari et al., “A Benchmark and Dataset for Post-OCR Text Correction in Sanskrit,” Findings of 
+EMNLP 2022. Available: https://aclanthology.org/2022.findings-emnlp.466/
+RESOURCES FOR PARTICIPANTS
+A) Indic Manuscript Data Sources / Benchmarks
+- OPenn Indic Manuscripts (Penn Libraries): https://openn.library.upenn.edu/html/indic_contents.html
+=== PAGE 10 ===
+- Penn South Asian Manuscript overview: https://www.library.upenn.edu/collections/notable/south-asianmanuscript
+- Indiscapes (ICDAR 2019) paper + dataset context: https://arxiv.org/abs/1912.07025
+B) Output / Submission Formats
+- PAGE-XML schemas (PRImA): https://github.com/PRImA-Research-Lab/PAGE-XML
+- OCR-D PAGE-XML GT conventions: https://ocr-d.de/en/gt-guidelines/trans/trPage.html
+C) Annotation + Correction Tools (for “human-effort saved” evaluation)
+- Aletheia (GT tool): https://www.primaresearch.org/tools/aletheia
+- PAGE Viewer (overlay viewer): https://www.primaresearch.org/tools/PAGEViewer
+- PAGE Viewer (GitHub repo): https://github.com/PRImA-Research-Lab/prima-page-viewer
+- Label Studio (optional for internal annotation ops/time logging): https://labelstud.io/
+D) OCR/HTR Pipelines (baseline options)
+- Kraken (OCR/HTR + trainable layout analysis): https://github.com/mittagessen/kraken
+- Kraken documentation: https://kraken.re/
+- eScriptorium (web pipeline using Kraken): https://escriptorium.rich.ru.nl/
+- eScriptorium documentation: https://escriptorium.readthedocs.io/
+- Transkribus (industry-grade HTR platform reference): https://www.transkribus.org/
+E) Document Layout Pretraining Datasets (allowed only with disclosure)
+- DocLayNet: https://arxiv.org/abs/2206.01062 | GitHub: https://github.com/DS4SD/DocLayNet
+- PubLayNet: https://arxiv.org/abs/1908.07836 | GitHub: https://github.com/ibm-aur-nlp/PubLayNet
+- DocBank: https://arxiv.org/abs/2006.01038 | GitHub: https://github.com/doc-analysis/DocBank
+F) Strong Baseline Backbones 
+- DiT (Document Image Transformer pretraining): https://arxiv.org/abs/2203.02378
+- LayoutLMv3 docs (multimodal DocAI): 
+https://huggingface.co/docs/transformers/en/model_doc/layoutlmv3
+G) Evaluators / Metrics References (layout + lines)
+=== PAGE 11 ===
+- DIVA-HisDB dataset page: https://www.unifr.ch/inf/diva/en/research/software-data/diva-hisdb.html
+- DIVA Layout Analysis Evaluator: https://github.com/DIVA-DIA/DIVA_Layout_Analysis_Evaluator
+- DIVA Line Segmentation Evaluator: https://github.com/DIVA-DIA/DIVA_Line_Segmentation_Evaluator
+- READ-BAD baseline evaluation scheme: https://arxiv.org/abs/1705.03311
+- cBAD 2017 dataset (Zenodo): https://zenodo.org/records/835441
+- ICDAR 2015 Text Line Detection competition paper: https://www.computer.org/csdl/proceedingsarticle/icdar/2015/07333945/12OmNBB0bYO
+H) Optional: Hosting / Competition Platform Reference
+- ScriptNet competitions (baseline detection): https://scriptnet.iit.demokritos.gr/competitions/5/1/
+I) Ramcharit Manas (Focused Heritage Subset) – Reference Sources
+- IIT Kanpur Ramcharitmanas portal (structure/sections/metadata): https://www.ramcharitmanas.iitk.ac.in/
+- IITK Ramcharitmanas gallery (page images listing): https://www.ramcharitmanas.iitk.ac.in/gallerycollections/gallery
+- Internet Archive scans:
+• Gita Press 790 scan: https://archive.org/details/GitaPress790
+• Ramcharitmanas Mool scan: https://archive.org/details/shri-ramcharitmanas-mool
+- Wikisource Ramcharitmanas (structured text + PDF page views): 
+https://hi.wikisource.org/wiki/रामचररतमानस
+J) Additional Indic Manuscripts Sources 
+- National Mission for Manuscripts (NAMAMI): https://www.namami.gov.in/
+- Pandulipi Patala (catalogue/digital manuscripts portal): https://www.pandulipipatala.nic.in/
+- Muktabodha Digital Library (digitized manuscripts): https://muktabodha.org/digital-library/
+- Endangered Archives Programme (digitized manuscript collections): https://eap.bl.uk/
+K) Indic Script Data 
+- IIIT-H CVIT Indic Handwriting datasets (word-level): https://cvit.iiit.ac.in/research/projects/cvitprojects/indic-hw-data
+- Sanskrit post-OCR correction dataset :
+https://aclanthology.org/2022.findings-emnlp.466/

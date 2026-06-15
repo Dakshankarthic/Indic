@@ -1,0 +1,28 @@
+# Environments
+.venv/
+__pycache__/
+
+# Datasets and Large Folders
+olai_suvadi_images/
+ramcharitmanas/
+test_10_images/
+training_data/
+training_data_unet/
+datasets/
+
+# Output Results
+output_dir/
+results/
+results_full/
+paddle_results/
+easyocr_results/
+
+# Large Files
+*.npz
+*.pth
+*.pt
+temp_dino_regions.json
+pagecontent.xsd
+*.jpg
+*.png
+*.pdf
