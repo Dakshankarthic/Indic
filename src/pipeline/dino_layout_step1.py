@@ -111,7 +111,7 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, orig_w, orig_h, region_idx):
     max_val = np.max(h_proj_smooth)
     if max_val == 0: return []
     h_proj_norm = h_proj_smooth / max_val
-    text_rows = np.where(h_proj_norm > 0.02)[0]
+    text_rows = np.where(h_proj_norm > 0.05)[0]
     if len(text_rows) == 0: return []
     text_start, text_end = text_rows[0], text_rows[-1]
     proj_region = h_proj_norm[text_start:text_end+1]
@@ -145,7 +145,7 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, orig_w, orig_h, region_idx):
         v_proj = np.sum(line_strip, axis=0)
         cols = np.where(v_proj > 0)[0]
         if len(cols) < 5: continue
-        lx1, lx2 = rx + cols[0], rx + cols[-1]
+        lx1, lx2 = rx, rx + rw
         line_roi = binary[abs_y1:abs_y2, lx1:lx2]
         line_poly = extract_polygon_hull(line_roi, lx1, abs_y1, epsilon_factor=0.003)
         is_marginalia = line_width = lx2 - lx1 < orig_w * 0.15 and (lx1 < orig_w * 0.15 or lx2 > orig_w * 0.85)
@@ -199,6 +199,12 @@ def detect_lines_from_mask(text_mask, binary, orig_h, orig_w):
         if rw * rh > min_area: regions.append((rx, ry, rw, rh))
     # Merge overlapping/adjacent regions into large blocks
     regions = merge_overlapping_regions(regions)
+    if regions and any(rw < 0.5 * orig_w for _, _, rw, _ in regions):
+        min_x = min(r[0] for r in regions)
+        min_y = min(r[1] for r in regions)
+        max_x = max(r[0] + r[2] for r in regions)
+        max_y = max(r[1] + r[3] for r in regions)
+        regions = [(min_x, min_y, max_x - min_x, max_y - min_y)]
     if not regions: regions = [(0, 0, orig_w, orig_h)]
     regions.sort(key=lambda r: r[1])
     all_lines = []

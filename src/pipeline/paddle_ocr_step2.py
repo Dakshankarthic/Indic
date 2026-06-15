@@ -102,12 +102,12 @@ def draw_viz(img, lines_data, damage_regions, out_path):
         color = (0, 255, 0) if ld.get('text') else (0, 0, 255)
         line_poly = ld['polygon']
         pts = np.array(line_poly, dtype=np.int32).reshape((-1, 1, 2))
-        cv2.polylines(viz, [pts], isClosed=True, color=color, thickness=2)
+        cv2.polylines(viz, [pts], isClosed=True, color=color, thickness=3)
 
         for wd in ld.get('words', []):
             word_poly = wd['polygon']
             w_pts = np.array(word_poly, dtype=np.int32).reshape((-1, 1, 2))
-            cv2.polylines(viz, [w_pts], isClosed=True, color=(255, 180, 0), thickness=2)
+            cv2.polylines(viz, [w_pts], isClosed=True, color=(255, 200, 50), thickness=1)
             
     cv2.imwrite(str(out_path), viz)
 
@@ -149,10 +149,12 @@ def main():
                 paddle_boxes.append({
                     'polygon': Polygon(line[0]),
                     'text': line[1][0],
-                    'conf': line[1][1]
+                    'conf': line[1][1],
+                    'center_y': sum([pt[1] for pt in line[0]]) / 4,
+                    'center_x': sum([pt[0] for pt in line[0]]) / 4
                 })
 
-        # 2. Map Paddle strings to DINO polygons via Intersection-over-Union (IoU)
+        # 2. Map Paddle strings to DINO polygons via Intersection-over-Minimum-Area & Center Matching
         mapped_count = 0
         for ld in lines_data:
             ld['text'] = "" # Default to empty
@@ -161,8 +163,7 @@ def main():
                 if not dino_poly.is_valid:
                     dino_poly = dino_poly.buffer(0)
                 
-                best_iou = 0
-                best_text = ""
+                matched_pboxes = []
                 
                 for pbox in paddle_boxes:
                     if not pbox['polygon'].is_valid:
@@ -171,16 +172,19 @@ def main():
                         p_poly = pbox['polygon']
                         
                     intersection = dino_poly.intersection(p_poly).area
-                    union = dino_poly.union(p_poly).area
-                    if union > 0:
-                        iou = intersection / union
-                        if iou > best_iou:
-                            best_iou = iou
-                            best_text = pbox['text']
+                    min_area = min(dino_poly.area, p_poly.area)
+                    io_min = intersection / min_area if min_area > 0 else 0
+                    
+                    dino_min_y = min([p[1] for p in ld['polygon']])
+                    dino_max_y = max([p[1] for p in ld['polygon']])
+                    
+                    if io_min > 0.3 or (dino_min_y <= pbox['center_y'] <= dino_max_y and intersection > 0):
+                        matched_pboxes.append(pbox)
                             
-                # If IoU is reasonable, assign text
-                if best_iou > 0.1:
-                    ld['text'] = best_text
+                # If matches found, sort by x-coordinate and concatenate text
+                if matched_pboxes:
+                    matched_pboxes.sort(key=lambda b: b['center_x'])
+                    ld['text'] = " ".join([b['text'] for b in matched_pboxes])
                     mapped_count += 1
             except Exception as e:
                 pass # Ignore geometric errors
