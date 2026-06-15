@@ -88,6 +88,22 @@ def extract_polygon_hull(roi, offset_x, offset_y, epsilon_factor=0.005):
         return [(offset_x, offset_y), (offset_x+w, offset_y), (offset_x+w, offset_y+h), (offset_x, offset_y+h)]
     return poly_points
 
+def get_line_polygon(roi, offset_x, offset_y):
+    h, w = roi.shape
+    contours, _ = cv2.findContours(roi, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    valid_contours = [c for c in contours if cv2.contourArea(c) > 5]
+    if not valid_contours:
+        return [(offset_x, offset_y), (offset_x+w, offset_y), (offset_x+w, offset_y+h), (offset_x, offset_y+h)]
+    all_points = np.vstack(valid_contours)
+    rect = cv2.minAreaRect(all_points)
+    box = cv2.boxPoints(rect)
+    poly_points = []
+    for p in box:
+        x = max(0, min(w, int(p[0])))
+        y = max(0, min(h, int(p[1])))
+        poly_points.append((int(x + offset_x), int(y + offset_y)))
+    return poly_points
+
 def detect_damage_and_holes(binary, mask_full):
     noise_mask = cv2.bitwise_and(binary, cv2.bitwise_not(mask_full))
     num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(noise_mask, connectivity=8)
@@ -147,7 +163,7 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, orig_w, orig_h, region_idx):
         if len(cols) < 5: continue
         lx1, lx2 = rx, rx + rw
         line_roi = binary[abs_y1:abs_y2, lx1:lx2]
-        line_poly = extract_polygon_hull(line_roi, lx1, abs_y1, epsilon_factor=0.003)
+        line_poly = get_line_polygon(line_roi, lx1, abs_y1)
         is_marginalia = line_width = lx2 - lx1 < orig_w * 0.15 and (lx1 < orig_w * 0.15 or lx2 > orig_w * 0.85)
         lines_data.append({
             'bbox': (int(lx1), int(abs_y1), int(lx2), int(abs_y2)), 
