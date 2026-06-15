@@ -14,7 +14,7 @@ if %errorlevel% neq 0 (
 
 echo.
 echo [2/2] Running PaddleOCR Transcription...
-python src\pipeline\paddle_ocr_step2.py --json paddle_results\temp_dino_regions.json --output paddle_results
+python src\pipeline\paddle_ocr_step2.py --json paddle_results\temp_dino_regions.json --output paddle_results --gpu
 
 if %errorlevel% neq 0 (
     echo PaddleOCR Transcription Failed!

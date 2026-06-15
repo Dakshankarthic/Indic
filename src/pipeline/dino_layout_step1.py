@@ -8,6 +8,15 @@ from tqdm import tqdm
 from sklearn.cluster import KMeans
 import warnings
 
+# --- NEW OPENCV LAYOUT REFINEMENT ---
+from opencv_layout_refinement import (
+    detect_page_frame, 
+    detect_damage_holes, 
+    detect_text_regions, 
+    classify_marginalia
+)
+# ------------------------------------
+
 warnings.filterwarnings("ignore", category=UserWarning)
 
 PATCH_SIZE = 14
@@ -88,20 +97,32 @@ def extract_polygon_hull(roi, offset_x, offset_y, epsilon_factor=0.005):
         return [(offset_x, offset_y), (offset_x+w, offset_y), (offset_x+w, offset_y+h), (offset_x, offset_y+h)]
     return poly_points
 
-def get_line_polygon(roi, offset_x, offset_y):
+def get_line_polygon(roi, offset_x, offset_y, epsilon_factor=0.003):
     h, w = roi.shape
-    contours, _ = cv2.findContours(roi, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    valid_contours = [c for c in contours if cv2.contourArea(c) > 5]
-    if not valid_contours:
+    pad = 10
+    padded = cv2.copyMakeBorder(roi, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
+    # Wide horizontal dilation to bridge all words in the line
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (int(max(50, w * 0.05)), 5))
+    dilated = cv2.dilate(padded, kernel, iterations=1)
+    contours, _ = cv2.findContours(dilated, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not contours:
         return [(offset_x, offset_y), (offset_x+w, offset_y), (offset_x+w, offset_y+h), (offset_x, offset_y+h)]
-    all_points = np.vstack(valid_contours)
-    rect = cv2.minAreaRect(all_points)
-    box = cv2.boxPoints(rect)
+    largest_contour = max(contours, key=cv2.contourArea)
+    epsilon = epsilon_factor * cv2.arcLength(largest_contour, True)
+    poly = cv2.approxPolyDP(largest_contour, epsilon, True)
     poly_points = []
-    for p in box:
-        x = max(0, min(w, int(p[0])))
-        y = max(0, min(h, int(p[1])))
-        poly_points.append((int(x + offset_x), int(y + offset_y)))
+    prev_pt = None
+    for p in poly:
+        x = max(0, min(w, p[0][0] - pad))
+        y = max(0, min(h, p[0][1] - pad))
+        pt = (int(x + offset_x), int(y + offset_y))
+        if pt != prev_pt:
+            poly_points.append(pt)
+            prev_pt = pt
+    if len(poly_points) > 1 and poly_points[-1] == poly_points[0]:
+        poly_points.pop()
+    if len(poly_points) < 3:
+        return [(offset_x, offset_y), (offset_x+w, offset_y), (offset_x+w, offset_y+h), (offset_x, offset_y+h)]
     return poly_points
 
 def detect_damage_and_holes(binary, mask_full):
@@ -161,13 +182,11 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, orig_w, orig_h, region_idx):
         v_proj = np.sum(line_strip, axis=0)
         cols = np.where(v_proj > 0)[0]
         if len(cols) < 5: continue
-        lx1, lx2 = rx, rx + rw
+        lx1, lx2 = rx + cols[0], rx + cols[-1]
         line_roi = binary[abs_y1:abs_y2, lx1:lx2]
-        line_poly = get_line_polygon(line_roi, lx1, abs_y1)
         is_marginalia = line_width = lx2 - lx1 < orig_w * 0.15 and (lx1 < orig_w * 0.15 or lx2 > orig_w * 0.85)
         lines_data.append({
             'bbox': (int(lx1), int(abs_y1), int(lx2), int(abs_y2)), 
-            'polygon': line_poly,
             'is_marginalia': is_marginalia,
             'region_idx': region_idx,
             'region_bbox': (int(rx), int(ry), int(rw), int(rh))
@@ -340,13 +359,29 @@ def main():
             words, chars_by_word = detect_words_and_chars_in_line(binary_masked, ld)
             ld['words'] = words
             ld['chars'] = chars_by_word
-        damage_regions = detect_damage_and_holes(binary, mask_full)
+        # --- NEW OPENCV LAYOUT REFINEMENT ---
+        page_frame_dict, leaf_mask = detect_page_frame(img)
+        page_frame = page_frame_dict
+        
+        damage_regions = detect_damage_holes(img, leaf_mask)
+        
+        # Binary_masked contains just the text pixels
+        text_regions_raw = detect_text_regions(binary_masked)
+        text_regions, marginalia_regions = classify_marginalia(text_regions_raw, w)
+        # ------------------------------------
+        
+        illustrations = [] # Placeholder if no obvious illustrations
+        
         all_data.append({
             "img_path": str(img_path),
             "img_w": w,
             "img_h": h,
             "lines_data": lines_data,
-            "damage_regions": damage_regions
+            "damage_regions": damage_regions,
+            "text_regions": text_regions,
+            "page_frame": page_frame,
+            "marginalia_regions": marginalia_regions,
+            "illustrations": illustrations
         })
         
     with open(out_json, 'w') as f:
