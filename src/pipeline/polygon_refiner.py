@@ -1,14 +1,14 @@
 import cv2
 import numpy as np
 
-def refine_mask_to_polygons(binary_mask, min_area=100, epsilon_factor=0.002):
+def refine_mask_to_polygons(binary_mask, min_area=100, epsilon_factor=0.002, kernel_size=(5, 5)):
     """
     Takes a binary mask (H, W), applies morphological cleanup, 
     and returns a list of tight polygons using cv2.approxPolyDP.
     This minimizes the Human Effort (E) score by reducing redundant vertices.
     """
     # Morphological cleanup
-    kernel_close = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+    kernel_close = cv2.getStructuringElement(cv2.MORPH_RECT, kernel_size)
     kernel_open = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
     
     # Fill small gaps
@@ -32,11 +32,6 @@ def refine_mask_to_polygons(binary_mask, min_area=100, epsilon_factor=0.002):
         # Ensure PAGE-XML validity (min 4 vertices)
         if len(approx) < 3:
             continue
-            
-        if len(approx) == 3:
-            # Add a fake 4th vertex if it's a triangle to make PAGE-XML happy if needed
-            # For now, just accept it, PAGE-XML allows 3+ points for a polygon.
-            pass
             
         # Flatten to list of [x, y]
         poly = approx.reshape(-1, 2).tolist()
@@ -65,7 +60,8 @@ def process_unet_outputs(unet_probs, w, h):
         'illustrations': refine_mask_to_polygons(binary_masks[2]),
         'page_frame': refine_mask_to_polygons(binary_masks[3], min_area=5000, epsilon_factor=0.005),
         'damage_holes': refine_mask_to_polygons(binary_masks[4]),
-        'text_lines': refine_mask_to_polygons(binary_masks[5])
+        # Use horizontal kernel to prevent vertical merging of text lines
+        'text_lines': refine_mask_to_polygons(binary_masks[5], kernel_size=(15, 1))
     }
     
     return results
