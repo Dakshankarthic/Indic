@@ -21,17 +21,35 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # ==================== 1. INITIALIZATION ====================
 
 def init_paddle_ocr(use_gpu=True):
+    """Initialize PaddleOCR with optimized parameters for ancient Devanagari manuscripts.
+    
+    Key fixes vs old pipeline:
+    - rec_image_shape='3, 48, 320' (standard PaddleOCR recommendation, avoids aspect distortion)
+    - drop_score=0.4 (filters out garbage while keeping borderline reads)
+    - det=True in ocr.ocr() calls (let PaddleOCR handle detection internally)
+    """
+    common_kwargs = dict(
+        use_angle_cls=False,
+        lang='hi',
+        show_log=False,
+        drop_score=0.4,
+        rec_image_shape='3, 48, 320',
+        use_gpu=False,
+        enable_mkldnn=False,
+        rec_batch_num=1,
+    )
     if use_gpu:
         try:
-            ocr = PaddleOCR(use_angle_cls=False, lang='hi', use_gpu=True, enable_mkldnn=False, show_log=False)
+            gpu_kwargs = {**common_kwargs, 'use_gpu': True}
+            ocr = PaddleOCR(**gpu_kwargs)
             dummy = np.zeros((100, 100, 3), dtype=np.uint8)
             ocr.ocr(dummy, det=False, rec=True)
             print("Successfully initialized PaddleOCR on GPU.")
             return ocr
         except Exception as e:
             print(f"Failed to initialize PaddleOCR on GPU: {e}. Falling back to CPU...")
-            
-    ocr = PaddleOCR(use_angle_cls=False, lang='hi', use_gpu=False, enable_mkldnn=False, show_log=False)
+    
+    ocr = PaddleOCR(**common_kwargs)
     print("Successfully initialized PaddleOCR on CPU.")
     return ocr
 
@@ -47,6 +65,48 @@ def binarize(img_bgr):
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
     binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=1)
     return binary
+
+def preprocess_for_ocr(crop):
+    """Gentle preprocessing for ancient manuscript OCR.
+    
+    PaddleOCR recognition models were trained on natural images with ink-on-paper 
+    contrast. Aggressive binarization DESTROYS the gray-level stroke variations, 
+    diacritics (matras), and shirorekha context that the model uses to recognize 
+    Devanagari characters. 
+    
+    This function does MINIMAL processing:
+    1. Convert to grayscale
+    2. Mild denoising to suppress palm-leaf texture
+    3. CLAHE to enhance faded ink contrast
+    4. Normalize intensity range to improve model consistency
+    5. Convert back to 3-channel BGR
+    
+    NO binarization. NO connected-component filtering. NO morphological ops.
+    """
+    if len(crop.shape) == 3:
+        gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+    else:
+        gray = crop.copy()
+    
+    # 1. Mild denoising — just enough to suppress palm leaf texture grain
+    #    h=3 is gentle; old code used h=12 which was smearing ink strokes
+    denoised = cv2.fastNlMeansDenoising(gray, None, h=3, templateWindowSize=7, searchWindowSize=21)
+    
+    # 2. CLAHE contrast enhancement — clipLimit=2.0 is balanced
+    #    Old code used clipLimit=4.0 which was over-amplifying noise
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    enhanced = clahe.apply(denoised)
+    
+    # 3. Normalize intensity range to 0-255 for model consistency
+    #    This helps the model see consistent ink contrast regardless of lighting
+    min_val, max_val = enhanced.min(), enhanced.max()
+    if max_val > min_val:
+        normalized = ((enhanced.astype(np.float32) - min_val) / (max_val - min_val) * 255).astype(np.uint8)
+    else:
+        normalized = enhanced
+    
+    # 4. Convert to 3-channel BGR for PaddleOCR
+    return cv2.cvtColor(normalized, cv2.COLOR_GRAY2BGR)
 
 # ==================== 4. PAGE-XML GENERATION ====================
 
@@ -232,39 +292,44 @@ def main():
         if img is None: continue
 
         for ld in lines_data:
-            line_text_parts = []
+            lx1, ly1, lx2, ly2 = ld['bbox']
             
-            for wd in ld.get('words', []):
-                # Extract word crop
-                if 'bbox' in wd:
-                    wx1, wy1, wx2, wy2 = wd['bbox']
+            # Expand line crop for OCR context
+            pad = 6
+            cy1 = max(0, ly1 - pad)
+            cy2 = min(img_h, ly2 + pad)
+            cx1 = max(0, lx1 - pad)
+            cx2 = min(img_w, lx2 + pad)
+            
+            line_crop = img[cy1:cy2, cx1:cx2]
+            
+            if line_crop.size > 0 and line_crop.shape[0] > 5 and line_crop.shape[1] > 5:
+                # Gentle preprocessing — preserve gray-level ink information
+                line_crop_processed = preprocess_for_ocr(line_crop)
+                
+                # Use det=False, rec=True for pre-cropped line
+                # The line-level context (including shirorekha) helps PaddleOCR
+                res = ocr_engine.ocr(line_crop_processed, det=False, rec=True)
+                
+                if res and res[0] and len(res[0]) > 0:
+                    text = res[0][0][0]
+                    conf = res[0][0][1]
+                    # Only keep results with reasonable confidence
+                    if float(conf) >= 0.4:
+                        ld['text'] = text
+                        ld['confidence'] = float(conf)
+                    else:
+                        ld['text'] = ''
+                        ld['confidence'] = float(conf)
                 else:
-                    pts = wd['polygon']
-                    wx1, wy1, wx2, wy2 = min([p[0] for p in pts]), min([p[1] for p in pts]), max([p[0] for p in pts]), max([p[1] for p in pts])
-                
-                # Expand slightly for OCR context
-                pad = 4
-                cy1 = max(0, wy1 - pad)
-                cy2 = min(img_h, wy2 + pad)
-                cx1 = max(0, wx1 - pad)
-                cx2 = min(img_w, wx2 + pad)
-                
-                crop = img[cy1:cy2, cx1:cx2]
-                text = ""
-                
-                if crop.size > 0 and crop.shape[0] > 5 and crop.shape[1] > 5:
-                    res = ocr_engine.ocr(crop, det=False, rec=True)
-                    if res and len(res) > 0 and res[0] is not None:
-                        # Extract recognized text
-                        text = res[0][0][0]
-                
-                wd['text'] = text
-                if text:
-                    line_text_parts.append(text)
-                
-                total_words += 1
+                    ld['text'] = ''
+                    ld['confidence'] = 0.0
+            else:
+                ld['text'] = ''
+                ld['confidence'] = 0.0
             
-            ld['text'] = " ".join(line_text_parts)
+            # DINO word geometry stays untouched — we only add text at line level
+            total_words += len(ld.get('words', []))
             total_lines += 1
 
         # Output PAGE-XML

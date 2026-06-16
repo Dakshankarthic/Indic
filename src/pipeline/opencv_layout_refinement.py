@@ -34,32 +34,48 @@ def detect_page_frame(img_bgr):
     }, mask
 
 def detect_damage_holes(img_bgr, leaf_mask):
-    """Finds binder string holes inside the leaf."""
+    """Finds binder string holes inside the leaf.
+    
+    Real palm-leaf binder holes are:
+    - Large (500-8000 px area, typically 20-50px diameter)
+    - Nearly perfectly circular (circularity > 0.85)
+    - Roughly square aspect ratio (width ≈ height)
+    Previous thresholds (area>50, circ>0.6) were far too loose and
+    picked up every ink blob and letter stroke as 'damage'.
+    """
     gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
-    # The holes will be dark (background color) inside the bright leaf.
-    # So we invert the image and look for bright circles inside the leaf mask.
+    # The holes are dark (background) inside the bright leaf.
     _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
     
     # Only look inside the leaf
     inside_leaf = cv2.bitwise_and(thresh, leaf_mask)
+    
+    # Morphological close to merge nearby noise but keep real holes intact
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    inside_leaf = cv2.morphologyEx(inside_leaf, cv2.MORPH_CLOSE, kernel)
     
     contours, _ = cv2.findContours(inside_leaf, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     
     holes = []
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if 50 < area < 5000:  # Typical hole sizes
+        # Real string holes are large — at least 500px area
+        if 500 < area < 8000:
             perimeter = cv2.arcLength(cnt, True)
             if perimeter == 0: continue
             circularity = 4 * np.pi * (area / (perimeter * perimeter))
             
-            if circularity > 0.6: # Fairly circular
+            # Must be very circular (real holes are punched, not torn)
+            if circularity > 0.85:
                 x, y, w, h = cv2.boundingRect(cnt)
-                approx = cv2.approxPolyDP(cnt, 0.02 * perimeter, True)
-                holes.append({
-                    'bbox': [int(x), int(y), int(x+w), int(y+h)],
-                    'polygon': approx.reshape(-1, 2).tolist()
-                })
+                # Aspect ratio check: holes are roughly square
+                aspect = float(w) / h if h > 0 else 0
+                if 0.5 < aspect < 2.0:
+                    approx = cv2.approxPolyDP(cnt, 0.02 * perimeter, True)
+                    holes.append({
+                        'bbox': [int(x), int(y), int(x+w), int(y+h)],
+                        'polygon': approx.reshape(-1, 2).tolist()
+                    })
     return holes
 
 def detect_text_regions(binary_text_mask):
