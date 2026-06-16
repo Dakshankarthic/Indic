@@ -1,42 +1,50 @@
-# Indic Manuscript Layout & OCR Pipeline
+# AutoAnn-Indic Challenge: Layout Analysis Pipeline
 
-This repository contains a robust pipeline for detecting complex layouts in ancient Indic palm-leaf manuscripts (Tamil and Devanagari) and extracting their text.
+This repository contains our entry for the NCVPRIPG 2026 "AutoAnn-Indic" Document AI challenge. Our solution uses a cutting-edge hybrid approach combining **DINOv2** (zero-shot feature extraction) and a custom **U-Net** (6-class semantic segmentation) to achieve exceptional performance on historical Indian palm leaf manuscripts.
 
-It uniquely relies on **DINOv2** (a self-supervised Vision Transformer from Meta AI) for 100% of the physical layout geometry, guaranteeing perfect structure extraction. It then delegates the text transcription to **PaddleOCR** in a decoupled manner.
+## Challenge Constraints & Strategy
+The challenge strictly prohibits using external datasets for training. Therefore, we use a **Zero-Shot Self-Training Strategy**:
+1. We use a frozen DINOv2 Vision Transformer + K-Means clustering to automatically generate "pseudo-labels" for the unlabelled pool of 1,601 manuscript images.
+2. We train our U-Net model from scratch on these pseudo-labels.
+3. We post-process the U-Net outputs using aggressive OpenCV polygon shrink-wrapping to minimize the "Human Effort" evaluation score.
 
-## 🚀 The Geometry-First Architecture (Optimizing Human Effort)
+## Architecture Pipeline
 
-Because ancient manuscripts feature complex structures and skewed baselines, standard OCR engines fail to correctly parse their geometric layout. Furthermore, relying on standard OCR detectors leads to massive False Negatives (missed text) on historical handwriting.
+### Phase 1: Pseudo-Label Generation
+`src/training/run_pseudo_label_pipeline.py`
+Scans the unlabeled pool (`olai_suvadi_images` and `ramcharitmanas`) and leverages DINOv2 to detect generic layout geometry. It filters out low-confidence pages and generates 6-channel `.npz` masks containing:
+- `text_region`
+- `marginalia/notes`
+- `illustration/diagram`
+- `page_frame`
+- `damage/hole`
+- `text_line`
 
-To mathematically minimize the **Human Effort Score** (which heavily penalizes missed regions and complex polygons), we use a decoupled **2-Step pipeline**:
+### Phase 2: U-Net Fine-Tuning
+`src/training/train_unet.py`
+Trains a custom 6-class U-Net on the pseudo-labels generated in Phase 1. Utilizes `torch.amp` (mixed precision) for fast training and `DiceBCELoss` to handle extreme class imbalances (e.g., small holes vs large text regions).
 
-### Step 1: DINOv2 Complete Layout Detection (`dino_layout_step1.py`)
-Runs on your GPU. It extracts every single Region, Line, Word, and Character (glyph) using unsupervised clustering and connected components over DINOv2's semantic patch features. **This step defines the perfect geometrical structure of the PAGE-XML**, guaranteeing zero missed text regions.
+### Phase 3: Polygon Refinement
+`src/pipeline/polygon_refiner.py`
+Post-processes the raw U-Net logits using morphological closing and `cv2.approxPolyDP`. By carefully tuning the `epsilon` value, we generate mathematically tight polygons with fewer vertices, drastically reducing the time required for human annotators to fix mistakes.
 
-### Step 2: PaddleOCR Transcription (`paddle_ocr_step2.py`)
-Runs on the CPU. It iterates over the perfect DINO Word boxes, crops them precisely from the image, and passes them to PaddleOCR strictly to act as a blind text-recognizer (`det=False, rec=True`). This ensures the structural integrity of the XML remains flawless, even if the pre-trained OCR model struggles with the historical alphabet.
+### Phase 4: Final Inference & Export
+`src/pipeline/final_inference.py`
+Runs the trained U-Net on a test set and directly exports the predictions to the strict **PAGE-XML 2013** format required by the challenge.
 
-## 🛠️ Usage
+---
 
-Simply run the batch script to execute both steps consecutively:
-```cmd
-run_full_paddle_pipeline.bat
+## How to Run the Training Pipeline
+
+We have bundled the 2.5-hour pipeline into a single batch file. It will automatically run Phase 1, Phase 2, and Phase 4 in sequence.
+
+```bash
+# Ensure you are in the project root directory
+.\run_full_unet_pipeline.bat
 ```
 
-This will:
-1. Process all images in the `test_10_images` folder.
-2. Generate intermediate geometric data in `temp_dino_regions.json`.
-3. Output final, structurally-perfect **PAGE-XML** files and clean visualization images into the `paddle_results/` folder.
+> [!TIP]
+> This pipeline processes 800 images to fit within a 3-hour constraint on an RTX 2070 SUPER. You can modify `MAX_IMAGES` in `run_pseudo_label_pipeline.py` if you wish to process the full 1,601 image pool.
 
-## 🧠 TrOCR Fine-Tuning
-
-PaddleOCR's default recognition model is not trained on ancient Devanagari/Tamil. However, because our DINO pipeline produces perfect bounding boxes for every word, you can instantly use this pipeline to generate Ground Truth crops and train a custom **TrOCR-FFTCA** model!
-
-1. Extract Ground Truth crops:
-   ```cmd
-   python generate_pseudo_labels_from_dino.py
-   ```
-2. Train the TrOCR-FFTCA model:
-   ```cmd
-   python train_trocr.py
-   ```
+## OCR Text Recognition
+Currently, PaddleOCR is inadequate for 500-year-old cursive Devanagari. We have created preparation scripts (`prepare_paddleocr_finetuning.py` and `extract_line_crops_for_labeling.py`) to extract line crops. An automated LLM-assisted OCR fine-tuning strategy is documented in `ocr_implementation_plan.md`.
