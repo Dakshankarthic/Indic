@@ -55,7 +55,7 @@ def process_unet_outputs(unet_probs, w, h):
     binary_masks = (probs_resized > 0.5).astype(np.uint8) * 255
     
     results = {
-        'text_regions': refine_mask_to_polygons(binary_masks[0]),
+        'text_regions': refine_mask_to_polygons(binary_masks[0], min_area=50000, epsilon_factor=0.005),
         'marginalia': refine_mask_to_polygons(binary_masks[1]),
         'illustrations': refine_mask_to_polygons(binary_masks[2]),
         'page_frame': refine_mask_to_polygons(binary_masks[3], min_area=5000, epsilon_factor=0.005),

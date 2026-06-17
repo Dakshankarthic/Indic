@@ -182,11 +182,12 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
         line_roi_rot = roi_rot[y1:y2, :]
         if np.sum(line_roi_rot) > 255 * 10:
             cols = np.where(np.sum(line_roi_rot, axis=0) > 0)[0]
-            rows = np.where(np.sum(line_roi_rot, axis=1) > 0)[0]
-            if len(cols) == 0 or len(rows) == 0: continue
+            if len(cols) == 0: continue
             
+            # Use ink extent for horizontal (left/right trim) only
             lx1, lx2 = int(cols[0]), int(cols[-1])
-            ly1, ly2 = y1 + int(rows[0]), y1 + int(rows[-1])
+            # Use valley boundaries directly for vertical (no overlap)
+            ly1, ly2 = y1, y2
             
             pts_rot = np.array([[lx1, ly1], [lx2, ly1], [lx2, ly2], [lx1, ly2]], dtype=np.float32)
             
