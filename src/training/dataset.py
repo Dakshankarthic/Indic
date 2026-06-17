@@ -67,7 +67,7 @@ class ManuscriptDataset(Dataset):
 
 if __name__ == '__main__':
     # Test dataset
-    ds = ManuscriptDataset(r"D:\indic_challenge\training_data_pseudo\images", r"D:\indic_challenge\training_data_pseudo\masks", transform=True)
+    ds = ManuscriptDataset("training_data_pseudo/images", "training_data_pseudo/masks", transform=True)
     if len(ds) > 0:
         img, mask = ds[0]
         print(f"Image tensor shape: {img.shape}")

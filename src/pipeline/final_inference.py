@@ -115,15 +115,46 @@ def extract_line_rect(line_binary, offset_x, offset_y, region_bounds=None):
     
     return [[x1, y1], [x2, y1], [x2, y2], [x1, y2]]
 
+def estimate_skew(roi):
+    """Estimate skew by finding angle that maximizes horizontal projection profile variance."""
+    if roi.size == 0: return 0.0
+    best_angle = 0
+    max_var = 0
+    center = (roi.shape[1] // 2, roi.shape[0] // 2)
+    # Search between -3 and +3 degrees (most manuscripts aren't heavily skewed inside the bounding box)
+    for angle in np.arange(-3.0, 3.5, 0.5):
+        if angle == 0:
+            proj = np.sum(roi, axis=1)
+        else:
+            M = cv2.getRotationMatrix2D(center, angle, 1.0)
+            rotated = cv2.warpAffine(roi, M, (roi.shape[1], roi.shape[0]), flags=cv2.INTER_NEAREST)
+            proj = np.sum(rotated, axis=1)
+        var = np.var(proj)
+        if var > max_var:
+            max_var = var
+            best_angle = angle
+    return float(best_angle)
+
 def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
-    """Extract individual text lines using projection profile + simple rectangles."""
+    """Extract individual text lines using projection profile on skew-corrected ROI."""
     roi = binary[ry:ry+rh, rx:rx+rw]
     
     if roi.size == 0 or rw < 10 or rh < 10:
         return []
+        
+    angle = estimate_skew(roi)
+    center = (rw / 2, rh / 2)
     
+    if abs(angle) > 0.5:
+        M = cv2.getRotationMatrix2D(center, angle, 1.0)
+        roi_rot = cv2.warpAffine(roi, M, (rw, rh), flags=cv2.INTER_NEAREST, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+        M_inv = cv2.getRotationMatrix2D(center, -angle, 1.0)
+    else:
+        roi_rot = roi
+        M_inv = None
+        
     # Horizontal projection profile
-    proj = np.sum(roi, axis=1).astype(np.float64) / 255.0
+    proj = np.sum(roi_rot, axis=1).astype(np.float64) / 255.0
     proj_smooth = np.convolve(proj, np.ones(10)/10, mode='same')
     
     peaks, _ = find_peaks(proj_smooth, distance=20, prominence=200)
@@ -138,7 +169,6 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
         valley_y = peaks[i] + np.argmin(proj_smooth[peaks[i]:peaks[i+1]])
         valleys.append(valley_y)
     
-    # Line boundaries
     boundaries = [0] + valleys + [rh]
     
     lines = []
@@ -146,93 +176,140 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
         y1, y2 = boundaries[i], boundaries[i+1]
         if y2 - y1 < 8:
             continue
-        line_roi = roi[y1:y2, :]
-        if np.sum(line_roi) > 255 * 10:
-            rect = extract_line_rect(line_roi, rx, ry + y1, region_bounds)
-            if rect:
-                lines.append(rect)
-    
+        line_roi_rot = roi_rot[y1:y2, :]
+        if np.sum(line_roi_rot) > 255 * 10:
+            cols = np.where(np.sum(line_roi_rot, axis=0) > 0)[0]
+            rows = np.where(np.sum(line_roi_rot, axis=1) > 0)[0]
+            if len(cols) == 0 or len(rows) == 0: continue
+            
+            lx1, lx2 = int(cols[0]), int(cols[-1])
+            ly1, ly2 = y1 + int(rows[0]), y1 + int(rows[-1])
+            
+            pts_rot = np.array([[lx1, ly1], [lx2, ly1], [lx2, ly2], [lx1, ly2]], dtype=np.float32)
+            
+            if M_inv is not None:
+                pts_rot = np.hstack([pts_rot, np.ones((4, 1))])
+                pts_orig = pts_rot.dot(M_inv.T)
+            else:
+                pts_orig = pts_rot
+                
+            pts_orig[:, 0] += rx
+            pts_orig[:, 1] += ry
+            
+            if region_bounds is not None:
+                bx1, by1, bx2, by2 = region_bounds
+                pts_orig[:, 0] = np.clip(pts_orig[:, 0], bx1, bx2)
+                pts_orig[:, 1] = np.clip(pts_orig[:, 1], by1, by2)
+                
+            lines.append(pts_orig.tolist())
+            
     return lines
 
 def detect_words_and_glyphs(binary, line_rect):
     """Detect words and individual characters (glyphs) inside a text line.
     
-    Uses connected component bounding boxes for characters.
-    Groups characters into words based on horizontal gap analysis.
-    Returns: list of words, where each word is {'rect': [...], 'glyphs': [...]}
+    Uses connected component bounding boxes for characters, merges vertical components (matras),
+    and groups characters into words based on horizontal gap analysis.
     """
-    x1, y1 = line_rect[0]
-    x2, y2 = line_rect[2]
+    pts = np.array(line_rect, dtype=np.int32)
+    x, y, w, h = cv2.boundingRect(pts)
     
-    line_roi = binary[y1:y2, x1:x2]
-    if line_roi.size == 0 or line_roi.shape[0] < 3 or line_roi.shape[1] < 3:
-        return []
+    if w < 3 or h < 3: return []
     
-    # Find connected components (each ink blob = one character/akshara)
+    # Extract bounding rect ROI and mask with line polygon (to handle skew)
+    line_roi = binary[y:y+h, x:x+w].copy()
+    mask = np.zeros_like(line_roi)
+    pts_shifted = pts - [x, y]
+    cv2.fillPoly(mask, [pts_shifted], 255)
+    line_roi = cv2.bitwise_and(line_roi, mask)
+    
+    if np.sum(line_roi) == 0: return []
+    
+    # Find connected components (ink blobs)
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(line_roi, connectivity=8)
     
-    # Collect valid character bounding boxes (filter noise)
-    min_char_area = 15  # minimum pixels for a character
-    char_boxes = []
-    for i in range(1, num_labels):  # skip background (label 0)
+    min_char_area = 15
+    initial_boxes = []
+    for i in range(1, num_labels):
         area = stats[i, cv2.CC_STAT_AREA]
-        if area < min_char_area:
-            continue
+        if area < min_char_area: continue
         cx = stats[i, cv2.CC_STAT_LEFT]
         cy = stats[i, cv2.CC_STAT_TOP]
         cw = stats[i, cv2.CC_STAT_WIDTH]
         ch = stats[i, cv2.CC_STAT_HEIGHT]
-        # Convert to absolute coordinates
-        abs_x1 = x1 + cx
-        abs_y1 = y1 + cy
-        abs_x2 = x1 + cx + cw
-        abs_y2 = y1 + cy + ch
+        initial_boxes.append({'left': cx, 'top': cy, 'right': cx+cw, 'bottom': cy+ch})
+        
+    if not initial_boxes: return []
+    
+    # Sort boxes left to right
+    initial_boxes.sort(key=lambda b: b['left'])
+    
+    # Merge vertically overlapping boxes (matras)
+    merged_boxes = []
+    for box in initial_boxes:
+        if not merged_boxes:
+            merged_boxes.append(box)
+            continue
+            
+        # Try to merge with any recent box (not just the immediately previous one)
+        # since diacritics might sort slightly before/after
+        merged = False
+        for i in range(len(merged_boxes)-1, max(-1, len(merged_boxes)-5), -1):
+            last_box = merged_boxes[i]
+            overlap_x = max(0, min(last_box['right'], box['right']) - max(last_box['left'], box['left']))
+            min_w = min(last_box['right'] - last_box['left'], box['right'] - box['left'])
+            
+            if overlap_x > 0 and (overlap_x / min_w > 0.3 or overlap_x > 5):
+                last_box['left'] = min(last_box['left'], box['left'])
+                last_box['right'] = max(last_box['right'], box['right'])
+                last_box['top'] = min(last_box['top'], box['top'])
+                last_box['bottom'] = max(last_box['bottom'], box['bottom'])
+                merged = True
+                break
+                
+        if not merged:
+            merged_boxes.append(box)
+            
+    char_boxes = []
+    for b in merged_boxes:
+        abs_x1 = x + b['left']
+        abs_y1 = y + b['top']
+        abs_x2 = x + b['right']
+        abs_y2 = y + b['bottom']
         char_boxes.append({
             'rect': [[abs_x1, abs_y1], [abs_x2, abs_y1], [abs_x2, abs_y2], [abs_x1, abs_y2]],
-            'cx': abs_x1 + cw // 2,
             'left': abs_x1,
-            'right': abs_x2
+            'right': abs_x2,
+            'width': abs_x2 - abs_x1
         })
-    
-    if not char_boxes:
-        return []
-    
-    # Sort characters left-to-right
+        
     char_boxes.sort(key=lambda c: c['left'])
     
-    # Group into words by detecting large horizontal gaps
     if len(char_boxes) < 2:
-        # Single character = single word
-        word_rect = char_boxes[0]['rect']
-        return [{'rect': word_rect, 'glyphs': [c['rect'] for c in char_boxes]}]
-    
-    # Calculate gaps between consecutive characters
+        return [{'rect': char_boxes[0]['rect'], 'glyphs': [char_boxes[0]['rect']]}]
+        
+    # Calculate word gaps
     gaps = []
+    widths = []
     for i in range(len(char_boxes) - 1):
-        gap = char_boxes[i+1]['left'] - char_boxes[i]['right']
-        gaps.append(max(0, gap))
+        gaps.append(max(0, char_boxes[i+1]['left'] - char_boxes[i]['right']))
+        widths.append(char_boxes[i]['width'])
+    widths.append(char_boxes[-1]['width'])
     
-    # Word boundary threshold: gaps larger than median * 2.5 (or at least 8px)
-    if gaps:
-        median_gap = np.median(gaps)
-        word_gap_threshold = max(8, median_gap * 2.5)
-    else:
-        word_gap_threshold = 8
+    # Word gap threshold: avg_char_width * 0.8
+    avg_char_width = np.mean(widths)
+    word_gap_threshold = max(12, avg_char_width * 0.8)
     
-    # Group characters into words
     words = []
     current_word_chars = [char_boxes[0]]
-    
     for i in range(len(gaps)):
         if gaps[i] > word_gap_threshold:
-            # End current word, start new one
             words.append(current_word_chars)
             current_word_chars = [char_boxes[i+1]]
         else:
             current_word_chars.append(char_boxes[i+1])
-    words.append(current_word_chars)  # last word
+    words.append(current_word_chars)
     
-    # Build word-level bounding boxes
     result = []
     for word_chars in words:
         all_x1 = min(c['rect'][0][0] for c in word_chars)
@@ -240,8 +317,7 @@ def detect_words_and_glyphs(binary, line_rect):
         all_x2 = max(c['rect'][2][0] for c in word_chars)
         all_y2 = max(c['rect'][2][1] for c in word_chars)
         word_rect = [[all_x1, all_y1], [all_x2, all_y1], [all_x2, all_y2], [all_x1, all_y2]]
-        glyph_rects = [c['rect'] for c in word_chars]
-        result.append({'rect': word_rect, 'glyphs': glyph_rects})
+        result.append({'rect': word_rect, 'glyphs': [c['rect'] for c in word_chars]})
     
     return result
 
