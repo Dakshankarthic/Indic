@@ -1,11 +1,11 @@
 import cv2
 import numpy as np
 
-def refine_mask_to_polygons(binary_mask, min_area=100, epsilon_factor=0.002, kernel_size=(5, 5)):
+def refine_mask_to_polygons(binary_mask, min_area=100, epsilon_factor=0.002, kernel_size=(5, 5), force_rectangle=False):
     """
     Takes a binary mask (H, W), applies morphological cleanup, 
     and returns a list of tight polygons using cv2.approxPolyDP.
-    This minimizes the Human Effort (E) score by reducing redundant vertices.
+    If force_rectangle is True, returns the minimum area rotated rectangle.
     """
     # Morphological cleanup
     kernel_close = cv2.getStructuringElement(cv2.MORPH_RECT, kernel_size)
@@ -25,16 +25,22 @@ def refine_mask_to_polygons(binary_mask, min_area=100, epsilon_factor=0.002, ker
         if area < min_area:
             continue
             
-        # Shrink wrap: small epsilon for tight boundary
-        epsilon = epsilon_factor * cv2.arcLength(cnt, True)
-        approx = cv2.approxPolyDP(cnt, epsilon, True)
-        
-        # Ensure PAGE-XML validity (min 4 vertices)
-        if len(approx) < 3:
-            continue
+        if force_rectangle:
+            rect = cv2.minAreaRect(cnt)
+            box = cv2.boxPoints(rect)
+            poly = np.int0(box).tolist()
+        else:
+            # Shrink wrap: small epsilon for tight boundary
+            epsilon = epsilon_factor * cv2.arcLength(cnt, True)
+            approx = cv2.approxPolyDP(cnt, epsilon, True)
             
-        # Flatten to list of [x, y]
-        poly = approx.reshape(-1, 2).tolist()
+            # Ensure PAGE-XML validity (min 4 vertices)
+            if len(approx) < 3:
+                continue
+                
+            # Flatten to list of [x, y]
+            poly = approx.reshape(-1, 2).tolist()
+            
         polygons.append(poly)
         
     return polygons
@@ -55,7 +61,7 @@ def process_unet_outputs(unet_probs, w, h):
     binary_masks = (probs_resized > 0.5).astype(np.uint8) * 255
     
     results = {
-        'text_regions': refine_mask_to_polygons(binary_masks[0], min_area=50000, epsilon_factor=0.005),
+        'text_regions': refine_mask_to_polygons(binary_masks[0], min_area=50000, epsilon_factor=0.005, force_rectangle=True),
         'marginalia': refine_mask_to_polygons(binary_masks[1]),
         'illustrations': refine_mask_to_polygons(binary_masks[2]),
         'page_frame': refine_mask_to_polygons(binary_masks[3], min_area=5000, epsilon_factor=0.005),

@@ -2,14 +2,14 @@
 <PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
   <Metadata>
     <Creator>AutoAnn-Indic-Pipeline</Creator>
-    <Created>2026-06-17T18:16:16.676261</Created>
-    <LastChange>2026-06-17T18:16:16.676261</LastChange>
+    <Created>2026-06-17T18:22:04.431585</Created>
+    <LastChange>2026-06-17T18:22:04.431585</LastChange>
   </Metadata>
   <Page imageFilename="ms100_1993_0001_web.jpg" imageWidth="1425" imageHeight="1800">
     <TextRegion id="region_text_0">
-      <Coords points="90,963 17,1313 29,1371 109,1389 141,1561 1246,1551 1298,1522 1318,1225 1285,929 234,922 140,929" />
+      <Coords points="13,924 1314,910 1321,1552 19,1565" />
       <TextLine id="line_0_0">
-        <Coords points="312,922 1212,922 1212,1007 312,1007" />
+        <Coords points="312,910 1212,910 1212,1007 312,1007" />
         <Word id="word_0_0_0">
           <Coords points="312,1001 321,1001 321,1008 312,1008" />
           <Glyph id="glyph_0_0_0_0">
@@ -783,7 +783,7 @@
         </Word>
       </TextLine>
       <TextLine id="line_0_7">
-        <Coords points="240,1270 1252,1270 1252,1562 240,1562" />
+        <Coords points="240,1270 1252,1270 1252,1566 240,1566" />
         <Word id="word_0_7_0">
           <Coords points="241,1270 1190,1270 1190,1508 241,1508" />
           <Glyph id="glyph_0_7_0_0">
@@ -862,9 +862,9 @@
       </TextLine>
     </TextRegion>
     <TextRegion id="region_text_1">
-      <Coords points="1355,128 1316,99 318,108 73,141 61,465 122,501 133,555 73,604 122,731 105,805 1334,819 1362,779" />
+      <Coords points="56,100 1366,98 1367,824 57,826" />
       <TextLine id="line_1_0">
-        <Coords points="147,99 1173,99 1173,201 147,201" />
+        <Coords points="147,98 1173,98 1173,201 147,201" />
         <Word id="word_1_0_0">
           <Coords points="151,173 206,173 206,198 151,198" />
           <Glyph id="glyph_1_0_0_0">
@@ -2097,7 +2097,7 @@
         </Word>
       </TextLine>
       <TextLine id="line_1_11">
-        <Coords points="243,642 1177,642 1177,820 243,820" />
+        <Coords points="243,642 1177,642 1177,827 243,827" />
         <Word id="word_1_11_0">
           <Coords points="243,650 308,650 308,693 243,693" />
           <Glyph id="glyph_1_11_0_0">

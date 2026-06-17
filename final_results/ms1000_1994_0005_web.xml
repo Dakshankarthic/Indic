@@ -2,14 +2,14 @@
 <PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
   <Metadata>
     <Creator>AutoAnn-Indic-Pipeline</Creator>
-    <Created>2026-06-17T18:16:16.117927</Created>
-    <LastChange>2026-06-17T18:16:16.117927</LastChange>
+    <Created>2026-06-17T18:22:03.867346</Created>
+    <LastChange>2026-06-17T18:22:03.867346</LastChange>
   </Metadata>
   <Page imageFilename="ms1000_1994_0005_web.jpg" imageWidth="1800" imageHeight="1455">
     <TextRegion id="region_text_0">
-      <Coords points="1757,1046 1692,919 1698,832 1658,813 34,813 5,844 4,1108 40,1191 96,1170 140,1209 1428,1218 1636,1245 1695,1337 1720,1290 1755,1312" />
+      <Coords points="0,813 1769,811 1770,1336 0,1338" />
       <TextLine id="line_0_0">
-        <Coords points="129,813 1521,813 1521,907 129,907" />
+        <Coords points="129,811 1521,811 1521,907 129,907" />
         <Word id="word_0_0_0">
           <Coords points="129,863 220,863 220,908 129,908" />
           <Glyph id="glyph_0_0_0_0">
@@ -555,7 +555,7 @@
         </Word>
       </TextLine>
       <TextLine id="line_0_4">
-        <Coords points="268,1059 1712,1059 1712,1338 268,1338" />
+        <Coords points="268,1059 1712,1059 1712,1339 268,1339" />
         <Word id="word_0_4_0">
           <Coords points="268,1059 698,1059 698,1115 268,1115" />
           <Glyph id="glyph_0_4_0_0">
@@ -709,9 +709,9 @@
       </TextLine>
     </TextRegion>
     <TextRegion id="region_text_1">
-      <Coords points="1769,189 1566,125 1317,151 1233,115 849,148 742,117 628,157 22,148 9,425 42,516 119,539 32,573 29,618 78,645 1751,631 1761,304 1726,268 1776,243" />
+      <Coords points="2,118 1775,113 1777,639 4,645" />
       <TextLine id="line_1_0">
-        <Coords points="122,115 1529,115 1529,242 122,242" />
+        <Coords points="122,113 1529,113 1529,242 122,242" />
         <Word id="word_1_0_0">
           <Coords points="122,181 215,181 215,227 122,227" />
           <Glyph id="glyph_1_0_0_0">

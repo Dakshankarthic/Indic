@@ -2,12 +2,12 @@
 <PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
   <Metadata>
     <Creator>AutoAnn-Indic-Pipeline</Creator>
-    <Created>2026-06-17T18:16:15.681376</Created>
-    <LastChange>2026-06-17T18:16:15.681376</LastChange>
+    <Created>2026-06-17T18:22:03.427510</Created>
+    <LastChange>2026-06-17T18:22:03.427510</LastChange>
   </Metadata>
   <Page imageFilename="ms1000_1994_0003_web.jpg" imageWidth="1800" imageHeight="1455">
     <TextRegion id="region_text_0">
-      <Coords points="107,867 138,1322 1679,1300 1692,876 1663,845 137,843" />
+      <Coords points="107,843 1692,843 1692,1324 107,1324" />
       <TextLine id="line_0_0">
         <Coords points="263,843 1532,843 1532,931 263,931" />
         <Word id="word_0_0_0">
@@ -879,7 +879,7 @@
         </Word>
       </TextLine>
       <TextLine id="line_0_7">
-        <Coords points="268,1226 1533,1226 1533,1323 268,1323" />
+        <Coords points="268,1226 1533,1226 1533,1325 268,1325" />
         <Word id="word_0_7_0">
           <Coords points="268,1226 1534,1226 1534,1287 268,1287" />
           <Glyph id="glyph_0_7_0_0">
@@ -1003,9 +1003,9 @@
       </TextLine>
     </TextRegion>
     <TextRegion id="region_text_1">
-      <Coords points="13,171 36,512 119,534 35,574 59,622 1400,651 1738,634 1767,600 1757,302 1691,272 1773,242 1735,151" />
+      <Coords points="9,148 1773,148 1773,651 9,651" />
       <TextLine id="line_1_0">
-        <Coords points="140,151 1528,151 1528,239 140,239" />
+        <Coords points="140,148 1528,148 1528,239 140,239" />
         <Word id="word_1_0_0">
           <Coords points="140,184 233,184 233,229 140,229" />
           <Glyph id="glyph_1_0_0_0">
