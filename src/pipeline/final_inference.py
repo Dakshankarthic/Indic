@@ -300,9 +300,9 @@ def detect_words_and_glyphs(binary, line_rect):
         widths.append(char_boxes[i]['width'])
     widths.append(char_boxes[-1]['width'])
     
-    # Word gap threshold: avg_char_width * 0.8
+    # Word gap threshold: avg_char_width * 0.4
     avg_char_width = np.mean(widths)
-    word_gap_threshold = max(12, avg_char_width * 0.8)
+    word_gap_threshold = max(5, avg_char_width * 0.4)
     
     words = []
     current_word_chars = [char_boxes[0]]
@@ -351,6 +351,26 @@ def create_page_xml(image_path, width, height, regions, region_line_data, out_pa
     page.set("imageWidth", str(width))
     page.set("imageHeight", str(height))
     
+    # Other regions helper
+    def add_regions(region_list, tag_name, id_prefix, type_attr=None):
+        for i, poly in enumerate(region_list):
+            if len(poly) < 3: continue
+            r = ET.SubElement(page, tag_name)
+            r.set("id", f"{id_prefix}_{i}")
+            if type_attr:
+                r.set("type", type_attr)
+            c = ET.SubElement(r, "Coords")
+            c.set("points", pts_str(poly))
+            
+    # Border MUST be before any regions (maxOccurs=1)
+    if len(regions['page_frame']) > 0:
+        # Take the largest one if multiple exist
+        largest_border = max(regions['page_frame'], key=lambda p: cv2.contourArea(np.array(p)))
+        if len(largest_border) >= 3:
+            border = ET.SubElement(page, "Border")
+            coords = ET.SubElement(border, "Coords")
+            coords.set("points", pts_str(largest_border))
+
     # Text Regions with full hierarchy
     for i, poly in enumerate(regions['text_regions']):
         region = ET.SubElement(page, "TextRegion")
@@ -381,18 +401,9 @@ def create_page_xml(image_path, width, height, regions, region_line_data, out_pa
                     gcoords = ET.SubElement(g_elem, "Coords")
                     gcoords.set("points", pts_str(glyph_rect))
 
-    # Other regions
-    def add_regions(region_list, tag_name, id_prefix):
-        for i, poly in enumerate(region_list):
-            if len(poly) < 3: continue
-            r = ET.SubElement(page, tag_name)
-            r.set("id", f"{id_prefix}_{i}")
-            c = ET.SubElement(r, "Coords")
-            c.set("points", pts_str(poly))
-            
-    add_regions(regions['marginalia'], "TextRegion", "region_margin")
+    # Add other regions
+    add_regions(regions['marginalia'], "TextRegion", "region_margin", type_attr="marginalia")
     add_regions(regions['illustrations'], "GraphicRegion", "region_illus")
-    add_regions(regions['page_frame'], "Border", "border")
     add_regions(regions['damage_holes'], "NoiseRegion", "noise")
     
     tree = ET.ElementTree(root)
