@@ -9,12 +9,10 @@ from datetime import datetime
 from scipy.signal import find_peaks
 import sys
 
-# Add training directory to path so we can import the model
 sys.path.append(str(Path(__file__).resolve().parent.parent / "training"))
 from unet_model import UNet
 from polygon_refiner import process_unet_outputs
 
-# Map model class indices to PAGE-XML region types
 CLASS_MAPPING = {
     0: "TextRegion",
     1: "Marginalia",
@@ -30,7 +28,6 @@ def binarize(image):
     binary = cv2.adaptiveThreshold(
         gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 31, 15
     )
-    # Remove tiny noise
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
     binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
     return binary
@@ -70,7 +67,6 @@ def find_seams(energy, start_ys):
                 dp[y, x] = energy[y, x] + prev_costs[min_idx]
                 paths[y, x] = y_prev_min + min_idx
                 
-        # Backtrack
         end_y_costs = dp[min_y:max_y+1, w-1]
         if np.all(np.isinf(end_y_costs)):
             continue
@@ -102,7 +98,6 @@ def extract_line_rect(line_binary, offset_x, offset_y, region_bounds=None):
     y1 = offset_y + int(rows[0])
     y2 = offset_y + int(rows[-1])
     
-    # Clip to region bounds
     if region_bounds is not None:
         rx1, ry1, rx2, ry2 = region_bounds
         x1 = max(rx1, x1)
@@ -121,7 +116,6 @@ def estimate_skew(roi):
     best_angle = 0
     max_var = 0
     center = (roi.shape[1] // 2, roi.shape[0] // 2)
-    # Search between -3 and +3 degrees (most manuscripts aren't heavily skewed inside the bounding box)
     for angle in np.arange(-3.0, 3.5, 0.5):
         if angle == 0:
             proj = np.sum(roi, axis=1)
@@ -153,20 +147,15 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
         roi_rot = roi
         M_inv = None
         
-    # Horizontal projection profile
     proj = np.sum(roi_rot, axis=1).astype(np.float64) / 255.0
     
-    # Smooth projection profile
     proj_smooth = np.convolve(proj, np.ones(10)/10, mode='same')
     
-    # Find peaks (text line centers)
     peaks, _ = find_peaks(proj_smooth, distance=15, prominence=200)
     if len(peaks) < 2:
-        # Single line fallback
         rect = extract_line_rect(roi, rx, ry, region_bounds)
         return [rect] if rect else []
     
-    # Find valleys between peaks
     valleys = []
     for i in range(len(peaks) - 1):
         valley_y = peaks[i] + np.argmin(proj_smooth[peaks[i]:peaks[i+1]])
@@ -184,9 +173,7 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
             cols = np.where(np.sum(line_roi_rot, axis=0) > 0)[0]
             if len(cols) == 0: continue
             
-            # Use ink extent for horizontal (left/right trim) only
             lx1, lx2 = int(cols[0]), int(cols[-1])
-            # Use valley boundaries directly for vertical (no overlap)
             ly1, ly2 = y1, y2
             
             pts_rot = np.array([[lx1, ly1], [lx2, ly1], [lx2, ly2], [lx1, ly2]], dtype=np.float32)
@@ -220,7 +207,6 @@ def detect_words_and_glyphs(binary, line_rect):
     
     if w < 3 or h < 3: return []
     
-    # Extract bounding rect ROI and mask with line polygon (to handle skew)
     line_roi = binary[y:y+h, x:x+w].copy()
     mask = np.zeros_like(line_roi)
     pts_shifted = pts - [x, y]
@@ -229,7 +215,6 @@ def detect_words_and_glyphs(binary, line_rect):
     
     if np.sum(line_roi) == 0: return []
     
-    # Find connected components (ink blobs)
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(line_roi, connectivity=8)
     
     min_char_area = 15
@@ -245,18 +230,14 @@ def detect_words_and_glyphs(binary, line_rect):
         
     if not initial_boxes: return []
     
-    # Sort boxes left to right
     initial_boxes.sort(key=lambda b: b['left'])
     
-    # Merge vertically overlapping boxes (matras)
     merged_boxes = []
     for box in initial_boxes:
         if not merged_boxes:
             merged_boxes.append(box)
             continue
             
-        # Try to merge with any recent box (not just the immediately previous one)
-        # since diacritics might sort slightly before/after
         merged = False
         for i in range(len(merged_boxes)-1, max(-1, len(merged_boxes)-5), -1):
             last_box = merged_boxes[i]
@@ -292,7 +273,6 @@ def detect_words_and_glyphs(binary, line_rect):
     if len(char_boxes) < 2:
         return [{'rect': char_boxes[0]['rect'], 'glyphs': [char_boxes[0]['rect']]}]
         
-    # Calculate word gaps
     gaps = []
     widths = []
     for i in range(len(char_boxes) - 1):
@@ -300,7 +280,6 @@ def detect_words_and_glyphs(binary, line_rect):
         widths.append(char_boxes[i]['width'])
     widths.append(char_boxes[-1]['width'])
     
-    # Word gap threshold: avg_char_width * 0.4
     avg_char_width = np.mean(widths)
     word_gap_threshold = max(5, avg_char_width * 0.4)
     
@@ -351,7 +330,6 @@ def create_page_xml(image_path, width, height, regions, region_line_data, out_pa
     page.set("imageWidth", str(width))
     page.set("imageHeight", str(height))
     
-    # Other regions helper
     def add_regions(region_list, tag_name, id_prefix, type_attr=None):
         for i, poly in enumerate(region_list):
             if len(poly) < 3: continue
@@ -362,23 +340,19 @@ def create_page_xml(image_path, width, height, regions, region_line_data, out_pa
             c = ET.SubElement(r, "Coords")
             c.set("points", pts_str(poly))
             
-    # Border MUST be before any regions (maxOccurs=1)
     if len(regions['page_frame']) > 0:
-        # Take the largest one if multiple exist
         largest_border = max(regions['page_frame'], key=lambda p: cv2.contourArea(np.array(p)))
         if len(largest_border) >= 3:
             border = ET.SubElement(page, "Border")
             coords = ET.SubElement(border, "Coords")
             coords.set("points", pts_str(largest_border))
 
-    # Text Regions with full hierarchy
     for i, poly in enumerate(regions['text_regions']):
         region = ET.SubElement(page, "TextRegion")
         region.set("id", f"region_text_{i}")
         coords = ET.SubElement(region, "Coords")
         coords.set("points", pts_str(poly))
         
-        # Add text lines to this region directly (no pointPolygonTest hack)
         lines_for_region = region_line_data.get(i, [])
         for j, line_data in enumerate(lines_for_region):
             lpoly = line_data['rect']
@@ -387,21 +361,18 @@ def create_page_xml(image_path, width, height, regions, region_line_data, out_pa
             tcoords = ET.SubElement(tl, "Coords")
             tcoords.set("points", pts_str(lpoly))
             
-            # Add Words and Glyphs inside this TextLine
             for k, word in enumerate(line_data['words']):
                 w_elem = ET.SubElement(tl, "Word")
                 w_elem.set("id", f"word_{i}_{j}_{k}")
                 wcoords = ET.SubElement(w_elem, "Coords")
                 wcoords.set("points", pts_str(word['rect']))
                 
-                # Add Glyphs (characters) inside this Word
                 for g, glyph_rect in enumerate(word['glyphs']):
                     g_elem = ET.SubElement(w_elem, "Glyph")
                     g_elem.set("id", f"glyph_{i}_{j}_{k}_{g}")
                     gcoords = ET.SubElement(g_elem, "Coords")
                     gcoords.set("points", pts_str(glyph_rect))
 
-    # Add other regions
     add_regions(regions['marginalia'], "TextRegion", "region_margin", type_attr="marginalia")
     add_regions(regions['illustrations'], "GraphicRegion", "region_illus")
     add_regions(regions['damage_holes'], "NoiseRegion", "noise")

@@ -54,12 +54,10 @@ def generate_mask_from_xml(xml_path):
     img_w = int(page.get("imageWidth"))
     img_h = int(page.get("imageHeight"))
     
-    # Initialize channels
     mask0 = np.zeros((img_h, img_w), dtype=np.uint8) # Regions
     mask1 = np.zeros((img_h, img_w), dtype=np.uint8) # Lines
     mask2 = np.zeros((img_h, img_w), dtype=np.uint8) # Baselines
     
-    # Parse TextRegions
     for region in page.findall(".//p:TextRegion", namespaces=ns):
         coords_el = region.find("p:Coords", namespaces=ns)
         if coords_el is not None and coords_el.get("points"):
@@ -67,16 +65,13 @@ def generate_mask_from_xml(xml_path):
             if len(pts) >= 3:
                 cv2.fillPoly(mask0, [pts], 255)
                 
-    # Parse TextLines and Baselines
     for line in page.findall(".//p:TextLine", namespaces=ns):
-        # Line Boundary
         coords_el = line.find("p:Coords", namespaces=ns)
         if coords_el is not None and coords_el.get("points"):
             pts = parse_coords(coords_el.get("points"))
             if len(pts) >= 3:
                 cv2.fillPoly(mask1, [pts], 255)
                 
-        # Baseline
         baseline_el = line.find("p:Baseline", namespaces=ns)
         if baseline_el is not None and baseline_el.get("points"):
             pts = parse_coords(baseline_el.get("points"))
@@ -113,10 +108,8 @@ def main():
         if mask is None or img_filename is None:
             continue
             
-        # Find the source image
         src_img_path = img_dir / img_filename
         if not src_img_path.exists():
-            # Try to find it by stem if extensions don't match exactly
             matches = list(img_dir.glob(f"{src_img_path.stem}.*"))
             if matches:
                 src_img_path = matches[0]
@@ -124,11 +117,9 @@ def main():
                 print(f"Warning: Could not find source image {img_filename} for {xml_path.name}")
                 continue
                 
-        # Save Mask (.npz)
         out_mask_path = mask_out_dir / f"{xml_path.stem}.npz"
         np.savez_compressed(out_mask_path, mask=mask)
         
-        # Copy Image
         out_img_path = img_out_dir / src_img_path.name
         if not out_img_path.exists():
             shutil.copy2(src_img_path, out_img_path)

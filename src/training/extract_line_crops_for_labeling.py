@@ -27,20 +27,16 @@ def preprocess_crop(crop):
     """Clean up line crop for better readability during labeling."""
     gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
     
-    # Denoise
     denoised = cv2.fastNlMeansDenoising(gray, h=10, templateWindowSize=7, searchWindowSize=21)
     
-    # CLAHE
     clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
     enhanced = clahe.apply(denoised)
     
-    # Binarize
     binary = cv2.adaptiveThreshold(
         enhanced, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
         cv2.THRESH_BINARY, 21, 8
     )
     
-    # Pad for readability
     padded = cv2.copyMakeBorder(binary, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=255)
     
     return padded
@@ -89,15 +85,12 @@ def main():
             w = lx2 - lx1
             h = ly2 - ly1
 
-            # Skip tiny crops
             if w < args.min_width or h < args.min_height:
                 continue
 
-            # Skip marginalia if flagged
             if ld.get('is_marginalia', False):
                 continue
 
-            # Expand slightly
             pad = 4
             cy1 = max(0, ly1 - pad)
             cy2 = min(img_h, ly2 + pad)
@@ -108,11 +101,9 @@ def main():
             if crop.size == 0:
                 continue
 
-            # Save raw (color) crop
             fname_raw = f"{img_stem}_line{li:03d}.jpg"
             cv2.imwrite(str(crops_raw_dir / fname_raw), crop)
 
-            # Save preprocessed (clean binary) crop
             processed = preprocess_crop(crop)
             fname = f"{img_stem}_line{li:03d}.jpg"
             cv2.imwrite(str(crops_dir / fname), processed)
@@ -129,19 +120,15 @@ def main():
         if line_count >= args.max_lines:
             break
 
-    # Write CSV template
     csv_path = out_dir / "labels.csv"
     with open(csv_path, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=["file_name", "text", "source_image", "line_index", "bbox"])
         writer.writeheader()
         writer.writerows(csv_rows)
 
-    # Also write PaddleOCR format ground truth file (tab-separated)
     gt_path = out_dir / "rec_gt_train.txt"
     with open(gt_path, 'w', encoding='utf-8') as f:
         for row in csv_rows:
-            # Format: line_crops/filename.jpg\ttext
-            # Text will be empty until you label it
             f.write(f"line_crops/{row['file_name']}\t{row['text']}\n")
 
     print(f"\n{'='*60}")

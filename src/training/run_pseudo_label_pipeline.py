@@ -7,7 +7,6 @@ from tqdm import tqdm
 import sys
 import shutil
 
-# Add src/pipeline to path to import pipeline modules properly
 pipeline_dir = Path(__file__).resolve().parents[1] / "pipeline"
 sys.path.append(str(pipeline_dir))
 
@@ -38,7 +37,6 @@ def create_6_channel_mask(img_w, img_h, page_frame, damage_regions, text_regions
     m4 = np.zeros((img_h, img_w), dtype=np.uint8)
     m5 = np.zeros((img_h, img_w), dtype=np.uint8)
 
-    # 3. page_frame (Channel 3)
     if page_frame and 'polygon' in page_frame and len(page_frame['polygon']) >= 3:
         pts = np.array(page_frame['polygon'], dtype=np.int32)
         cv2.fillPoly(m3, [pts], 255)
@@ -46,17 +44,14 @@ def create_6_channel_mask(img_w, img_h, page_frame, damage_regions, text_regions
         x1, y1, x2, y2 = page_frame['bbox']
         cv2.rectangle(m3, (x1, y1), (x2, y2), 255, -1)
 
-    # 0. text_region (Channel 0)
     for region in text_regions:
         x1, y1, x2, y2 = region['bbox']
         cv2.rectangle(m0, (x1, y1), (x2, y2), 255, -1)
 
-    # 1. marginalia/notes (Channel 1)
     for region in marginalia_regions:
         x1, y1, x2, y2 = region['bbox']
         cv2.rectangle(m1, (x1, y1), (x2, y2), 255, -1)
 
-    # 2. illustration/diagram (Channel 2)
     for illus in illustrations:
         if 'polygon' in illus and len(illus['polygon']) >= 3:
             pts = np.array(illus['polygon'], dtype=np.int32)
@@ -65,7 +60,6 @@ def create_6_channel_mask(img_w, img_h, page_frame, damage_regions, text_regions
             x1, y1, x2, y2 = illus['bbox']
             cv2.rectangle(m2, (x1, y1), (x2, y2), 255, -1)
 
-    # 4. damage/hole (Channel 4)
     for hole in damage_regions:
         if 'polygon' in hole and len(hole['polygon']) >= 3:
             pts = np.array(hole['polygon'], dtype=np.int32)
@@ -74,7 +68,6 @@ def create_6_channel_mask(img_w, img_h, page_frame, damage_regions, text_regions
             x1, y1, x2, y2 = hole['bbox']
             cv2.rectangle(m4, (x1, y1), (x2, y2), 255, -1)
 
-    # 5. text_line (Channel 5)
     for line in lines_data:
         if 'polygon' in line and len(line['polygon']) >= 3:
             pts = np.array(line['polygon'], dtype=np.int32)
@@ -103,7 +96,6 @@ def check_confidence(lines_data, text_mask):
 
 def main():
     base_dir = Path(__file__).resolve().parents[2]
-    # We will process a subset first for speed if needed, but the script supports all
     img_dirs = [
         base_dir / "olai_suvadi_images",
         base_dir / "ramcharitmanas"
@@ -116,7 +108,6 @@ def main():
     img_out_dir.mkdir(parents=True, exist_ok=True)
     mask_out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Collect all images
     all_images = []
     for d in img_dirs:
         if d.exists():
@@ -129,7 +120,6 @@ def main():
 
     success_count = 0
     
-    # Process 800 images to fit within a 3-hour total pipeline time
     MAX_IMAGES = 800
     np.random.seed(42) # Reproducible subset
     if len(all_images) > MAX_IMAGES:
@@ -144,7 +134,6 @@ def main():
         img = cv2.imread(str(img_path))
         if img is None: continue
         
-        # Downscale large images slightly to speed up pipeline if necessary, but DINO handles it
         h, w = img.shape[:2]
 
         feat_grid, _, _ = extract_patch_features(model, img)
@@ -156,30 +145,25 @@ def main():
         if not check_confidence(lines_data, text_mask):
             continue
         
-        # Add line polygons
         for ld in lines_data:
             lx1, ly1, lx2, ly2 = ld['bbox']
             line_roi = binary_masked[ly1:ly2, lx1:lx2]
             ld['polygon'] = get_line_polygon(line_roi, lx1, ly1)
 
-        # Refinement steps
         page_frame_dict, leaf_mask = detect_page_frame(img)
         damage_regions = detect_damage_holes(img, leaf_mask)
         text_regions_raw = detect_text_regions(binary_masked)
         text_regions, marginalia_regions = classify_marginalia(text_regions_raw, w)
         illustrations = [] # Currently no specific illustration detector
 
-        # Generate 6-channel mask
         mask = create_6_channel_mask(
             w, h, page_frame_dict, damage_regions, text_regions, 
             marginalia_regions, illustrations, lines_data
         )
         
-        # Save Mask (.npz)
         out_mask_path = mask_out_dir / f"{img_path.stem}.npz"
         np.savez_compressed(out_mask_path, mask=mask)
         
-        # Copy Image
         out_img_path = img_out_dir / img_path.name
         if not out_img_path.exists():
             shutil.copy2(img_path, out_img_path)

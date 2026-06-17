@@ -12,19 +12,15 @@ from pathlib import Path
 from unet_model import UNet
 from dataset import ManuscriptDataset
 
-# --- LOSS FUNCTION ---
 class DiceBCELoss(nn.Module):
     def __init__(self, weight=None, size_average=True):
         super(DiceBCELoss, self).__init__()
 
     def forward(self, inputs, targets, smooth=1):
-        # BCE with logits is safe for autocast
         BCE = F.binary_cross_entropy_with_logits(inputs, targets, reduction='mean')
         
-        # Apply sigmoid for Dice computation
         inputs_sig = torch.sigmoid(inputs)       
         
-        # flatten label and prediction tensors
         inputs_sig = inputs_sig.view(-1)
         targets = targets.view(-1)
         
@@ -59,7 +55,6 @@ def train():
         print("No training data found. Please run run_pseudo_label_pipeline.py first.")
         return
 
-    # Train/Val split (90/10)
     val_size = max(1, int(0.1 * len(full_dataset)))
     train_size = len(full_dataset) - val_size
     train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size])
@@ -75,7 +70,6 @@ def train():
     criterion = DiceBCELoss()
     scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
     
-    # Mixed precision
     scaler = torch.amp.GradScaler('cuda') if device.type == 'cuda' else None
 
     best_val_loss = float('inf')
@@ -109,7 +103,6 @@ def train():
         scheduler.step()
         train_loss /= len(train_loader)
         
-        # Validation
         model.eval()
         val_loss = 0.0
         with torch.no_grad():

@@ -8,14 +8,12 @@ from tqdm import tqdm
 from sklearn.cluster import KMeans
 import warnings
 
-# --- NEW OPENCV LAYOUT REFINEMENT ---
 from opencv_layout_refinement import (
     detect_page_frame, 
     detect_damage_holes, 
     detect_text_regions, 
     classify_marginalia
 )
-# ------------------------------------
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -101,7 +99,6 @@ def get_line_polygon(roi, offset_x, offset_y, epsilon_factor=0.003):
     h, w = roi.shape
     pad = 10
     padded = cv2.copyMakeBorder(roi, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
-    # Wide horizontal dilation to bridge all words in the line
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (int(max(50, w * 0.05)), 5))
     dilated = cv2.dilate(padded, kernel, iterations=1)
     contours, _ = cv2.findContours(dilated, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -202,7 +199,6 @@ def merge_overlapping_regions(regions):
     for rx, ry, rw, rh in regions[1:]:
         prev = merged[-1]
         prev_y2 = prev[1] + prev[3]
-        # If this region overlaps vertically with the previous one, merge
         if ry < prev_y2 + 20:  # 20px tolerance
             new_x = min(prev[0], rx)
             new_y = min(prev[1], ry)
@@ -215,11 +211,9 @@ def merge_overlapping_regions(regions):
 
 def detect_lines_from_mask(text_mask, binary, orig_h, orig_w):
     mask_full = cv2.resize(text_mask * 255, (orig_w, orig_h), interpolation=cv2.INTER_NEAREST)
-    # Use a very aggressive dilation to ensure the text mask covers entire text block
     kernel_dilate = cv2.getStructuringElement(cv2.MORPH_RECT, (orig_w // 8, 15))
     mask_dilated = cv2.dilate(mask_full, kernel_dilate)
     binary_masked = cv2.bitwise_and(binary, mask_dilated)
-    # Use a massive closing kernel to bridge all gaps across the page width
     kw = int(orig_w // 3)
     kh = int(orig_h // 15)
     if kw % 2 == 0: kw += 1
@@ -232,7 +226,6 @@ def detect_lines_from_mask(text_mask, binary, orig_h, orig_w):
     for c in contours:
         rx, ry, rw, rh = cv2.boundingRect(c)
         if rw * rh > min_area: regions.append((rx, ry, rw, rh))
-    # Merge overlapping/adjacent regions into large blocks
     regions = merge_overlapping_regions(regions)
     if regions and any(rw < 0.5 * orig_w for _, _, rw, _ in regions):
         min_x = min(r[0] for r in regions)
@@ -359,16 +352,13 @@ def main():
             words, chars_by_word = detect_words_and_chars_in_line(binary_masked, ld)
             ld['words'] = words
             ld['chars'] = chars_by_word
-        # --- NEW OPENCV LAYOUT REFINEMENT ---
         page_frame_dict, leaf_mask = detect_page_frame(img)
         page_frame = page_frame_dict
         
         damage_regions = detect_damage_holes(img, leaf_mask)
         
-        # Binary_masked contains just the text pixels
         text_regions_raw = detect_text_regions(binary_masked)
         text_regions, marginalia_regions = classify_marginalia(text_regions_raw, w)
-        # ------------------------------------
         
         illustrations = [] # Placeholder if no obvious illustrations
         

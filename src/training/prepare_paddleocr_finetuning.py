@@ -42,7 +42,6 @@ def build_dictionary(rows):
     for row in rows:
         for ch in row['text']:
             chars.add(ch)
-    # Sort for deterministic output
     return sorted(chars)
 
 
@@ -66,7 +65,6 @@ def main():
     train_dir.mkdir(parents=True, exist_ok=True)
     val_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Load labeled data
     rows = load_labeled_data(csv_path)
     if not rows:
         print("ERROR: No labeled rows found! Open labels.csv and type the text for each line crop.")
@@ -74,7 +72,6 @@ def main():
 
     print(f"Found {len(rows)} labeled line crops.")
 
-    # 2. Build character dictionary
     chars = build_dictionary(rows)
     dict_path = out_dir / "dict.txt"
     with open(dict_path, 'w', encoding='utf-8') as f:
@@ -82,7 +79,6 @@ def main():
             f.write(ch + '\n')
     print(f"Dictionary: {len(chars)} unique characters -> {dict_path}")
 
-    # 3. Shuffle and split into train/val
     random.seed(42)
     random.shuffle(rows)
     val_count = max(1, int(len(rows) * args.val_split))
@@ -91,7 +87,6 @@ def main():
 
     print(f"Train: {len(train_rows)} samples, Val: {len(val_rows)} samples")
 
-    # 4. Copy images and create ground truth files
     def write_gt(rows_subset, target_dir, gt_path):
         with open(gt_path, 'w', encoding='utf-8') as f:
             for row in rows_subset:
@@ -102,7 +97,6 @@ def main():
                 if src.exists() and not dst.exists():
                     shutil.copy2(src, dst)
                 elif not src.exists():
-                    # Try the clean crops dir
                     alt_src = csv_path.parent / "line_crops" / fname
                     if alt_src.exists():
                         shutil.copy2(alt_src, dst)
@@ -116,7 +110,6 @@ def main():
     write_gt(train_rows, train_dir, train_gt)
     write_gt(val_rows, val_dir, val_gt)
 
-    # 5. Create PaddleOCR training config YAML
     config = {
         'Global': {
             'use_gpu': True,
@@ -239,7 +232,6 @@ def main():
     with open(config_path, 'w', encoding='utf-8') as f:
         yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
 
-    # 6. Print instructions
     print(f"\n{'='*70}")
     print("PaddleOCR Fine-Tuning Data Ready!")
     print(f"{'='*70}")

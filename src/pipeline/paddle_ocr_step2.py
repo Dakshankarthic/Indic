@@ -18,7 +18,6 @@ from aletheia_utils import calculate_human_effort_score
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
-# ==================== 1. INITIALIZATION ====================
 
 def init_paddle_ocr(use_gpu=True):
     """Initialize PaddleOCR with optimized parameters for ancient Devanagari manuscripts.
@@ -53,7 +52,6 @@ def init_paddle_ocr(use_gpu=True):
     print("Successfully initialized PaddleOCR on CPU.")
     return ocr
 
-# ==================== 2. HELPER FUNCTIONS ====================
 
 def binarize(img_bgr):
     gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
@@ -88,27 +86,19 @@ def preprocess_for_ocr(crop):
     else:
         gray = crop.copy()
     
-    # 1. Mild denoising — just enough to suppress palm leaf texture grain
-    #    h=3 is gentle; old code used h=12 which was smearing ink strokes
     denoised = cv2.fastNlMeansDenoising(gray, None, h=3, templateWindowSize=7, searchWindowSize=21)
     
-    # 2. CLAHE contrast enhancement — clipLimit=2.0 is balanced
-    #    Old code used clipLimit=4.0 which was over-amplifying noise
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     enhanced = clahe.apply(denoised)
     
-    # 3. Normalize intensity range to 0-255 for model consistency
-    #    This helps the model see consistent ink contrast regardless of lighting
     min_val, max_val = enhanced.min(), enhanced.max()
     if max_val > min_val:
         normalized = ((enhanced.astype(np.float32) - min_val) / (max_val - min_val) * 255).astype(np.uint8)
     else:
         normalized = enhanced
     
-    # 4. Convert to 3-channel BGR for PaddleOCR
     return cv2.cvtColor(normalized, cv2.COLOR_GRAY2BGR)
 
-# ==================== 4. PAGE-XML GENERATION ====================
 
 def bbox_to_coords(x1, y1, x2, y2):
     return f"{int(x1)},{int(y1)} {int(x2)},{int(y1)} {int(x2)},{int(y2)} {int(x1)},{int(y2)}"
@@ -199,12 +189,10 @@ def generate_pagexml(img_name, img_w, img_h, item, out_path):
     tree = etree.ElementTree(pcgts)
     tree.write(str(out_path), pretty_print=True, xml_declaration=True, encoding="utf-8")
 
-# ==================== 5. VISUALIZATION ====================
 
 def draw_viz(img, item, out_path):
     viz = img.copy()
 
-    # Colors (BGR)
     color_frame = (255, 0, 255) # Magenta
     color_text_region = (0, 255, 0) # Green
     color_marginalia = (255, 255, 0) # Cyan
@@ -234,10 +222,8 @@ def draw_viz(img, item, out_path):
 
     for ld in item.get('lines_data', []):
         lx1, ly1, lx2, ly2 = ld['bbox']
-        # Line in box
         cv2.rectangle(viz, (lx1, ly1), (lx2, ly2), color_line, 1)
         
-        # Character in polygon
         for char_list in ld.get('chars', {}).values():
             for cd in char_list:
                 glyph_poly = cd.get('polygon', [])
@@ -254,12 +240,10 @@ def draw_viz(img, item, out_path):
             elif 'bbox' in wd:
                 wx1, wy1, wx2, wy2 = wd['bbox']
             
-            # Underline the DINO word with BLACK
             cv2.line(viz, (int(wx1), int(wy2)), (int(wx2), int(wy2)), (0, 0, 0), 2)
 
     cv2.imwrite(str(out_path), viz)
 
-# ==================== 6. MAIN PIPELINE STEP 2 ====================
 
 def main():
     parser = argparse.ArgumentParser()
@@ -294,7 +278,6 @@ def main():
         for ld in lines_data:
             lx1, ly1, lx2, ly2 = ld['bbox']
             
-            # Expand line crop for OCR context
             pad = 6
             cy1 = max(0, ly1 - pad)
             cy2 = min(img_h, ly2 + pad)
@@ -304,17 +287,13 @@ def main():
             line_crop = img[cy1:cy2, cx1:cx2]
             
             if line_crop.size > 0 and line_crop.shape[0] > 5 and line_crop.shape[1] > 5:
-                # Gentle preprocessing — preserve gray-level ink information
                 line_crop_processed = preprocess_for_ocr(line_crop)
                 
-                # Use det=False, rec=True for pre-cropped line
-                # The line-level context (including shirorekha) helps PaddleOCR
                 res = ocr_engine.ocr(line_crop_processed, det=False, rec=True)
                 
                 if res and res[0] and len(res[0]) > 0:
                     text = res[0][0][0]
                     conf = res[0][0][1]
-                    # Only keep results with reasonable confidence
                     if float(conf) >= 0.4:
                         ld['text'] = text
                         ld['confidence'] = float(conf)
@@ -328,20 +307,16 @@ def main():
                 ld['text'] = ''
                 ld['confidence'] = 0.0
             
-            # DINO word geometry stays untouched — we only add text at line level
             total_words += len(ld.get('words', []))
             total_lines += 1
 
-        # Output PAGE-XML
         img_name = Path(img_path).name
         xml_name = out_dir / (Path(img_name).stem + ".xml")
         generate_pagexml(img_name, img_w, img_h, item, xml_name)
 
-        # Visualization
         viz_name = out_dir / (Path(img_name).stem + "_viz.jpg")
         draw_viz(img, item, viz_name)
 
-        # Evaluate Human Effort
         binary = binarize(img)
         effort_res = calculate_human_effort_score(lines_data, binary)
         xml_e = effort_res["score"]

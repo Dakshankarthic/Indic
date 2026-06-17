@@ -44,7 +44,6 @@ class Up(nn.Module):
     """Upscaling then double conv"""
     def __init__(self, in_channels, out_channels, bilinear=True):
         super().__init__()
-        # if bilinear, use the normal convolutions to reduce the number of channels
         if bilinear:
             self.up = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
             self.conv = DoubleConv(in_channels, out_channels, in_channels // 2)
@@ -54,7 +53,6 @@ class Up(nn.Module):
 
     def forward(self, x1, x2):
         x1 = self.up(x1)
-        # input is CHW
         diffY = x2.size()[2] - x1.size()[2]
         diffX = x2.size()[3] - x1.size()[3]
 
@@ -109,11 +107,9 @@ class UNet(nn.Module):
         return logits
 
 if __name__ == '__main__':
-    # Test to ensure it compiles and runs forward pass
     net = UNet(n_channels=3, n_classes=3)
     print("Custom U-Net initialized.")
     
-    # Dummy image batch: (Batch Size, Channels, Height, Width)
     dummy_input = torch.randn(1, 3, 512, 512)
     output = net(dummy_input)
     print(f"Input shape: {dummy_input.shape}")
