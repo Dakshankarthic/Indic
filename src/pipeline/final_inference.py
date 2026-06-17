@@ -1,64 +1,106 @@
-import os
+import argparse
+import numpy as np
 import cv2
 import torch
-import numpy as np
-import argparse
+import torch.nn.functional as F
 from pathlib import Path
-from lxml import etree
+import xml.etree.ElementTree as ET
+from datetime import datetime
+from scipy.signal import find_peaks
 import sys
-from tqdm import tqdm
 
-# Add training dir to path to import UNet
-sys.path.append(str(Path(__file__).resolve().parents[1] / "training"))
+# Add training directory to path so we can import the model
+sys.path.append(str(Path(__file__).resolve().parent.parent / "training"))
 from unet_model import UNet
 from polygon_refiner import process_unet_outputs
 
-def points_to_string(points):
-    """Converts a list of [x, y] coordinates to PAGE-XML Coords string 'x,y x,y ...'"""
-    return " ".join([f"{int(x)},{int(y)}" for x, y in points])
+# Map model class indices to PAGE-XML region types
+CLASS_MAPPING = {
+    0: "TextRegion",
+    1: "Marginalia",
+    2: "GraphicRegion", # illustrations
+    3: "PageFrame",
+    4: "NoiseRegion", # damage/holes
+    5: "TextLine"
+}
 
-def binarize(img_bgr):
-    """Adaptive threshold binarization for text detection."""
-    gray = cv2.GaussianBlur(cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY), (3, 3), 0)
-    binary = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                                    cv2.THRESH_BINARY_INV, 51, 5)
-    return cv2.morphologyEx(binary, cv2.MORPH_OPEN,
-                            cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)), iterations=1)
+def binarize(image):
+    """Adaptive binarization optimized for palm leaves."""
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    binary = cv2.adaptiveThreshold(
+        gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 31, 15
+    )
+    # Remove tiny noise
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
+    return binary
 
-def smooth_polygon(poly, epsilon_factor=0.01):
-    """Smooth a jagged polygon using convex hull + approxPolyDP."""
-    pts = np.array(poly, dtype=np.int32)
-    if len(pts) < 3:
-        return poly
-    hull = cv2.convexHull(pts)
-    epsilon = epsilon_factor * cv2.arcLength(hull, True)
-    smoothed = cv2.approxPolyDP(hull, epsilon, True)
-    return smoothed.reshape(-1, 2).tolist()
-
-def clip_line_to_region(line_poly, rx1, ry1, rx2, ry2):
-    """Clip a text line polygon so it stays within the text region bounds."""
+def clip_line_to_region(pts, rx1, ry1, rx2, ry2):
+    """Clip a polygon to the text region bounds."""
     clipped = []
-    for x, y in line_poly:
+    for x, y in pts:
         cx = max(rx1, min(rx2, x))
         cy = max(ry1, min(ry2, y))
         clipped.append([cx, cy])
     return clipped
 
-def extract_line_polygon(binary_roi, offset_x, offset_y, region_bounds=None, epsilon_factor=0.003):
-    """Create a clean rectangular polygon for a text line."""
-    h, w = binary_roi.shape
-    # Find actual ink extent
-    cols = np.where(np.sum(binary_roi, axis=0) > 0)[0]
-    rows = np.where(np.sum(binary_roi, axis=1) > 0)[0]
+def find_seams(energy, start_ys):
+    """Dynamic programming to find paths of least resistance between text lines."""
+    h, w = energy.shape
+    seams = []
     
-    if len(cols) > 0 and len(rows) > 0:
-        x1 = offset_x + cols[0]
-        x2 = offset_x + cols[-1]
-        y1 = offset_y + rows[0]
-        y2 = offset_y + rows[-1]
-    else:
-        x1, y1 = offset_x, offset_y
-        x2, y2 = offset_x + w, offset_y + h
+    for start_y in start_ys:
+        dp = np.full((h, w), np.inf, dtype=np.float32)
+        paths = np.zeros((h, w), dtype=np.int32)
+        
+        search_range = 30 # search window around the valley
+        min_y = max(0, start_y - search_range)
+        max_y = min(h - 1, start_y + search_range)
+        dp[min_y:max_y+1, 0] = energy[min_y:max_y+1, 0]
+        
+        for x in range(1, w):
+            for y in range(min_y, max_y + 1):
+                y_prev_min = max(min_y, y - 1)
+                y_prev_max = min(max_y, y + 1)
+                
+                prev_costs = dp[y_prev_min:y_prev_max+1, x-1]
+                if len(prev_costs) == 0: continue
+                min_idx = np.argmin(prev_costs)
+                
+                dp[y, x] = energy[y, x] + prev_costs[min_idx]
+                paths[y, x] = y_prev_min + min_idx
+                
+        # Backtrack
+        end_y_costs = dp[min_y:max_y+1, w-1]
+        if np.all(np.isinf(end_y_costs)):
+            continue
+        end_y = min_y + np.argmin(end_y_costs)
+        
+        seam = []
+        curr_y = end_y
+        for x in range(w-1, -1, -1):
+            seam.append((x, curr_y))
+            curr_y = paths[curr_y, x]
+        
+        seam.reverse()
+        seams.append(seam)
+        
+    return seams
+
+def extract_line_rect(line_binary, offset_x, offset_y, region_bounds=None):
+    """Create a tight 4-point rectangular polygon around ink in a text line."""
+    h, w = line_binary.shape
+    
+    cols = np.where(np.sum(line_binary, axis=0) > 0)[0]
+    rows = np.where(np.sum(line_binary, axis=1) > 0)[0]
+    
+    if len(cols) == 0 or len(rows) == 0:
+        return []
+    
+    x1 = offset_x + int(cols[0])
+    x2 = offset_x + int(cols[-1])
+    y1 = offset_y + int(rows[0])
+    y2 = offset_y + int(rows[-1])
     
     # Clip to region bounds
     if region_bounds is not None:
@@ -68,182 +110,254 @@ def extract_line_polygon(binary_roi, offset_x, offset_y, region_bounds=None, eps
         x2 = min(rx2, x2)
         y2 = min(ry2, y2)
     
+    if x2 <= x1 or y2 <= y1:
+        return []
+    
     return [[x1, y1], [x2, y1], [x2, y2], [x1, y2]]
 
 def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
-    """Use horizontal projection profile to split a text region into individual lines."""
-    roi = binary[ry:ry + rh, rx:rx + rw]
+    """Extract individual text lines using projection profile + simple rectangles."""
+    roi = binary[ry:ry+rh, rx:rx+rw]
+    
     if roi.size == 0 or rw < 10 or rh < 10:
         return []
-
-    h_proj = np.sum(roi, axis=1).astype(np.float64) / 255.0
-    smooth_size = max(5, rh // 40)
-    if smooth_size % 2 == 0:
-        smooth_size += 1
-    h_proj_smooth = cv2.GaussianBlur(h_proj.reshape(-1, 1), (1, smooth_size), 0).flatten()
-
-    max_val = np.max(h_proj_smooth)
-    if max_val == 0:
-        return []
-    h_proj_norm = h_proj_smooth / max_val
-
-    text_rows = np.where(h_proj_norm > 0.05)[0]
-    if len(text_rows) == 0:
-        return []
-    text_start, text_end = text_rows[0], text_rows[-1]
-    proj_region = h_proj_norm[text_start:text_end + 1]
-
-    min_distance = max(8, len(proj_region) // 30)
+    
+    # Horizontal projection profile
+    proj = np.sum(roi, axis=1).astype(np.float64) / 255.0
+    proj_smooth = np.convolve(proj, np.ones(10)/10, mode='same')
+    
+    peaks, _ = find_peaks(proj_smooth, distance=20, prominence=200)
+    if len(peaks) < 2:
+        # Single line fallback
+        rect = extract_line_rect(roi, rx, ry, region_bounds)
+        return [rect] if rect else []
+    
+    # Find valleys between peaks
     valleys = []
-    for i in range(min_distance, len(proj_region) - min_distance):
-        left_max = np.max(proj_region[max(0, i - min_distance):i])
-        right_max = np.max(proj_region[i + 1:min(len(proj_region), i + min_distance + 1)])
-        local_val = proj_region[i]
-        peak_avg = (left_max + right_max) / 2
-        if peak_avg > 0 and local_val < peak_avg * 0.85:
-            window_half = min_distance // 2
-            local_window = proj_region[max(0, i - window_half):min(len(proj_region), i + window_half + 1)]
-            if local_val <= np.min(local_window) + 0.01:
-                valleys.append(i)
-
-    merged_valleys = []
-    if valleys:
-        cluster = [valleys[0]]
-        for v in valleys[1:]:
-            if v - cluster[-1] < min_distance:
-                cluster.append(v)
-            else:
-                merged_valleys.append(min(cluster, key=lambda idx: proj_region[idx]))
-                cluster = [v]
-        merged_valleys.append(min(cluster, key=lambda idx: proj_region[idx]))
-
-    boundaries = [0] + merged_valleys + [len(proj_region)]
-    line_polys = []
+    for i in range(len(peaks) - 1):
+        valley_y = peaks[i] + np.argmin(proj_smooth[peaks[i]:peaks[i+1]])
+        valleys.append(valley_y)
+    
+    # Line boundaries
+    boundaries = [0] + valleys + [rh]
+    
+    lines = []
     for i in range(len(boundaries) - 1):
-        r_start, r_end = boundaries[i], boundaries[i + 1]
-        if r_end - r_start < 5:
+        y1, y2 = boundaries[i], boundaries[i+1]
+        if y2 - y1 < 8:
             continue
-        abs_y1 = ry + text_start + r_start
-        abs_y2 = ry + text_start + r_end
-        line_strip = binary[abs_y1:abs_y2, rx:rx + rw]
-        v_proj = np.sum(line_strip, axis=0)
-        cols = np.where(v_proj > 0)[0]
-        if len(cols) < 5:
+        line_roi = roi[y1:y2, :]
+        if np.sum(line_roi) > 255 * 10:
+            rect = extract_line_rect(line_roi, rx, ry + y1, region_bounds)
+            if rect:
+                lines.append(rect)
+    
+    return lines
+
+def detect_words_and_glyphs(binary, line_rect):
+    """Detect words and individual characters (glyphs) inside a text line.
+    
+    Uses connected component bounding boxes for characters.
+    Groups characters into words based on horizontal gap analysis.
+    Returns: list of words, where each word is {'rect': [...], 'glyphs': [...]}
+    """
+    x1, y1 = line_rect[0]
+    x2, y2 = line_rect[2]
+    
+    line_roi = binary[y1:y2, x1:x2]
+    if line_roi.size == 0 or line_roi.shape[0] < 3 or line_roi.shape[1] < 3:
+        return []
+    
+    # Find connected components (each ink blob = one character/akshara)
+    num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(line_roi, connectivity=8)
+    
+    # Collect valid character bounding boxes (filter noise)
+    min_char_area = 15  # minimum pixels for a character
+    char_boxes = []
+    for i in range(1, num_labels):  # skip background (label 0)
+        area = stats[i, cv2.CC_STAT_AREA]
+        if area < min_char_area:
             continue
-        lx1 = rx + cols[0]
-        lx2 = rx + cols[-1]
-        line_roi = binary[abs_y1:abs_y2, lx1:lx2]
-        poly = extract_line_polygon(line_roi, lx1, abs_y1, region_bounds=region_bounds)
-        line_polys.append(poly)
-
-    return line_polys
-
-def create_page_xml(img_path, img_w, img_h, regions_dict, line_polys, out_path):
-    """Generates PAGE-XML conforming to 2013 schema."""
-    namespace = "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15"
-    nsmap = {None: namespace}
+        cx = stats[i, cv2.CC_STAT_LEFT]
+        cy = stats[i, cv2.CC_STAT_TOP]
+        cw = stats[i, cv2.CC_STAT_WIDTH]
+        ch = stats[i, cv2.CC_STAT_HEIGHT]
+        # Convert to absolute coordinates
+        abs_x1 = x1 + cx
+        abs_y1 = y1 + cy
+        abs_x2 = x1 + cx + cw
+        abs_y2 = y1 + cy + ch
+        char_boxes.append({
+            'rect': [[abs_x1, abs_y1], [abs_x2, abs_y1], [abs_x2, abs_y2], [abs_x1, abs_y2]],
+            'cx': abs_x1 + cw // 2,
+            'left': abs_x1,
+            'right': abs_x2
+        })
     
-    PcGts = etree.Element("{%s}PcGts" % namespace, nsmap=nsmap)
-    Metadata = etree.SubElement(PcGts, "{%s}Metadata" % namespace)
-    Creator = etree.SubElement(Metadata, "{%s}Creator" % namespace)
-    Creator.text = "AutoAnn-Indic-UNet"
-    Created = etree.SubElement(Metadata, "{%s}Created" % namespace)
-    Created.text = "2026-06-16T00:00:00"
-    LastChange = etree.SubElement(Metadata, "{%s}LastChange" % namespace)
-    LastChange.text = "2026-06-16T00:00:00"
+    if not char_boxes:
+        return []
     
-    Page = etree.SubElement(PcGts, "{%s}Page" % namespace, 
-                            imageFilename=Path(img_path).name, 
-                            imageWidth=str(img_w), 
-                            imageHeight=str(img_h))
+    # Sort characters left-to-right
+    char_boxes.sort(key=lambda c: c['left'])
+    
+    # Group into words by detecting large horizontal gaps
+    if len(char_boxes) < 2:
+        # Single character = single word
+        word_rect = char_boxes[0]['rect']
+        return [{'rect': word_rect, 'glyphs': [c['rect'] for c in char_boxes]}]
+    
+    # Calculate gaps between consecutive characters
+    gaps = []
+    for i in range(len(char_boxes) - 1):
+        gap = char_boxes[i+1]['left'] - char_boxes[i]['right']
+        gaps.append(max(0, gap))
+    
+    # Word boundary threshold: gaps larger than median * 2.5 (or at least 8px)
+    if gaps:
+        median_gap = np.median(gaps)
+        word_gap_threshold = max(8, median_gap * 2.5)
+    else:
+        word_gap_threshold = 8
+    
+    # Group characters into words
+    words = []
+    current_word_chars = [char_boxes[0]]
+    
+    for i in range(len(gaps)):
+        if gaps[i] > word_gap_threshold:
+            # End current word, start new one
+            words.append(current_word_chars)
+            current_word_chars = [char_boxes[i+1]]
+        else:
+            current_word_chars.append(char_boxes[i+1])
+    words.append(current_word_chars)  # last word
+    
+    # Build word-level bounding boxes
+    result = []
+    for word_chars in words:
+        all_x1 = min(c['rect'][0][0] for c in word_chars)
+        all_y1 = min(c['rect'][0][1] for c in word_chars)
+        all_x2 = max(c['rect'][2][0] for c in word_chars)
+        all_y2 = max(c['rect'][2][1] for c in word_chars)
+        word_rect = [[all_x1, all_y1], [all_x2, all_y1], [all_x2, all_y2], [all_x1, all_y2]]
+        glyph_rects = [c['rect'] for c in word_chars]
+        result.append({'rect': word_rect, 'glyphs': glyph_rects})
+    
+    return result
 
-    # Page frame (Border)
-    if len(regions_dict['page_frame']) > 0:
-        largest_frame = max(regions_dict['page_frame'], key=lambda p: cv2.contourArea(np.array(p)))
-        Border = etree.SubElement(Page, "{%s}Border" % namespace)
-        etree.SubElement(Border, "{%s}Coords" % namespace, points=points_to_string(largest_frame))
-
-    # Text Regions with TextLines nested inside
-    for i, poly in enumerate(regions_dict['text_regions']):
-        smooth_poly = smooth_polygon(poly)
-        TextRegion = etree.SubElement(Page, "{%s}TextRegion" % namespace, id=f"text_region_{i}", type="text_region")
-        etree.SubElement(TextRegion, "{%s}Coords" % namespace, points=points_to_string(smooth_poly))
+def create_page_xml(image_path, width, height, regions, line_polys, line_words, out_path):
+    """Generate PAGE-XML with full hierarchy: TextRegion > TextLine > Word > Glyph."""
+    ns = "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15"
+    xsi = "http://www.w3.org/2001/XMLSchema-instance"
+    schema_loc = "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd"
+    
+    def pts_str(poly):
+        return " ".join([f"{int(p[0])},{int(p[1])}" for p in poly])
+    
+    root = ET.Element("PcGts", xmlns=ns)
+    root.set("xmlns:xsi", xsi)
+    root.set("xsi:schemaLocation", schema_loc)
+    
+    metadata = ET.SubElement(root, "Metadata")
+    creator = ET.SubElement(metadata, "Creator")
+    creator.text = "AutoAnn-Indic-Pipeline"
+    created = ET.SubElement(metadata, "Created")
+    created.text = datetime.now().isoformat()
+    last_change = ET.SubElement(metadata, "LastChange")
+    last_change.text = datetime.now().isoformat()
+    
+    page = ET.SubElement(root, "Page")
+    page.set("imageFilename", Path(image_path).name)
+    page.set("imageWidth", str(width))
+    page.set("imageHeight", str(height))
+    
+    # Text Regions with full hierarchy
+    for i, poly in enumerate(regions['text_regions']):
+        region = ET.SubElement(page, "TextRegion")
+        region.set("id", f"region_text_{i}")
+        coords = ET.SubElement(region, "Coords")
+        coords.set("points", pts_str(poly))
         
-        region_pts = np.array(smooth_poly, dtype=np.float32)
-        for j, lp in enumerate(line_polys):
-            line_pts = np.array(lp)
+        # Add text lines to this region
+        region_pts = np.array(poly, dtype=np.float32)
+        for j, lpoly in enumerate(line_polys):
+            line_pts = np.array(lpoly, dtype=np.float32)
             cx, cy = np.mean(line_pts, axis=0)
             if cv2.pointPolygonTest(region_pts, (float(cx), float(cy)), False) >= 0:
-                TextLine = etree.SubElement(TextRegion, "{%s}TextLine" % namespace, id=f"line_{i}_{j}")
-                etree.SubElement(TextLine, "{%s}Coords" % namespace, points=points_to_string(lp))
+                tl = ET.SubElement(region, "TextLine")
+                tl.set("id", f"line_{i}_{j}")
+                tcoords = ET.SubElement(tl, "Coords")
+                tcoords.set("points", pts_str(lpoly))
+                
+                # Add Words and Glyphs inside this TextLine
+                words = line_words.get(j, [])
+                for k, word in enumerate(words):
+                    w_elem = ET.SubElement(tl, "Word")
+                    w_elem.set("id", f"word_{i}_{j}_{k}")
+                    wcoords = ET.SubElement(w_elem, "Coords")
+                    wcoords.set("points", pts_str(word['rect']))
+                    
+                    # Add Glyphs (characters) inside this Word
+                    for g, glyph_rect in enumerate(word['glyphs']):
+                        g_elem = ET.SubElement(w_elem, "Glyph")
+                        g_elem.set("id", f"glyph_{i}_{j}_{k}_{g}")
+                        gcoords = ET.SubElement(g_elem, "Coords")
+                        gcoords.set("points", pts_str(glyph_rect))
 
-    # Marginalia
-    for i, poly in enumerate(regions_dict['marginalia']):
-        smooth_poly = smooth_polygon(poly)
-        TextRegion = etree.SubElement(Page, "{%s}TextRegion" % namespace, id=f"marginalia_{i}", type="marginalia")
-        etree.SubElement(TextRegion, "{%s}Coords" % namespace, points=points_to_string(smooth_poly))
-
-    # Illustrations
-    for i, poly in enumerate(regions_dict['illustrations']):
-        GraphicRegion = etree.SubElement(Page, "{%s}GraphicRegion" % namespace, id=f"illustration_{i}")
-        etree.SubElement(GraphicRegion, "{%s}Coords" % namespace, points=points_to_string(poly))
-
-    # Damage/Holes
-    for i, poly in enumerate(regions_dict['damage_holes']):
-        NoiseRegion = etree.SubElement(Page, "{%s}NoiseRegion" % namespace, id=f"damage_{i}")
-        etree.SubElement(NoiseRegion, "{%s}Coords" % namespace, points=points_to_string(poly))
-
-    tree = etree.ElementTree(PcGts)
-    tree.write(out_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+    # Other regions
+    def add_regions(region_list, tag_name, id_prefix):
+        for i, poly in enumerate(region_list):
+            if len(poly) < 3: continue
+            r = ET.SubElement(page, tag_name)
+            r.set("id", f"{id_prefix}_{i}")
+            c = ET.SubElement(r, "Coords")
+            c.set("points", pts_str(poly))
+            
+    add_regions(regions['marginalia'], "TextRegion", "region_margin")
+    add_regions(regions['illustrations'], "GraphicRegion", "region_illus")
+    add_regions(regions['page_frame'], "Border", "border")
+    add_regions(regions['damage_holes'], "NoiseRegion", "noise")
+    
+    tree = ET.ElementTree(root)
+    ET.indent(tree, space="  ", level=0)
+    tree.write(out_path, encoding="utf-8", xml_declaration=True)
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, required=True, help="Input directory of images")
-    parser.add_argument('--output', type=str, required=True, help="Output directory for PAGE-XML files")
-    parser.add_argument('--model', type=str, required=True, help="Path to UNet weights")
+    parser.add_argument("--input", required=True)
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--model", required=True)
     args = parser.parse_args()
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Loading model on {device}...")
+    model = UNet(n_classes=6).to(device)
+    model.load_state_dict(torch.load(args.model, map_location=device))
+    model.eval()
+    print("Model weights loaded.")
 
     in_dir = Path(args.input)
     out_dir = Path(args.output)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"Loading model on {device}...")
-    model = UNet(n_channels=3, n_classes=6, bilinear=False).to(device)
-    
-    if Path(args.model).exists():
-        model.load_state_dict(torch.load(args.model, map_location=device))
-        print("Model weights loaded.")
-    else:
-        print("WARNING: Model weights not found. Using untrained weights.")
-    
-    model.eval()
-
-    image_files = list(in_dir.glob("*.jpg")) + list(in_dir.glob("*.png"))
-    for img_path in tqdm(image_files, desc="Processing Images"):
+    img_paths = list(in_dir.glob("*.jpg"))
+    from tqdm import tqdm
+    for img_path in tqdm(img_paths, desc="Processing Images"):
         img = cv2.imread(str(img_path))
         if img is None: continue
         h, w = img.shape[:2]
-
-        # Preprocess for UNet
+        
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         img_resized = cv2.resize(img_rgb, (512, 512))
-        img_tensor = torch.tensor(img_resized.transpose(2, 0, 1), dtype=torch.float32) / 255.0
-        img_tensor = img_tensor.unsqueeze(0).to(device)
-
-        # UNet Inference (for regions, page_frame, damage, etc.)
+        img_norm = img_resized.astype(np.float32) / 255.0
+        img_tensor = torch.from_numpy(img_norm).permute(2, 0, 1).unsqueeze(0).to(device)
+        
         with torch.no_grad():
-            if device.type == 'cuda':
-                with torch.amp.autocast('cuda'):
-                    outputs = model(img_tensor)
-            else:
-                outputs = model(img_tensor)
-            probs = torch.sigmoid(outputs[0]).float().cpu().numpy()
-
-        # Get region-level polygons from UNet
+            logits = model(img_tensor)
+            probs = torch.sigmoid(logits).squeeze(0).cpu().numpy()
+            
         regions = process_unet_outputs(probs, w, h)
 
-        # --- Create a mask of the actual leaf area (exclude dark scanner background) ---
         leaf_mask = np.zeros((h, w), dtype=np.uint8)
         if len(regions['page_frame']) > 0:
             for pf_poly in regions['page_frame']:
@@ -255,12 +369,11 @@ def main():
             kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 30))
             leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_CLOSE, kernel)
 
-        # Mask the binary image
         binary = binarize(img)
         binary = cv2.bitwise_and(binary, leaf_mask)
 
-        # --- TEXT LINE DETECTION using projection profile at full resolution ---
         all_line_polys = []
+        all_line_words = {}  # maps line index -> list of words
         for poly in regions['text_regions']:
             pts = np.array(poly, dtype=np.int32)
             rx, ry, rw, rh = cv2.boundingRect(pts)
@@ -270,14 +383,17 @@ def main():
             rh = min(h - ry, rh)
             region_bounds = (rx, ry, rx + rw, ry + rh)
             lines = detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=region_bounds)
-            all_line_polys.extend(lines)
+            for line_rect in lines:
+                line_idx = len(all_line_polys)
+                all_line_polys.append(line_rect)
+                # Detect words and glyphs inside this line
+                words = detect_words_and_glyphs(binary, line_rect)
+                all_line_words[line_idx] = words
 
-        # Export XML
         out_xml_path = out_dir / f"{img_path.stem}.xml"
-        create_page_xml(str(img_path), w, h, regions, all_line_polys, str(out_xml_path))
+        create_page_xml(str(img_path), w, h, regions, all_line_polys, all_line_words, str(out_xml_path))
 
     print(f"Inference complete! PAGE-XML files saved to {out_dir}")
 
 if __name__ == "__main__":
     main()
-
