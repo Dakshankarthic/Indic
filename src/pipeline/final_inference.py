@@ -155,9 +155,12 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
         
     # Horizontal projection profile
     proj = np.sum(roi_rot, axis=1).astype(np.float64) / 255.0
+    
+    # Smooth projection profile
     proj_smooth = np.convolve(proj, np.ones(10)/10, mode='same')
     
-    peaks, _ = find_peaks(proj_smooth, distance=20, prominence=200)
+    # Find peaks (text line centers)
+    peaks, _ = find_peaks(proj_smooth, distance=15, prominence=50)
     if len(peaks) < 2:
         # Single line fallback
         rect = extract_line_rect(roi, rx, ry, region_bounds)
@@ -321,7 +324,7 @@ def detect_words_and_glyphs(binary, line_rect):
     
     return result
 
-def create_page_xml(image_path, width, height, regions, line_polys, line_words, out_path):
+def create_page_xml(image_path, width, height, regions, region_line_data, out_path):
     """Generate PAGE-XML with full hierarchy: TextRegion > TextLine > Word > Glyph."""
     ns = "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15"
     xsi = "http://www.w3.org/2001/XMLSchema-instance"
@@ -354,31 +357,28 @@ def create_page_xml(image_path, width, height, regions, line_polys, line_words, 
         coords = ET.SubElement(region, "Coords")
         coords.set("points", pts_str(poly))
         
-        # Add text lines to this region
-        region_pts = np.array(poly, dtype=np.float32)
-        for j, lpoly in enumerate(line_polys):
-            line_pts = np.array(lpoly, dtype=np.float32)
-            cx, cy = np.mean(line_pts, axis=0)
-            if cv2.pointPolygonTest(region_pts, (float(cx), float(cy)), False) >= 0:
-                tl = ET.SubElement(region, "TextLine")
-                tl.set("id", f"line_{i}_{j}")
-                tcoords = ET.SubElement(tl, "Coords")
-                tcoords.set("points", pts_str(lpoly))
+        # Add text lines to this region directly (no pointPolygonTest hack)
+        lines_for_region = region_line_data.get(i, [])
+        for j, line_data in enumerate(lines_for_region):
+            lpoly = line_data['rect']
+            tl = ET.SubElement(region, "TextLine")
+            tl.set("id", f"line_{i}_{j}")
+            tcoords = ET.SubElement(tl, "Coords")
+            tcoords.set("points", pts_str(lpoly))
+            
+            # Add Words and Glyphs inside this TextLine
+            for k, word in enumerate(line_data['words']):
+                w_elem = ET.SubElement(tl, "Word")
+                w_elem.set("id", f"word_{i}_{j}_{k}")
+                wcoords = ET.SubElement(w_elem, "Coords")
+                wcoords.set("points", pts_str(word['rect']))
                 
-                # Add Words and Glyphs inside this TextLine
-                words = line_words.get(j, [])
-                for k, word in enumerate(words):
-                    w_elem = ET.SubElement(tl, "Word")
-                    w_elem.set("id", f"word_{i}_{j}_{k}")
-                    wcoords = ET.SubElement(w_elem, "Coords")
-                    wcoords.set("points", pts_str(word['rect']))
-                    
-                    # Add Glyphs (characters) inside this Word
-                    for g, glyph_rect in enumerate(word['glyphs']):
-                        g_elem = ET.SubElement(w_elem, "Glyph")
-                        g_elem.set("id", f"glyph_{i}_{j}_{k}_{g}")
-                        gcoords = ET.SubElement(g_elem, "Coords")
-                        gcoords.set("points", pts_str(glyph_rect))
+                # Add Glyphs (characters) inside this Word
+                for g, glyph_rect in enumerate(word['glyphs']):
+                    g_elem = ET.SubElement(w_elem, "Glyph")
+                    g_elem.set("id", f"glyph_{i}_{j}_{k}_{g}")
+                    gcoords = ET.SubElement(g_elem, "Coords")
+                    gcoords.set("points", pts_str(glyph_rect))
 
     # Other regions
     def add_regions(region_list, tag_name, id_prefix):
@@ -448,9 +448,9 @@ def main():
         binary = binarize(img)
         binary = cv2.bitwise_and(binary, leaf_mask)
 
-        all_line_polys = []
-        all_line_words = {}  # maps line index -> list of words
-        for poly in regions['text_regions']:
+        region_line_data = {}
+        for i, poly in enumerate(regions['text_regions']):
+            region_line_data[i] = []
             pts = np.array(poly, dtype=np.int32)
             rx, ry, rw, rh = cv2.boundingRect(pts)
             rx = max(0, rx)
@@ -460,14 +460,14 @@ def main():
             region_bounds = (rx, ry, rx + rw, ry + rh)
             lines = detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=region_bounds)
             for line_rect in lines:
-                line_idx = len(all_line_polys)
-                all_line_polys.append(line_rect)
-                # Detect words and glyphs inside this line
                 words = detect_words_and_glyphs(binary, line_rect)
-                all_line_words[line_idx] = words
+                region_line_data[i].append({
+                    'rect': line_rect,
+                    'words': words
+                })
 
         out_xml_path = out_dir / f"{img_path.stem}.xml"
-        create_page_xml(str(img_path), w, h, regions, all_line_polys, all_line_words, str(out_xml_path))
+        create_page_xml(str(img_path), w, h, regions, region_line_data, str(out_xml_path))
 
     print(f"Inference complete! PAGE-XML files saved to {out_dir}")
 
