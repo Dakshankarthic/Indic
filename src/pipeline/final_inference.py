@@ -160,7 +160,7 @@ def detect_lines_in_region(binary, rx, ry, rw, rh, region_bounds=None):
     proj_smooth = np.convolve(proj, np.ones(10)/10, mode='same')
     
     # Find peaks (text line centers)
-    peaks, _ = find_peaks(proj_smooth, distance=15, prominence=50)
+    peaks, _ = find_peaks(proj_smooth, distance=15, prominence=200)
     if len(peaks) < 2:
         # Single line fallback
         rect = extract_line_rect(roi, rx, ry, region_bounds)
