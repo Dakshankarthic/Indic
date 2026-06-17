@@ -2,8 +2,8 @@
 <PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
   <Metadata>
     <Creator>AutoAnn-Indic-Pipeline</Creator>
-    <Created>2026-06-17T17:59:17.196955</Created>
-    <LastChange>2026-06-17T17:59:17.196955</LastChange>
+    <Created>2026-06-17T18:16:15.418669</Created>
+    <LastChange>2026-06-17T18:16:15.418669</LastChange>
   </Metadata>
   <Page imageFilename="ms1000_1994_0002_web.jpg" imageWidth="1800" imageHeight="1455">
     <TextRegion id="region_text_0">
@@ -1025,7 +1025,7 @@
           </Glyph>
         </Word>
         <Word id="word_0_7_1">
-          <Coords points="277,1214 1523,1214 1523,1277 277,1277" />
+          <Coords points="277,1217 376,1217 376,1264 277,1264" />
           <Glyph id="glyph_0_7_1_0">
             <Coords points="277,1218 301,1218 301,1254 277,1254" />
           </Glyph>
@@ -1038,121 +1038,124 @@
           <Glyph id="glyph_0_7_1_3">
             <Coords points="354,1217 376,1217 376,1264 354,1264" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_4">
+        </Word>
+        <Word id="word_0_7_2">
+          <Coords points="388,1214 1523,1214 1523,1277 388,1277" />
+          <Glyph id="glyph_0_7_2_0">
             <Coords points="388,1228 396,1228 396,1251 388,1251" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_5">
+          <Glyph id="glyph_0_7_2_1">
             <Coords points="397,1228 404,1228 404,1253 397,1253" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_6">
+          <Glyph id="glyph_0_7_2_2">
             <Coords points="410,1227 443,1227 443,1260 410,1260" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_7">
+          <Glyph id="glyph_0_7_2_3">
             <Coords points="444,1228 485,1228 485,1262 444,1262" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_8">
+          <Glyph id="glyph_0_7_2_4">
             <Coords points="488,1219 513,1219 513,1259 488,1259" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_9">
+          <Glyph id="glyph_0_7_2_5">
             <Coords points="515,1217 547,1217 547,1261 515,1261" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_10">
+          <Glyph id="glyph_0_7_2_6">
             <Coords points="552,1226 594,1226 594,1263 552,1263" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_11">
+          <Glyph id="glyph_0_7_2_7">
             <Coords points="594,1217 632,1217 632,1262 594,1262" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_12">
+          <Glyph id="glyph_0_7_2_8">
             <Coords points="636,1227 674,1227 674,1262 636,1262" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_13">
+          <Glyph id="glyph_0_7_2_9">
             <Coords points="677,1218 709,1218 709,1269 677,1269" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_14">
+          <Glyph id="glyph_0_7_2_10">
             <Coords points="711,1225 719,1225 719,1277 711,1277" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_15">
+          <Glyph id="glyph_0_7_2_11">
             <Coords points="721,1226 758,1226 758,1261 721,1261" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_16">
+          <Glyph id="glyph_0_7_2_12">
             <Coords points="760,1225 788,1225 788,1264 760,1264" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_17">
+          <Glyph id="glyph_0_7_2_13">
             <Coords points="789,1225 816,1225 816,1262 789,1262" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_18">
+          <Glyph id="glyph_0_7_2_14">
             <Coords points="818,1224 841,1224 841,1268 818,1268" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_19">
+          <Glyph id="glyph_0_7_2_15">
             <Coords points="837,1214 873,1214 873,1261 837,1261" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_20">
+          <Glyph id="glyph_0_7_2_16">
             <Coords points="874,1225 906,1225 906,1272 874,1272" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_21">
+          <Glyph id="glyph_0_7_2_17">
             <Coords points="906,1216 935,1216 935,1256 906,1256" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_22">
+          <Glyph id="glyph_0_7_2_18">
             <Coords points="938,1224 960,1224 960,1256 938,1256" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_23">
+          <Glyph id="glyph_0_7_2_19">
             <Coords points="960,1215 996,1215 996,1256 960,1256" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_24">
+          <Glyph id="glyph_0_7_2_20">
             <Coords points="999,1225 1030,1225 1030,1255 999,1255" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_25">
+          <Glyph id="glyph_0_7_2_21">
             <Coords points="1035,1214 1070,1214 1070,1255 1035,1255" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_26">
+          <Glyph id="glyph_0_7_2_22">
             <Coords points="1070,1226 1092,1226 1092,1255 1070,1255" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_27">
+          <Glyph id="glyph_0_7_2_23">
             <Coords points="1095,1224 1135,1224 1135,1253 1095,1253" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_28">
+          <Glyph id="glyph_0_7_2_24">
             <Coords points="1139,1226 1162,1226 1162,1254 1139,1254" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_29">
+          <Glyph id="glyph_0_7_2_25">
             <Coords points="1162,1230 1169,1230 1169,1244 1162,1244" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_30">
+          <Glyph id="glyph_0_7_2_26">
             <Coords points="1172,1227 1178,1227 1178,1249 1172,1249" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_31">
+          <Glyph id="glyph_0_7_2_27">
             <Coords points="1181,1227 1187,1227 1187,1251 1181,1251" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_32">
+          <Glyph id="glyph_0_7_2_28">
             <Coords points="1191,1226 1216,1226 1216,1259 1191,1259" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_33">
+          <Glyph id="glyph_0_7_2_29">
             <Coords points="1218,1224 1251,1224 1251,1272 1218,1272" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_34">
+          <Glyph id="glyph_0_7_2_30">
             <Coords points="1254,1224 1282,1224 1282,1252 1254,1252" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_35">
+          <Glyph id="glyph_0_7_2_31">
             <Coords points="1285,1223 1319,1223 1319,1260 1285,1260" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_36">
+          <Glyph id="glyph_0_7_2_32">
             <Coords points="1322,1225 1354,1225 1354,1255 1322,1255" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_37">
+          <Glyph id="glyph_0_7_2_33">
             <Coords points="1356,1225 1382,1225 1382,1254 1356,1254" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_38">
+          <Glyph id="glyph_0_7_2_34">
             <Coords points="1385,1225 1414,1225 1414,1257 1385,1257" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_39">
+          <Glyph id="glyph_0_7_2_35">
             <Coords points="1416,1224 1435,1224 1435,1254 1416,1254" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_40">
+          <Glyph id="glyph_0_7_2_36">
             <Coords points="1436,1224 1460,1224 1460,1255 1436,1255" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_41">
+          <Glyph id="glyph_0_7_2_37">
             <Coords points="1464,1224 1486,1224 1486,1256 1464,1256" />
           </Glyph>
-          <Glyph id="glyph_0_7_1_42">
+          <Glyph id="glyph_0_7_2_38">
             <Coords points="1489,1216 1523,1216 1523,1256 1489,1256" />
           </Glyph>
         </Word>
@@ -2072,11 +2075,14 @@
           </Glyph>
         </Word>
         <Word id="word_1_6_1">
-          <Coords points="1581,495 1629,495 1629,547 1581,547" />
+          <Coords points="1581,495 1600,495 1600,518 1581,518" />
           <Glyph id="glyph_1_6_1_0">
             <Coords points="1581,495 1600,495 1600,518 1581,518" />
           </Glyph>
-          <Glyph id="glyph_1_6_1_1">
+        </Word>
+        <Word id="word_1_6_2">
+          <Coords points="1620,541 1629,541 1629,547 1620,547" />
+          <Glyph id="glyph_1_6_2_0">
             <Coords points="1620,541 1629,541 1629,547 1620,547" />
           </Glyph>
         </Word>

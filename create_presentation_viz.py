@@ -134,11 +134,13 @@ for r in regions_data:
     for l in r['lines']:
         cv2.polylines(v4, [l['pts']], True, (80, 80, 80), 1, cv2.LINE_AA)
         for wi, wd in enumerate(l['words']):
-            # Draw underline for words
-            wx1 = np.min(wd['pts'][:, 0])
-            wx2 = np.max(wd['pts'][:, 0])
-            wy_bottom = np.max(wd['pts'][:, 1])
-            cv2.line(v4, (wx1, wy_bottom + 2), (wx2, wy_bottom + 2), COLOR_WORD, 3, cv2.LINE_AA)
+            # Draw underline for words following skew
+            if len(wd['glyphs']) > 0:
+                first_glyph = wd['glyphs'][0]
+                last_glyph = wd['glyphs'][-1]
+                wx1, wy1 = first_glyph[3][0], first_glyph[3][1] # bottom-left of first glyph
+                wx2, wy2 = last_glyph[2][0], last_glyph[2][1]   # bottom-right of last glyph
+                cv2.line(v4, (wx1, wy1 + 2), (wx2, wy2 + 2), COLOR_WORD, 3, cv2.LINE_AA)
             for g in wd['glyphs']:
                 cv2.polylines(v4, [g], True, COLOR_GLYPH, 1, cv2.LINE_AA)
 add_label(v4, f"Word ({total_words}) + Glyph ({total_glyphs}) Detection", (15, 30), COLOR_WORD, 0.7, 2)
@@ -160,11 +162,13 @@ for r in regions_data:
     for l in r['lines']:
         cv2.polylines(v5, [l['pts']], True, COLOR_LINE, 2, cv2.LINE_AA)
         for wd in l['words']:
-            # Draw underline for words
-            wx1 = np.min(wd['pts'][:, 0])
-            wx2 = np.max(wd['pts'][:, 0])
-            wy_bottom = np.max(wd['pts'][:, 1])
-            cv2.line(v5, (wx1, wy_bottom + 2), (wx2, wy_bottom + 2), COLOR_WORD, 2, cv2.LINE_AA)
+            # Draw underline for words following skew
+            if len(wd['glyphs']) > 0:
+                first_glyph = wd['glyphs'][0]
+                last_glyph = wd['glyphs'][-1]
+                wx1, wy1 = first_glyph[3][0], first_glyph[3][1] # bottom-left of first glyph
+                wx2, wy2 = last_glyph[2][0], last_glyph[2][1]   # bottom-right of last glyph
+                cv2.line(v5, (wx1, wy1 + 2), (wx2, wy2 + 2), COLOR_WORD, 2, cv2.LINE_AA)
             for g in wd['glyphs']:
                 cv2.polylines(v5, [g], True, COLOR_GLYPH, 1, cv2.LINE_AA)
 
