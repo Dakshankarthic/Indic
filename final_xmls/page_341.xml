@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Antigravity Pipeline</Creator>
+    <Created>2026-07-05T12:00:00</Created>
+    <LastChange>2026-07-05T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_341.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="1,0 510,0 510,17 1,17"/>
+      <TextLine id="line_0000">
+        <Coords points="1,0 510,0 510,17 1,17"/>
+        <Word id="word_0000_0000">
+          <Coords points="2,2 510,2 510,17 2,17"/>
+          <Glyph id="glyph_0000_0000_0000">
+            <Coords points="2,2 510,2 510,17 2,17"/>
+            <TextEquiv>
+              <Unicode>[`]</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>[`]</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>[`]</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="1,17 510,17 510,56 1,56"/>
+      <TextLine id="line_0001">
+        <Coords points="1,17 510,17 510,56 1,56"/>
+        <Word id="word_0001_0000">
+          <Coords points="2,17 5,17 5,56 2,56"/>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0001">
+          <Coords points="201,35 258,35 258,53 201,53"/>
+          <Glyph id="glyph_0001_0001_0000">
+            <Coords points="201,35 219,35 219,53 201,53"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0001">
+            <Coords points="217,40 231,40 231,53 217,53"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0002">
+            <Coords points="229,40 242,40 242,53 229,53"/>
+            <TextEquiv>
+              <Unicode>ट</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0003">
+            <Coords points="240,35 258,35 258,53 240,53"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>केवटके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0002">
+          <Coords points="270,41 307,41 307,53 270,53"/>
+          <Glyph id="glyph_0001_0002_0000">
+            <Coords points="270,41 289,41 289,53 270,53"/>
+            <TextEquiv>
+              <Unicode>भा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0002_0001">
+            <Coords points="287,41 307,41 307,53 287,53"/>
+            <TextEquiv>
+              <Unicode>ग्य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>भाग्य</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0003">
+          <Coords points="507,17 510,17 510,56 507,56"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>। केवटके भाग्य |</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0002">
+      <Coords points="1,56 510,56 510,127 1,127"/>
+      <TextLine id="line_0002">
+        <Coords points="1,56 510,56 510,127 1,127"/>
+        <Word id="word_0002_0000">
+          <Coords points="2,56 5,56 5,127 2,127"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0001">
+          <Coords points="507,56 509,56 509,127 507,127"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>| |</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <GraphicRegion id="graphic_region_0001">
+      <Coords points="93,173 427,173 427,511 93,511"/>
+    </GraphicRegion>
+  </Page>
+</PcGts>

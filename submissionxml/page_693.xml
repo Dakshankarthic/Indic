@@ -1,0 +1,5083 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Surya OCR + DINO Pipeline</Creator>
+    <Created>2026-07-07T12:00:00</Created>
+    <LastChange>2026-07-07T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_693.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="14,4 301,4 301,15 14,15"/>
+      <TextLine id="line_0000">
+        <Coords points="14,4 301,4 301,15 14,15"/>
+        <Word id="word_0000_0000">
+          <Coords points="14,7 28,7 28,15 14,15"/>
+          <Glyph id="glyph_0000_0000_0000">
+            <Coords points="14,7 28,7 28,15 14,15"/>
+            <TextEquiv>
+              <Unicode>5</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>5</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0000_0001">
+          <Coords points="213,8 218,8 218,14 213,14"/>
+          <Glyph id="glyph_0000_0001_0000">
+            <Coords points="213,8 218,8 218,14 213,14"/>
+            <TextEquiv>
+              <Unicode>1</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>1</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0000_0002">
+          <Coords points="222,4 299,4 299,15 222,15"/>
+          <Glyph id="glyph_0000_0002_0000">
+            <Coords points="222,4 299,4 299,15 222,15"/>
+            <TextEquiv>
+              <Unicode>8</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>8</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>5 1 8</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="13,15 472,15 472,31 13,31"/>
+      <TextLine id="line_0001">
+        <Coords points="13,15 472,15 472,31 13,31"/>
+        <Word id="word_0001_0000">
+          <Coords points="13,15 472,15 472,23 13,23"/>
+          <Glyph id="glyph_0001_0000_0000">
+            <Coords points="13,15 472,15 472,23 13,23"/>
+            <TextEquiv>
+              <Unicode>*</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>*</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>* रामचरितमानस *</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0002">
+      <Coords points="2,31 452,31 452,61 2,61"/>
+      <TextLine id="line_0002">
+        <Coords points="2,31 452,31 452,61 2,61"/>
+        <Word id="word_0002_0000">
+          <Coords points="3,31 47,31 47,61 3,61"/>
+          <Glyph id="glyph_0002_0000_0000">
+            <Coords points="3,36 31,36 31,58 3,58"/>
+            <TextEquiv>
+              <Unicode>दो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0000_0001">
+            <Coords points="29,46 47,46 47,52 29,52"/>
+            <TextEquiv>
+              <Unicode>०—</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दो०—</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0001">
+          <Coords points="59,31 122,31 122,61 59,61"/>
+          <Glyph id="glyph_0002_0001_0000">
+            <Coords points="59,39 74,39 74,56 59,56"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0001_0001">
+            <Coords points="72,33 96,33 96,56 72,56"/>
+            <TextEquiv>
+              <Unicode>छि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0001_0002">
+            <Coords points="94,39 110,39 110,56 94,56"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0001_0003">
+            <Coords points="108,39 122,39 122,56 108,56"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लछिमन</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0002">
+          <Coords points="139,40 176,40 176,61 139,61"/>
+          <Glyph id="glyph_0002_0002_0000">
+            <Coords points="139,40 155,40 155,61 139,61"/>
+            <TextEquiv>
+              <Unicode>तु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0002_0001">
+            <Coords points="153,40 163,40 163,61 153,61"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0002_0002">
+            <Coords points="161,40 176,40 176,56 161,56"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>तुरत</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0003">
+          <Coords points="192,34 252,34 252,60 192,60"/>
+          <Glyph id="glyph_0002_0003_0000">
+            <Coords points="192,34 215,34 215,56 192,56"/>
+            <TextEquiv>
+              <Unicode>बो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0003_0001">
+            <Coords points="213,39 232,39 232,56 213,56"/>
+            <TextEquiv>
+              <Unicode>ला</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0003_0002">
+            <Coords points="230,39 252,39 252,60 230,60"/>
+            <TextEquiv>
+              <Unicode>ए</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बोलाए</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0004">
+          <Coords points="268,40 321,40 321,61 268,61"/>
+          <Glyph id="glyph_0002_0004_0000">
+            <Coords points="268,40 284,40 284,61 268,61"/>
+            <TextEquiv>
+              <Unicode>पु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0004_0001">
+            <Coords points="282,40 292,40 292,61 282,61"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0004_0002">
+            <Coords points="290,40 308,40 308,56 290,56"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0004_0003">
+            <Coords points="306,40 321,40 321,56 306,56"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>पुरजन</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0005">
+          <Coords points="338,34 373,34 373,55 338,55"/>
+          <Glyph id="glyph_0002_0005_0000">
+            <Coords points="338,34 359,34 359,55 338,55"/>
+            <TextEquiv>
+              <Unicode>बि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0005_0001">
+            <Coords points="357,39 373,39 373,55 357,55"/>
+            <TextEquiv>
+              <Unicode>प्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बिप्र</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0006">
+          <Coords points="389,40 452,40 452,55 389,55"/>
+          <Glyph id="glyph_0002_0006_0000">
+            <Coords points="389,40 407,40 407,55 389,55"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0006_0001">
+            <Coords points="405,40 420,40 420,55 405,55"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0006_0002">
+            <Coords points="418,40 437,40 437,55 418,55"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0006_0003">
+            <Coords points="435,40 452,40 452,55 435,55"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>समाज।</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>दो०— लछिमन   तुरत   बोलाए   पुरजन   बिप्र   समाज।</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0003">
+      <Coords points="56,61 507,61 507,91 56,91"/>
+      <TextLine id="line_0003">
+        <Coords points="56,61 507,61 507,91 56,91"/>
+        <Word id="word_0003_0000">
+          <Coords points="57,70 91,70 91,91 57,91"/>
+          <Glyph id="glyph_0003_0000_0000">
+            <Coords points="57,70 74,70 74,86 57,86"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0000_0001">
+            <Coords points="72,70 91,70 91,91 72,91"/>
+            <TextEquiv>
+              <Unicode>जु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>राजु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0001">
+          <Coords points="104,64 144,64 144,87 104,87"/>
+          <Glyph id="glyph_0003_0001_0000">
+            <Coords points="104,64 125,64 125,87 104,87"/>
+            <TextEquiv>
+              <Unicode>दी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0001_0001">
+            <Coords points="123,69 144,69 144,87 123,87"/>
+            <TextEquiv>
+              <Unicode>न्ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दीन्ह</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0002">
+          <Coords points="157,64 210,64 210,91 157,91"/>
+          <Glyph id="glyph_0003_0002_0000">
+            <Coords points="157,69 177,69 177,91 157,91"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0002_0001">
+            <Coords points="175,64 195,64 195,91 175,91"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0002_0002">
+            <Coords points="193,69 210,69 210,86 193,86"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीव</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0003">
+          <Coords points="223,63 257,63 257,87 223,87"/>
+          <Glyph id="glyph_0003_0003_0000">
+            <Coords points="223,69 238,69 238,86 223,86"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0003_0001">
+            <Coords points="236,69 246,69 246,85 236,85"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0003_0002">
+            <Coords points="244,63 257,63 257,87 244,87"/>
+            <TextEquiv>
+              <Unicode>ँ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कहँ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0004">
+          <Coords points="273,65 317,65 317,87 273,87"/>
+          <Glyph id="glyph_0003_0004_0000">
+            <Coords points="273,69 284,69 284,85 273,85"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0004_0001">
+            <Coords points="282,65 298,65 298,86 282,86"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0004_0002">
+            <Coords points="296,69 305,69 305,86 296,86"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0004_0003">
+            <Coords points="303,69 317,69 317,87 303,87"/>
+            <TextEquiv>
+              <Unicode>द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अंगद</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0005">
+          <Coords points="330,63 364,63 364,87 330,87"/>
+          <Glyph id="glyph_0003_0005_0000">
+            <Coords points="330,69 346,69 346,86 330,86"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0005_0001">
+            <Coords points="344,69 354,69 354,85 344,85"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0005_0002">
+            <Coords points="352,63 364,63 364,87 352,87"/>
+            <TextEquiv>
+              <Unicode>ँ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कहँ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0006">
+          <Coords points="378,70 458,70 458,91 378,91"/>
+          <Glyph id="glyph_0003_0006_0000">
+            <Coords points="378,70 398,70 398,91 378,91"/>
+            <TextEquiv>
+              <Unicode>जु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0006_0001">
+            <Coords points="396,70 412,70 412,91 396,91"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0006_0002">
+            <Coords points="410,70 427,70 427,86 410,86"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0006_0003">
+            <Coords points="425,70 446,70 446,86 425,86"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0006_0004">
+            <Coords points="444,70 458,70 458,86 444,86"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जुबराज॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0007">
+          <Coords points="468,70 507,70 507,87 468,87"/>
+          <Glyph id="glyph_0003_0007_0000">
+            <Coords points="468,70 480,70 480,87 468,87"/>
+            <TextEquiv>
+              <Unicode>१</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0007_0001">
+            <Coords points="478,70 494,70 494,87 478,87"/>
+            <TextEquiv>
+              <Unicode>१</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0003_0007_0002">
+            <Coords points="492,70 507,70 507,86 492,86"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>११॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>राजु   दीन्ह   सुग्रीव   कहँ   अंगद   कहँ   जुबराज॥ ११॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0004">
+      <Coords points="25,91 509,91 509,113 25,113"/>
+      <TextLine id="line_0004">
+        <Coords points="25,91 509,91 509,113 25,113"/>
+        <Word id="word_0004_0000">
+          <Coords points="25,95 83,95 83,110 25,110"/>
+          <Glyph id="glyph_0004_0000_0000">
+            <Coords points="25,98 37,98 37,110 25,110"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0000_0001">
+            <Coords points="35,98 48,98 48,110 35,110"/>
+            <TextEquiv>
+              <Unicode>क्ष्म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0000_0002">
+            <Coords points="46,98 62,98 62,110 46,110"/>
+            <TextEquiv>
+              <Unicode>ण</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0000_0003">
+            <Coords points="60,95 74,95 74,110 60,110"/>
+            <TextEquiv>
+              <Unicode>जी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0000_0004">
+            <Coords points="72,95 83,95 83,110 72,110"/>
+            <TextEquiv>
+              <Unicode>ने</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लक्ष्मणजीने</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0001">
+          <Coords points="88,96 110,96 110,113 88,113"/>
+          <Glyph id="glyph_0004_0001_0000">
+            <Coords points="88,98 94,98 94,113 88,113"/>
+            <TextEquiv>
+              <Unicode>तु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0001_0001">
+            <Coords points="92,96 102,96 102,113 92,113"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0001_0002">
+            <Coords points="100,96 105,96 105,110 100,110"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0001_0003">
+            <Coords points="103,98 110,98 110,110 103,110"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>तुरंत</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0002">
+          <Coords points="116,95 128,95 128,110 116,110"/>
+          <Glyph id="glyph_0004_0002_0000">
+            <Coords points="116,95 128,95 128,110 116,110"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>ही</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0003">
+          <Coords points="134,99 153,99 153,109 134,109"/>
+          <Glyph id="glyph_0004_0003_0000">
+            <Coords points="134,99 145,99 145,109 134,109"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0003_0001">
+            <Coords points="143,99 153,99 153,109 143,109"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सब</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0004">
+          <Coords points="158,95 245,95 245,109 158,109"/>
+          <Glyph id="glyph_0004_0004_0000">
+            <Coords points="158,98 168,98 168,109 158,109"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0001">
+            <Coords points="166,98 176,98 176,109 166,109"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0002">
+            <Coords points="174,95 188,95 188,109 174,109"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0003">
+            <Coords points="186,95 195,95 195,109 186,109"/>
+            <TextEquiv>
+              <Unicode>नि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0004">
+            <Coords points="193,95 209,95 209,109 193,109"/>
+            <TextEquiv>
+              <Unicode>वा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0005">
+            <Coords points="207,95 219,95 219,109 207,109"/>
+            <TextEquiv>
+              <Unicode>सि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0006">
+            <Coords points="217,95 227,95 227,109 217,109"/>
+            <TextEquiv>
+              <Unicode>यो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0007">
+            <Coords points="225,95 234,95 234,109 225,109"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0004_0008">
+            <Coords points="232,95 245,95 245,109 232,109"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नगरनिवासियोंको</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0005">
+          <Coords points="252,95 272,95 272,109 252,109"/>
+          <Glyph id="glyph_0004_0005_0000">
+            <Coords points="252,95 265,95 265,109 252,109"/>
+            <TextEquiv>
+              <Unicode>औ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0005_0001">
+            <Coords points="263,95 272,95 272,109 263,109"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>और</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0006">
+          <Coords points="278,95 327,95 327,110 278,110"/>
+          <Glyph id="glyph_0004_0006_0000">
+            <Coords points="278,98 287,98 287,110 278,110"/>
+            <TextEquiv>
+              <Unicode>ब्रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0006_0001">
+            <Coords points="285,98 298,98 298,110 285,110"/>
+            <TextEquiv>
+              <Unicode>ह्म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0006_0002">
+            <Coords points="296,98 306,98 306,110 296,110"/>
+            <TextEquiv>
+              <Unicode>णो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0006_0003">
+            <Coords points="304,95 316,95 316,110 304,110"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0006_0004">
+            <Coords points="314,95 327,95 327,110 314,110"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>ब्राह्मणोंके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0007">
+          <Coords points="332,95 380,95 380,109 332,109"/>
+          <Glyph id="glyph_0004_0007_0000">
+            <Coords points="332,98 343,98 343,109 332,109"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0007_0001">
+            <Coords points="341,98 356,98 356,109 341,109"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0007_0002">
+            <Coords points="354,98 367,98 367,109 354,109"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0007_0003">
+            <Coords points="365,95 380,95 380,109 365,109"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>समाजको</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0008">
+          <Coords points="385,99 408,99 408,113 385,113"/>
+          <Glyph id="glyph_0004_0008_0000">
+            <Coords points="385,99 399,99 399,113 385,113"/>
+            <TextEquiv>
+              <Unicode>बु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0008_0001">
+            <Coords points="397,99 408,99 408,110 397,110"/>
+            <TextEquiv>
+              <Unicode>ला</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बुला</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0009">
+          <Coords points="414,96 440,96 440,109 414,109"/>
+          <Glyph id="glyph_0004_0009_0000">
+            <Coords points="414,96 430,96 430,109 414,109"/>
+            <TextEquiv>
+              <Unicode>लि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0009_0001">
+            <Coords points="428,98 440,98 440,109 428,109"/>
+            <TextEquiv>
+              <Unicode>या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लिया</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0010">
+          <Coords points="447,95 467,95 467,109 447,109"/>
+          <Glyph id="glyph_0004_0010_0000">
+            <Coords points="447,95 458,95 458,109 447,109"/>
+            <TextEquiv>
+              <Unicode>औ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0010_0001">
+            <Coords points="456,95 467,95 467,109 456,109"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>और</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0004_0011">
+          <Coords points="475,95 509,95 509,111 475,111"/>
+          <Glyph id="glyph_0004_0011_0000">
+            <Coords points="475,96 482,96 482,111 475,111"/>
+            <TextEquiv>
+              <Unicode>[</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0011_0001">
+            <Coords points="480,98 491,98 491,110 480,110"/>
+            <TextEquiv>
+              <Unicode>उ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0011_0002">
+            <Coords points="489,98 499,98 499,110 489,110"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0004_0011_0003">
+            <Coords points="497,95 509,95 509,110 497,110"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>[उनके</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>लक्ष्मणजीने तुरंत ही सब नगरनिवासियोंको और ब्राह्मणोंके समाजको बुला लिया और [उनके</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0005">
+      <Coords points="3,113 344,113 344,135 3,135"/>
+      <TextLine id="line_0005">
+        <Coords points="3,113 344,113 344,135 3,135"/>
+        <Word id="word_0005_0000">
+          <Coords points="3,116 39,116 39,132 3,132"/>
+          <Glyph id="glyph_0005_0000_0000">
+            <Coords points="3,119 18,119 18,131 3,131"/>
+            <TextEquiv>
+              <Unicode>सा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0000_0001">
+            <Coords points="16,119 27,119 27,131 16,131"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0000_0002">
+            <Coords points="25,116 39,116 39,132 25,132"/>
+            <TextEquiv>
+              <Unicode>ने]</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सामने]</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0001">
+          <Coords points="49,116 95,116 95,134 49,134"/>
+          <Glyph id="glyph_0005_0001_0000">
+            <Coords points="49,119 64,119 64,134 49,134"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0001_0001">
+            <Coords points="62,116 72,116 72,131 62,131"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0001_0002">
+            <Coords points="70,119 81,119 81,131 70,131"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0001_0003">
+            <Coords points="79,116 95,116 95,132 79,132"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीवको</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0002">
+          <Coords points="103,120 127,120 127,130 103,130"/>
+          <Glyph id="glyph_0005_0002_0000">
+            <Coords points="103,120 115,120 115,130 103,130"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0002_0001">
+            <Coords points="113,120 127,120 127,130 113,130"/>
+            <TextEquiv>
+              <Unicode>ज्य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>राज्य</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0003">
+          <Coords points="135,116 156,116 156,130 135,130"/>
+          <Glyph id="glyph_0005_0003_0000">
+            <Coords points="135,116 144,116 144,130 135,130"/>
+            <TextEquiv>
+              <Unicode>औ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0003_0001">
+            <Coords points="142,116 156,116 156,130 142,130"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>और</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0004">
+          <Coords points="164,116 206,116 206,131 164,131"/>
+          <Glyph id="glyph_0005_0004_0000">
+            <Coords points="164,119 171,119 171,130 164,130"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0004_0001">
+            <Coords points="169,116 180,116 180,131 169,131"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0004_0002">
+            <Coords points="178,119 192,119 192,131 178,131"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0004_0003">
+            <Coords points="190,116 200,116 200,131 190,131"/>
+            <TextEquiv>
+              <Unicode>द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0004_0004">
+            <Coords points="198,116 206,116 206,131 198,131"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अंगदको</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0005">
+          <Coords points="214,120 274,120 274,134 214,134"/>
+          <Glyph id="glyph_0005_0005_0000">
+            <Coords points="214,120 225,120 225,134 214,134"/>
+            <TextEquiv>
+              <Unicode>यु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0005_0001">
+            <Coords points="223,120 233,120 233,131 223,131"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0005_0002">
+            <Coords points="231,120 243,120 243,132 231,132"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0005_0003">
+            <Coords points="241,120 257,120 257,131 241,131"/>
+            <TextEquiv>
+              <Unicode>ज-</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0005_0004">
+            <Coords points="255,120 267,120 267,131 255,131"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0005_0005">
+            <Coords points="265,120 274,120 274,132 265,132"/>
+            <TextEquiv>
+              <Unicode>द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>युवराज-पद</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0006">
+          <Coords points="281,117 305,117 305,131 281,131"/>
+          <Glyph id="glyph_0005_0006_0000">
+            <Coords points="281,117 290,117 290,131 281,131"/>
+            <TextEquiv>
+              <Unicode>दि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0006_0001">
+            <Coords points="288,117 296,117 296,131 288,131"/>
+            <TextEquiv>
+              <Unicode>या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0005_0006_0002">
+            <Coords points="294,119 305,119 305,131 294,131"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दिया॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0007">
+          <Coords points="309,121 314,121 314,130 309,130"/>
+          <Glyph id="glyph_0005_0007_0000">
+            <Coords points="309,121 314,121 314,130 309,130"/>
+            <TextEquiv>
+              <Unicode>११</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>११</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0005_0008">
+          <Coords points="320,121 344,121 344,132 320,132"/>
+          <Glyph id="glyph_0005_0008_0000">
+            <Coords points="320,121 344,121 344,132 320,132"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>सामने]  सुग्रीवको  राज्य  और  अंगदको  युवराज-पद  दिया॥ ११ ॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0006">
+      <Coords points="2,135 509,135 509,165 2,165"/>
+      <TextLine id="line_0006">
+        <Coords points="2,135 509,135 509,165 2,165"/>
+        <Word id="word_0006_0000">
+          <Coords points="3,144 34,144 34,157 3,157"/>
+          <Glyph id="glyph_0006_0000_0000">
+            <Coords points="3,144 21,144 21,157 3,157"/>
+            <TextEquiv>
+              <Unicode>उ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0000_0001">
+            <Coords points="19,144 34,144 34,157 19,157"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>उमा</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0001">
+          <Coords points="43,144 72,144 72,157 43,157"/>
+          <Glyph id="glyph_0006_0001_0000">
+            <Coords points="43,144 59,144 59,157 43,157"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0001_0001">
+            <Coords points="57,144 72,144 72,157 57,157"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>राम</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0002">
+          <Coords points="81,144 109,144 109,158 81,158"/>
+          <Glyph id="glyph_0006_0002_0000">
+            <Coords points="81,144 97,144 97,158 81,158"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0002_0001">
+            <Coords points="95,144 109,144 109,158 95,158"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सम</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0003">
+          <Coords points="118,138 148,138 148,160 118,160"/>
+          <Glyph id="glyph_0006_0003_0000">
+            <Coords points="118,138 136,138 136,160 118,160"/>
+            <TextEquiv>
+              <Unicode>हि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0003_0001">
+            <Coords points="134,143 148,143 148,159 134,159"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हित</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0004">
+          <Coords points="160,144 189,144 189,157 160,157"/>
+          <Glyph id="glyph_0006_0004_0000">
+            <Coords points="160,144 177,144 177,157 160,157"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0004_0001">
+            <Coords points="175,144 189,144 189,157 175,157"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जग</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0005">
+          <Coords points="201,138 238,138 238,160 201,160"/>
+          <Glyph id="glyph_0006_0005_0000">
+            <Coords points="201,143 209,143 209,156 201,156"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0005_0001">
+            <Coords points="207,143 220,143 220,159 207,159"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0005_0002">
+            <Coords points="218,138 231,138 231,160 218,160"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0005_0003">
+            <Coords points="229,138 238,138 238,159 229,159"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>माहीं।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0006">
+          <Coords points="245,144 248,144 248,157 245,157"/>
+          <Glyph id="glyph_0006_0006_0000">
+            <Coords points="245,144 248,144 248,157 245,157"/>
+            <TextEquiv>
+              <Unicode>गुरु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>गुरु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0007">
+          <Coords points="257,144 284,144 284,163 257,163"/>
+          <Glyph id="glyph_0006_0007_0000">
+            <Coords points="257,144 273,144 273,163 257,163"/>
+            <TextEquiv>
+              <Unicode>पि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0007_0001">
+            <Coords points="271,144 284,144 284,163 271,163"/>
+            <TextEquiv>
+              <Unicode>तु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>पितु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0008">
+          <Coords points="296,138 327,138 327,163 296,163"/>
+          <Glyph id="glyph_0006_0008_0000">
+            <Coords points="296,138 315,138 315,159 296,159"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0008_0001">
+            <Coords points="313,143 327,143 327,163 313,163"/>
+            <TextEquiv>
+              <Unicode>तु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मातु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0009">
+          <Coords points="338,144 370,144 370,163 338,163"/>
+          <Glyph id="glyph_0006_0009_0000">
+            <Coords points="338,144 352,144 352,159 338,159"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0009_0001">
+            <Coords points="350,144 358,144 358,159 350,159"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0009_0002">
+            <Coords points="356,144 370,144 370,163 356,163"/>
+            <TextEquiv>
+              <Unicode>धु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बंधु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0010">
+          <Coords points="380,139 410,139 410,163 380,163"/>
+          <Glyph id="glyph_0006_0010_0000">
+            <Coords points="380,139 395,139 395,159 380,159"/>
+            <TextEquiv>
+              <Unicode>प्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0010_0001">
+            <Coords points="393,143 410,143 410,163 393,163"/>
+            <TextEquiv>
+              <Unicode>भु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रभु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0011">
+          <Coords points="419,144 449,144 449,163 419,163"/>
+          <Glyph id="glyph_0006_0011_0000">
+            <Coords points="419,144 427,144 427,159 419,159"/>
+            <TextEquiv>
+              <Unicode>ना</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0011_0001">
+            <Coords points="425,144 434,144 434,159 425,159"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0011_0002">
+            <Coords points="432,144 441,144 441,162 432,162"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0011_0003">
+            <Coords points="439,144 449,144 449,163 439,163"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नाहीं॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0006_0012">
+          <Coords points="459,138 509,138 509,160 459,160"/>
+          <Glyph id="glyph_0006_0012_0000">
+            <Coords points="459,143 472,143 472,158 459,158"/>
+            <TextEquiv>
+              <Unicode>ना</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0012_0001">
+            <Coords points="470,138 488,138 488,160 470,160"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0012_0002">
+            <Coords points="486,138 498,138 498,158 486,158"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0006_0012_0003">
+            <Coords points="496,143 509,143 509,159 496,159"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नाहीं॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>उमा राम सम हित जग माहीं। गुरु पितु मातु बंधु प्रभु नाहीं॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0007">
+      <Coords points="2,165 508,165 508,194 2,194"/>
+      <TextLine id="line_0007">
+        <Coords points="2,165 508,165 508,194 2,194"/>
+        <Word id="word_0007_0000">
+          <Coords points="3,174 28,174 28,193 3,193"/>
+          <Glyph id="glyph_0007_0000_0000">
+            <Coords points="3,174 19,174 19,193 3,193"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0000_0001">
+            <Coords points="17,174 28,174 28,193 17,193"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुर</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0001">
+          <Coords points="34,174 57,174 57,187 34,187"/>
+          <Glyph id="glyph_0007_0001_0000">
+            <Coords points="34,174 48,174 48,187 34,187"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0001_0001">
+            <Coords points="46,174 57,174 57,187 46,187"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नर</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0002">
+          <Coords points="63,168 95,168 95,193 63,193"/>
+          <Glyph id="glyph_0007_0002_0000">
+            <Coords points="63,168 84,168 84,193 63,193"/>
+            <TextEquiv>
+              <Unicode>मु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0002_0001">
+            <Coords points="82,168 95,168 95,189 82,189"/>
+            <TextEquiv>
+              <Unicode>नि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मुनि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0003">
+          <Coords points="103,174 132,174 132,188 103,188"/>
+          <Glyph id="glyph_0007_0003_0000">
+            <Coords points="103,174 118,174 118,188 103,188"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0003_0001">
+            <Coords points="116,174 132,174 132,188 116,188"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सब</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0004">
+          <Coords points="139,168 158,168 158,188 139,188"/>
+          <Glyph id="glyph_0007_0004_0000">
+            <Coords points="139,168 158,168 158,188 139,188"/>
+            <TextEquiv>
+              <Unicode>कै</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कै</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0005">
+          <Coords points="168,174 194,174 194,190 168,190"/>
+          <Glyph id="glyph_0007_0005_0000">
+            <Coords points="168,174 183,174 183,188 168,188"/>
+            <TextEquiv>
+              <Unicode>य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0005_0001">
+            <Coords points="181,174 194,174 194,190 181,190"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>यह</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0006">
+          <Coords points="204,168 238,168 238,187 204,187"/>
+          <Glyph id="glyph_0007_0006_0000">
+            <Coords points="204,168 214,168 214,187 204,187"/>
+            <TextEquiv>
+              <Unicode>री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0006_0001">
+            <Coords points="212,168 226,168 226,187 212,187"/>
+            <TextEquiv>
+              <Unicode>ती</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0006_0002">
+            <Coords points="224,168 238,168 238,187 224,187"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रीती।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0007">
+          <Coords points="245,174 248,174 248,187 245,187"/>
+          <Glyph id="glyph_0007_0007_0000">
+            <Coords points="245,174 248,174 248,187 245,187"/>
+            <TextEquiv>
+              <Unicode>स्वारथ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>स्वारथ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0008">
+          <Coords points="257,174 308,174 308,188 257,188"/>
+          <Glyph id="glyph_0007_0008_0000">
+            <Coords points="257,174 285,174 285,188 257,188"/>
+            <TextEquiv>
+              <Unicode>ला</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0008_0001">
+            <Coords points="283,174 308,174 308,188 283,188"/>
+            <TextEquiv>
+              <Unicode>गि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लागि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0009">
+          <Coords points="317,168 358,168 358,188 317,188"/>
+          <Glyph id="glyph_0007_0009_0000">
+            <Coords points="317,173 329,173 329,188 317,188"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0009_0001">
+            <Coords points="327,173 340,173 340,188 327,188"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0009_0002">
+            <Coords points="338,168 347,168 347,188 338,188"/>
+            <TextEquiv>
+              <Unicode>हि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0009_0003">
+            <Coords points="345,168 358,168 358,188 345,188"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>करहिं</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0010">
+          <Coords points="367,168 412,168 412,190 367,190"/>
+          <Glyph id="glyph_0007_0010_0000">
+            <Coords points="367,173 387,173 387,189 367,189"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0010_0001">
+            <Coords points="385,168 412,168 412,190 385,190"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सब</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0011">
+          <Coords points="421,174 450,174 450,188 421,188"/>
+          <Glyph id="glyph_0007_0011_0000">
+            <Coords points="421,174 430,174 430,188 421,188"/>
+            <TextEquiv>
+              <Unicode>प्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0011_0001">
+            <Coords points="428,174 439,174 439,188 428,188"/>
+            <TextEquiv>
+              <Unicode>ती</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0011_0002">
+            <Coords points="437,174 450,174 450,188 437,188"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रीती॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0012">
+          <Coords points="458,168 495,168 495,188 458,188"/>
+          <Glyph id="glyph_0007_0012_0000">
+            <Coords points="458,168 477,168 477,188 458,188"/>
+            <TextEquiv>
+              <Unicode>प्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0007_0012_0001">
+            <Coords points="475,168 495,168 495,188 475,188"/>
+            <TextEquiv>
+              <Unicode>ती</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रीती</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0007_0013">
+          <Coords points="500,174 508,174 508,187 500,187"/>
+          <Glyph id="glyph_0007_0013_0000">
+            <Coords points="500,174 508,174 508,187 500,187"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>सुर नर मुनि सब कै यह रीती। स्वारथ लागि करहिं सब प्रीती॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0008">
+      <Coords points="25,194 508,194 508,215 25,215"/>
+      <TextLine id="line_0008">
+        <Coords points="25,194 508,194 508,215 25,215"/>
+        <Word id="word_0008_0000">
+          <Coords points="25,198 34,198 34,212 25,212"/>
+          <Glyph id="glyph_0008_0000_0000">
+            <Coords points="25,198 34,198 34,212 25,212"/>
+            <TextEquiv>
+              <Unicode>हे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0001">
+          <Coords points="39,198 72,198 72,211 39,211"/>
+          <Glyph id="glyph_0008_0001_0000">
+            <Coords points="39,201 52,201 52,211 39,211"/>
+            <TextEquiv>
+              <Unicode>पा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0001_0001">
+            <Coords points="50,198 61,198 61,211 50,211"/>
+            <TextEquiv>
+              <Unicode>र्व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0001_0002">
+            <Coords points="59,198 72,198 72,211 59,211"/>
+            <TextEquiv>
+              <Unicode>ती</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>पार्वती</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0002">
+          <Coords points="75,200 77,200 77,208 75,208"/>
+          <TextEquiv>
+            <Unicode>!</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0003">
+          <Coords points="83,198 118,198 118,215 83,215"/>
+          <Glyph id="glyph_0008_0003_0000">
+            <Coords points="83,201 89,201 89,211 83,211"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0003_0001">
+            <Coords points="87,201 98,201 98,213 87,213"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0003_0002">
+            <Coords points="96,201 103,201 103,213 96,213"/>
+            <TextEquiv>
+              <Unicode>तु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0003_0003">
+            <Coords points="101,201 111,201 111,215 101,215"/>
+            <TextEquiv>
+              <Unicode>मे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0003_0004">
+            <Coords points="109,198 118,198 118,215 109,215"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जगतुमें</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0004">
+          <Coords points="125,198 181,198 181,211 125,211"/>
+          <Glyph id="glyph_0008_0004_0000">
+            <Coords points="125,198 138,198 138,211 125,211"/>
+            <TextEquiv>
+              <Unicode>श्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0004_0001">
+            <Coords points="136,201 148,201 148,211 136,211"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0004_0002">
+            <Coords points="146,201 158,201 158,211 146,211"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0004_0003">
+            <Coords points="156,198 170,198 170,211 156,211"/>
+            <TextEquiv>
+              <Unicode>जी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0004_0004">
+            <Coords points="168,198 181,198 181,211 168,211"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>श्रीरामजीके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0005">
+          <Coords points="186,202 216,202 216,211 186,211"/>
+          <Glyph id="glyph_0008_0005_0000">
+            <Coords points="186,202 197,202 197,211 186,211"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0005_0001">
+            <Coords points="195,202 209,202 209,211 195,211"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0005_0002">
+            <Coords points="207,202 216,202 216,211 207,211"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>समान</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0006">
+          <Coords points="221,198 242,198 242,212 221,212"/>
+          <Glyph id="glyph_0008_0006_0000">
+            <Coords points="221,198 234,198 234,212 221,212"/>
+            <TextEquiv>
+              <Unicode>हि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0006_0001">
+            <Coords points="232,201 242,201 242,212 232,212"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हित</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0007">
+          <Coords points="247,198 298,198 298,212 247,212"/>
+          <Glyph id="glyph_0008_0007_0000">
+            <Coords points="247,201 259,201 259,212 247,212"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0007_0001">
+            <Coords points="257,198 266,198 266,212 257,212"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0007_0002">
+            <Coords points="264,198 276,198 276,212 264,212"/>
+            <TextEquiv>
+              <Unicode>ने</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0007_0003">
+            <Coords points="274,201 286,201 286,212 274,212"/>
+            <TextEquiv>
+              <Unicode>वा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0007_0004">
+            <Coords points="284,201 298,201 298,212 284,212"/>
+            <TextEquiv>
+              <Unicode>ला</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>करनेवाला</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0008">
+          <Coords points="303,202 322,202 322,215 303,215"/>
+          <Glyph id="glyph_0008_0008_0000">
+            <Coords points="303,202 314,202 314,215 303,215"/>
+            <TextEquiv>
+              <Unicode>गु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0008_0001">
+            <Coords points="312,202 322,202 322,215 312,215"/>
+            <TextEquiv>
+              <Unicode>रु,</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>गुरु,</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0009">
+          <Coords points="329,198 355,198 355,214 329,214"/>
+          <Glyph id="glyph_0008_0009_0000">
+            <Coords points="329,198 343,198 343,213 329,213"/>
+            <TextEquiv>
+              <Unicode>पि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0009_0001">
+            <Coords points="341,201 355,201 355,214 341,214"/>
+            <TextEquiv>
+              <Unicode>ता,</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>पिता,</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0010">
+          <Coords points="362,202 388,202 388,213 362,213"/>
+          <Glyph id="glyph_0008_0010_0000">
+            <Coords points="362,202 375,202 375,213 362,213"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0010_0001">
+            <Coords points="373,202 388,202 388,213 373,213"/>
+            <TextEquiv>
+              <Unicode>ता,</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>माता,</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0011">
+          <Coords points="395,202 418,202 418,215 395,215"/>
+          <Glyph id="glyph_0008_0011_0000">
+            <Coords points="395,202 405,202 405,213 395,213"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0011_0001">
+            <Coords points="403,202 418,202 418,215 403,215"/>
+            <TextEquiv>
+              <Unicode>न्धु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बन्धु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0012">
+          <Coords points="424,197 445,197 445,211 424,211"/>
+          <Glyph id="glyph_0008_0012_0000">
+            <Coords points="424,197 437,197 437,211 424,211"/>
+            <TextEquiv>
+              <Unicode>औ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0012_0001">
+            <Coords points="435,197 445,197 445,211 435,211"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>और</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0013">
+          <Coords points="450,198 481,198 481,211 450,211"/>
+          <Glyph id="glyph_0008_0013_0000">
+            <Coords points="450,201 465,201 465,211 450,211"/>
+            <TextEquiv>
+              <Unicode>स्वा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0013_0001">
+            <Coords points="463,198 481,198 481,211 463,211"/>
+            <TextEquiv>
+              <Unicode>मी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>स्वामी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0008_0014">
+          <Coords points="487,198 508,198 508,213 487,213"/>
+          <Glyph id="glyph_0008_0014_0000">
+            <Coords points="487,198 496,198 496,213 487,213"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0008_0014_0001">
+            <Coords points="494,198 508,198 508,213 494,213"/>
+            <TextEquiv>
+              <Unicode>ई</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कोई</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>हे  पार्वती ! जगतुमें श्रीरामजीके समान हित करनेवाला गुरु, पिता, माता, बन्धु और स्वामी कोई</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0009">
+      <Coords points="2,215 509,215 509,237 2,237"/>
+      <TextLine id="line_0009">
+        <Coords points="2,215 509,215 509,237 2,237"/>
+        <Word id="word_0009_0000">
+          <Coords points="3,219 24,219 24,234 3,234"/>
+          <Glyph id="glyph_0009_0000_0000">
+            <Coords points="3,222 13,222 13,234 3,234"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0000_0001">
+            <Coords points="11,219 20,219 20,234 11,234"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0000_0002">
+            <Coords points="18,219 24,219 24,234 18,234"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नहीं</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0001">
+          <Coords points="28,219 37,219 37,234 28,234"/>
+          <Glyph id="glyph_0009_0001_0000">
+            <Coords points="28,219 37,219 37,234 28,234"/>
+            <TextEquiv>
+              <Unicode>है</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>है</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0002">
+          <Coords points="48,219 79,219 79,235 48,235"/>
+          <Glyph id="glyph_0009_0002_0000">
+            <Coords points="48,219 79,219 79,235 48,235"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0003">
+          <Coords points="85,223 115,223 115,237 85,237"/>
+          <Glyph id="glyph_0009_0003_0000">
+            <Coords points="85,223 96,223 96,234 85,234"/>
+            <TextEquiv>
+              <Unicode>दे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0003_0001">
+            <Coords points="94,223 104,223 104,237 94,237"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0003_0002">
+            <Coords points="102,223 115,223 115,237 102,237"/>
+            <TextEquiv>
+              <Unicode>ता,</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>देवता,</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0004">
+          <Coords points="121,219 142,219 142,233 121,233"/>
+          <Glyph id="glyph_0009_0004_0000">
+            <Coords points="121,222 128,222 128,233 121,233"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0004_0001">
+            <Coords points="126,219 137,219 137,233 126,233"/>
+            <TextEquiv>
+              <Unicode>नु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0004_0002">
+            <Coords points="135,222 142,222 142,233 135,233"/>
+            <TextEquiv>
+              <Unicode>ष्य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मनुष्य</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0005">
+          <Coords points="147,220 168,220 168,237 147,237"/>
+          <Glyph id="glyph_0009_0005_0000">
+            <Coords points="147,220 160,220 160,237 147,237"/>
+            <TextEquiv>
+              <Unicode>औ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0005_0001">
+            <Coords points="158,220 168,220 168,234 158,234"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>और</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0006">
+          <Coords points="173,219 207,219 207,233 173,233"/>
+          <Glyph id="glyph_0009_0006_0000">
+            <Coords points="173,222 193,222 193,233 173,233"/>
+            <TextEquiv>
+              <Unicode>मु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0006_0001">
+            <Coords points="191,219 207,219 207,233 191,233"/>
+            <TextEquiv>
+              <Unicode>नि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मुनि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0007">
+          <Coords points="212,223 229,223 229,234 212,234"/>
+          <Glyph id="glyph_0009_0007_0000">
+            <Coords points="212,223 217,223 217,231 212,231"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0007_0001">
+            <Coords points="215,223 222,223 222,234 215,234"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0007_0002">
+            <Coords points="220,223 229,223 229,234 220,234"/>
+            <TextEquiv>
+              <Unicode>की</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सबकी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0008">
+          <Coords points="234,219 256,219 256,233 234,233"/>
+          <Glyph id="glyph_0009_0008_0000">
+            <Coords points="234,219 244,219 244,233 234,233"/>
+            <TextEquiv>
+              <Unicode>य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0008_0001">
+            <Coords points="242,219 256,219 256,233 242,233"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>यह</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0009">
+          <Coords points="260,219 269,219 269,234 260,234"/>
+          <Glyph id="glyph_0009_0009_0000">
+            <Coords points="260,219 269,219 269,234 260,234"/>
+            <TextEquiv>
+              <Unicode>रीति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रीति</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0010">
+          <Coords points="274,219 291,219 291,233 274,233"/>
+          <Glyph id="glyph_0009_0010_0000">
+            <Coords points="274,219 291,219 291,233 274,233"/>
+            <TextEquiv>
+              <Unicode>है</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>है</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0011">
+          <Coords points="295,219 335,219 335,233 295,233"/>
+          <Glyph id="glyph_0009_0011_0000">
+            <Coords points="295,219 335,219 335,233 295,233"/>
+            <TextEquiv>
+              <Unicode>कि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0012">
+          <Coords points="339,219 363,219 363,233 339,233"/>
+          <Glyph id="glyph_0009_0012_0000">
+            <Coords points="339,219 350,219 350,233 339,233"/>
+            <TextEquiv>
+              <Unicode>स्वा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0012_0001">
+            <Coords points="348,222 356,222 356,233 348,233"/>
+            <TextEquiv>
+              <Unicode>र्थ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0012_0002">
+            <Coords points="354,219 363,219 363,233 354,233"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>स्वार्थके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0013">
+          <Coords points="368,219 381,219 381,234 368,234"/>
+          <Glyph id="glyph_0009_0013_0000">
+            <Coords points="368,219 377,219 377,234 368,234"/>
+            <TextEquiv>
+              <Unicode>लि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0013_0001">
+            <Coords points="375,219 381,219 381,234 375,234"/>
+            <TextEquiv>
+              <Unicode>ये</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लिये</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0014">
+          <Coords points="386,223 405,223 405,233 386,233"/>
+          <Glyph id="glyph_0009_0014_0000">
+            <Coords points="386,223 405,223 405,233 386,233"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>ही</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0015">
+          <Coords points="409,219 433,219 433,233 409,233"/>
+          <Glyph id="glyph_0009_0015_0000">
+            <Coords points="409,219 422,219 422,233 409,233"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0015_0001">
+            <Coords points="420,219 433,219 433,233 420,233"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सब</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0016">
+          <Coords points="438,219 463,219 463,233 438,233"/>
+          <Glyph id="glyph_0009_0016_0000">
+            <Coords points="438,222 451,222 451,233 438,233"/>
+            <TextEquiv>
+              <Unicode>प्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0009_0016_0001">
+            <Coords points="449,219 463,219 463,233 449,233"/>
+            <TextEquiv>
+              <Unicode>ति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रीति</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0017">
+          <Coords points="469,219 477,219 477,234 469,234"/>
+          <Glyph id="glyph_0009_0017_0000">
+            <Coords points="469,219 477,219 477,234 469,234"/>
+            <TextEquiv>
+              <Unicode>करते</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>करते</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0018">
+          <Coords points="482,224 487,224 487,233 482,233"/>
+          <Glyph id="glyph_0009_0018_0000">
+            <Coords points="482,224 487,224 487,233 482,233"/>
+            <TextEquiv>
+              <Unicode>हैं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हैं</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0009_0019">
+          <Coords points="493,223 509,223 509,235 493,235"/>
+          <Glyph id="glyph_0009_0019_0000">
+            <Coords points="493,223 509,223 509,235 493,235"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>नहीं है । देवता, मनुष्य और मुनि सबकी यह रीति है कि स्वार्थके लिये ही सब प्रीति करते हैं ॥ १ ॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0010">
+      <Coords points="2,237 509,237 509,267 2,267"/>
+      <TextLine id="line_0010">
+        <Coords points="2,237 509,237 509,267 2,267"/>
+        <Word id="word_0010_0000">
+          <Coords points="3,241 45,241 45,260 3,260"/>
+          <Glyph id="glyph_0010_0000_0000">
+            <Coords points="3,245 23,245 23,260 3,260"/>
+            <TextEquiv>
+              <Unicode>बा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0000_0001">
+            <Coords points="21,241 45,241 45,260 21,260"/>
+            <TextEquiv>
+              <Unicode>लि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बालि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0001">
+          <Coords points="52,246 86,246 86,261 52,261"/>
+          <Glyph id="glyph_0010_0001_0000">
+            <Coords points="52,246 72,246 72,261 52,261"/>
+            <TextEquiv>
+              <Unicode>त्रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0001_0001">
+            <Coords points="70,246 86,246 86,261 70,261"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>त्रास</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0002">
+          <Coords points="94,246 155,246 155,266 94,266"/>
+          <Glyph id="glyph_0010_0002_0000">
+            <Coords points="94,246 116,246 116,261 94,261"/>
+            <TextEquiv>
+              <Unicode>ब्या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0002_0001">
+            <Coords points="114,246 138,246 138,266 114,266"/>
+            <TextEquiv>
+              <Unicode>कु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0002_0002">
+            <Coords points="136,246 155,246 155,261 136,261"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>ब्याकुल</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0003">
+          <Coords points="164,241 195,241 195,262 164,262"/>
+          <Glyph id="glyph_0010_0003_0000">
+            <Coords points="164,241 183,241 183,262 164,262"/>
+            <TextEquiv>
+              <Unicode>दि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0003_0001">
+            <Coords points="181,245 195,245 195,262 181,262"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दिन</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0004">
+          <Coords points="204,241 248,241 248,260 204,260"/>
+          <Glyph id="glyph_0010_0004_0000">
+            <Coords points="204,245 226,245 226,260 204,260"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0004_0001">
+            <Coords points="224,241 248,241 248,260 224,260"/>
+            <TextEquiv>
+              <Unicode>ती</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>राती</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0005">
+          <Coords points="257,246 282,246 282,260 257,260"/>
+          <Glyph id="glyph_0010_0005_0000">
+            <Coords points="257,246 282,246 282,260 257,260"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0006">
+          <Coords points="293,246 319,246 319,266 293,266"/>
+          <Glyph id="glyph_0010_0006_0000">
+            <Coords points="293,246 308,246 308,261 293,261"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0006_0001">
+            <Coords points="306,246 319,246 319,266 306,266"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>तन</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0007">
+          <Coords points="331,246 357,246 357,260 331,260"/>
+          <Glyph id="glyph_0010_0007_0000">
+            <Coords points="331,246 345,246 345,260 331,260"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0007_0001">
+            <Coords points="343,246 357,246 357,260 343,260"/>
+            <TextEquiv>
+              <Unicode>हु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बहु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0008">
+          <Coords points="368,240 409,240 409,260 368,260"/>
+          <Glyph id="glyph_0010_0008_0000">
+            <Coords points="368,240 391,240 391,260 368,260"/>
+            <TextEquiv>
+              <Unicode>ब्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0008_0001">
+            <Coords points="389,240 409,240 409,260 389,260"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>ब्रन</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0009">
+          <Coords points="420,247 446,247 446,260 420,260"/>
+          <Glyph id="glyph_0010_0009_0000">
+            <Coords points="420,247 425,247 425,258 420,258"/>
+            <TextEquiv>
+              <Unicode>चि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0009_0001">
+            <Coords points="423,247 436,247 436,260 423,260"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0009_0002">
+            <Coords points="434,247 440,247 440,260 434,260"/>
+            <TextEquiv>
+              <Unicode>ता</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0009_0003">
+            <Coords points="438,247 446,247 446,260 438,260"/>
+            <TextEquiv>
+              <Unicode>ँ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>चिंताँ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0010_0010">
+          <Coords points="456,241 509,241 509,260 456,260"/>
+          <Glyph id="glyph_0010_0010_0000">
+            <Coords points="456,245 483,245 483,260 456,260"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0010_0010_0001">
+            <Coords points="481,241 509,241 509,260 481,260"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जर</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>बालि  त्रास  ब्याकुल  दिन  राती ।  तन   बहु   ब्रन   चिंताँ   जर   छाती॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0011">
+      <Coords points="2,267 509,267 509,297 2,297"/>
+      <TextLine id="line_0011">
+        <Coords points="2,267 509,267 509,297 2,297"/>
+        <Word id="word_0011_0000">
+          <Coords points="3,271 34,271 34,294 3,294"/>
+          <Glyph id="glyph_0011_0000_0000">
+            <Coords points="3,271 23,271 23,292 3,292"/>
+            <TextEquiv>
+              <Unicode>सो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0000_0001">
+            <Coords points="21,275 34,275 34,294 21,294"/>
+            <TextEquiv>
+              <Unicode>इ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सोइ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0011_0001">
+          <Coords points="51,271 97,271 97,296 51,296"/>
+          <Glyph id="glyph_0011_0001_0000">
+            <Coords points="51,275 68,275 68,296 51,296"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0001_0001">
+            <Coords points="66,271 84,271 84,296 66,296"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0001_0002">
+            <Coords points="82,275 97,275 97,291 82,291"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीव</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0011_0002">
+          <Coords points="114,271 156,271 156,292 114,292"/>
+          <Glyph id="glyph_0011_0002_0000">
+            <Coords points="114,271 139,271 139,291 114,291"/>
+            <TextEquiv>
+              <Unicode>की</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0002_0001">
+            <Coords points="137,275 156,275 156,292 137,292"/>
+            <TextEquiv>
+              <Unicode>न्ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कीन्ह</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0011_0003">
+          <Coords points="172,271 248,271 248,290 172,290"/>
+          <Glyph id="glyph_0011_0003_0000">
+            <Coords points="172,275 191,275 191,290 172,290"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0003_0001">
+            <Coords points="189,271 209,271 209,290 189,290"/>
+            <TextEquiv>
+              <Unicode>पि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0003_0002">
+            <Coords points="207,275 227,275 227,290 207,290"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0003_0003">
+            <Coords points="225,275 248,275 248,290 225,290"/>
+            <TextEquiv>
+              <Unicode>ऊ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कपिराऊ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0011_0004">
+          <Coords points="259,271 293,271 293,290 259,290"/>
+          <Glyph id="glyph_0011_0004_0000">
+            <Coords points="259,271 293,271 293,290 259,290"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0011_0005">
+          <Coords points="308,276 361,276 361,295 308,295"/>
+          <Glyph id="glyph_0011_0005_0000">
+            <Coords points="308,276 333,276 333,295 308,295"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0005_0001">
+            <Coords points="331,276 361,276 361,291 331,291"/>
+            <TextEquiv>
+              <Unicode>ति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अति</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0011_0006">
+          <Coords points="376,271 428,271 428,296 376,296"/>
+          <Glyph id="glyph_0011_0006_0000">
+            <Coords points="376,275 393,275 393,295 376,295"/>
+            <TextEquiv>
+              <Unicode>कृ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0006_0001">
+            <Coords points="391,271 413,271 413,296 391,296"/>
+            <TextEquiv>
+              <Unicode>पा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0006_0002">
+            <Coords points="411,271 428,271 428,291 411,291"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कृपाल</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0011_0007">
+          <Coords points="442,276 509,276 509,296 442,296"/>
+          <Glyph id="glyph_0011_0007_0000">
+            <Coords points="442,276 460,276 460,296 442,296"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0007_0001">
+            <Coords points="458,276 479,276 479,296 458,296"/>
+            <TextEquiv>
+              <Unicode>घु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0007_0002">
+            <Coords points="477,276 496,276 496,291 477,291"/>
+            <TextEquiv>
+              <Unicode>बी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0011_0007_0003">
+            <Coords points="494,276 509,276 509,291 494,291"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रघुबीर</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>सोइ   सुग्रीव   कीन्ह   कपिराऊ । अति   कृपाल   रघुबीर   सुभाऊ॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0012">
+      <Coords points="25,297 508,297 508,318 25,318"/>
+      <TextLine id="line_0012">
+        <Coords points="25,297 508,297 508,318 25,318"/>
+        <Word id="word_0012_0000">
+          <Coords points="26,300 40,300 40,314 26,314"/>
+          <Glyph id="glyph_0012_0000_0000">
+            <Coords points="26,300 40,300 40,314 26,314"/>
+            <TextEquiv>
+              <Unicode>जो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जो</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0001">
+          <Coords points="46,301 77,301 77,318 46,318"/>
+          <Glyph id="glyph_0012_0001_0000">
+            <Coords points="46,303 57,303 57,318 46,318"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0001_0001">
+            <Coords points="55,301 69,301 69,318 55,318"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0001_0002">
+            <Coords points="67,303 77,303 77,315 67,315"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीव</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0002">
+          <Coords points="83,301 128,301 128,315 83,315"/>
+          <Glyph id="glyph_0012_0002_0000">
+            <Coords points="83,301 97,301 97,315 83,315"/>
+            <TextEquiv>
+              <Unicode>दि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0002_0001">
+            <Coords points="95,303 105,303 105,315 95,315"/>
+            <TextEquiv>
+              <Unicode>न-</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0002_0002">
+            <Coords points="103,303 117,303 117,315 103,315"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0002_0003">
+            <Coords points="115,303 128,303 128,315 115,315"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दिन-रात</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0003">
+          <Coords points="134,300 173,300 173,314 134,314"/>
+          <Glyph id="glyph_0012_0003_0000">
+            <Coords points="134,303 147,303 147,314 134,314"/>
+            <TextEquiv>
+              <Unicode>बा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0003_0001">
+            <Coords points="145,300 162,300 162,314 145,314"/>
+            <TextEquiv>
+              <Unicode>लि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0003_0002">
+            <Coords points="160,300 173,300 173,314 160,314"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बालिके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0004">
+          <Coords points="180,300 207,300 207,314 180,314"/>
+          <Glyph id="glyph_0012_0004_0000">
+            <Coords points="180,303 190,303 190,314 180,314"/>
+            <TextEquiv>
+              <Unicode>भ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0004_0001">
+            <Coords points="188,303 198,303 198,314 188,314"/>
+            <TextEquiv>
+              <Unicode>य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0004_0002">
+            <Coords points="196,300 207,300 207,314 196,314"/>
+            <TextEquiv>
+              <Unicode>से</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>भयसे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0005">
+          <Coords points="213,304 253,304 253,318 213,318"/>
+          <Glyph id="glyph_0012_0005_0000">
+            <Coords points="213,304 228,304 228,315 213,315"/>
+            <TextEquiv>
+              <Unicode>व्या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0005_0001">
+            <Coords points="226,304 242,304 242,318 226,318"/>
+            <TextEquiv>
+              <Unicode>कु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0005_0002">
+            <Coords points="240,304 253,304 253,315 240,315"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>व्याकुल</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0006">
+          <Coords points="259,304 284,304 284,315 259,315"/>
+          <Glyph id="glyph_0012_0006_0000">
+            <Coords points="259,304 266,304 266,315 259,315"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0006_0001">
+            <Coords points="264,304 274,304 274,315 264,315"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0006_0002">
+            <Coords points="272,304 284,304 284,315 272,315"/>
+            <TextEquiv>
+              <Unicode>ता</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रहता</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0007">
+          <Coords points="292,304 306,304 306,316 292,316"/>
+          <Glyph id="glyph_0012_0007_0000">
+            <Coords points="292,304 306,304 306,316 292,316"/>
+            <TextEquiv>
+              <Unicode>था,</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>था,</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0008">
+          <Coords points="313,300 349,300 349,314 313,314"/>
+          <Glyph id="glyph_0012_0008_0000">
+            <Coords points="313,300 328,300 328,314 313,314"/>
+            <TextEquiv>
+              <Unicode>जि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0008_0001">
+            <Coords points="326,303 339,303 339,314 326,314"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0008_0002">
+            <Coords points="337,300 349,300 349,314 337,314"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जिसके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0009">
+          <Coords points="355,300 390,300 390,315 355,315"/>
+          <Glyph id="glyph_0012_0009_0000">
+            <Coords points="355,303 363,303 363,315 355,315"/>
+            <TextEquiv>
+              <Unicode>श</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0009_0001">
+            <Coords points="361,300 371,300 371,315 361,315"/>
+            <TextEquiv>
+              <Unicode>री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0009_0002">
+            <Coords points="369,300 376,300 376,315 369,315"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0009_0003">
+            <Coords points="374,303 382,303 382,315 374,315"/>
+            <TextEquiv>
+              <Unicode>मे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0009_0004">
+            <Coords points="380,300 390,300 390,315 380,315"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>शरीरमें</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0010">
+          <Coords points="396,300 439,300 439,318 396,318"/>
+          <Glyph id="glyph_0012_0010_0000">
+            <Coords points="396,303 406,303 406,315 396,315"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0010_0001">
+            <Coords points="404,303 421,303 421,318 404,318"/>
+            <TextEquiv>
+              <Unicode>हु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0010_0002">
+            <Coords points="419,303 427,303 427,315 419,315"/>
+            <TextEquiv>
+              <Unicode>त-</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0010_0003">
+            <Coords points="425,300 439,300 439,315 425,315"/>
+            <TextEquiv>
+              <Unicode>से</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बहुत-से</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0011">
+          <Coords points="445,304 467,304 467,314 445,314"/>
+          <Glyph id="glyph_0012_0011_0000">
+            <Coords points="445,304 459,304 459,314 445,314"/>
+            <TextEquiv>
+              <Unicode>घा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0011_0001">
+            <Coords points="457,304 467,304 467,314 457,314"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>घाव</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0012">
+          <Coords points="473,300 486,300 486,315 473,315"/>
+          <Glyph id="glyph_0012_0012_0000">
+            <Coords points="473,300 486,300 486,315 473,315"/>
+            <TextEquiv>
+              <Unicode>हो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हो</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0012_0013">
+          <Coords points="492,300 508,300 508,314 492,314"/>
+          <Glyph id="glyph_0012_0013_0000">
+            <Coords points="492,303 501,303 501,314 492,314"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0012_0013_0001">
+            <Coords points="499,300 508,300 508,314 499,314"/>
+            <TextEquiv>
+              <Unicode>ये</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>गये</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>जो सुग्रीव दिन-रात बालिके भयसे व्याकुल रहता था, जिसके शरीरमें बहुत-से घाव हो गये</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0013">
+      <Coords points="4,318 508,318 508,339 4,339"/>
+      <TextLine id="line_0013">
+        <Coords points="4,318 508,318 508,339 4,339"/>
+        <Word id="word_0013_0000">
+          <Coords points="4,321 13,321 13,335 4,335"/>
+          <Glyph id="glyph_0013_0000_0000">
+            <Coords points="4,321 13,321 13,335 4,335"/>
+            <TextEquiv>
+              <Unicode>थे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>थे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0001">
+          <Coords points="20,321 41,321 41,335 20,335"/>
+          <Glyph id="glyph_0013_0001_0000">
+            <Coords points="20,321 29,321 29,335 20,335"/>
+            <TextEquiv>
+              <Unicode>औ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0001_0001">
+            <Coords points="27,321 41,321 41,335 27,335"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>और</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0002">
+          <Coords points="47,321 86,321 86,335 47,335"/>
+          <Glyph id="glyph_0013_0002_0000">
+            <Coords points="47,321 63,321 63,335 47,335"/>
+            <TextEquiv>
+              <Unicode>जि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0002_0001">
+            <Coords points="61,324 72,324 72,335 61,335"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0002_0002">
+            <Coords points="70,321 86,321 86,335 70,335"/>
+            <TextEquiv>
+              <Unicode>की</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जिसकी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0003">
+          <Coords points="93,321 118,321 118,335 93,335"/>
+          <Glyph id="glyph_0013_0003_0000">
+            <Coords points="93,324 104,324 104,335 93,335"/>
+            <TextEquiv>
+              <Unicode>छा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0003_0001">
+            <Coords points="102,321 118,321 118,335 102,335"/>
+            <TextEquiv>
+              <Unicode>ती</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>छाती</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0004">
+          <Coords points="125,321 166,321 166,335 125,335"/>
+          <Glyph id="glyph_0013_0004_0000">
+            <Coords points="125,321 141,321 141,335 125,335"/>
+            <TextEquiv>
+              <Unicode>चि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0004_0001">
+            <Coords points="139,324 151,324 151,335 139,335"/>
+            <TextEquiv>
+              <Unicode>न्ता</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0004_0002">
+            <Coords points="149,321 166,321 166,335 149,335"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>चिन्ताके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0005">
+          <Coords points="172,321 190,321 190,335 172,335"/>
+          <Glyph id="glyph_0013_0005_0000">
+            <Coords points="172,324 182,324 182,335 172,335"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0005_0001">
+            <Coords points="180,321 190,321 190,335 180,335"/>
+            <TextEquiv>
+              <Unicode>रे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मारे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0006">
+          <Coords points="197,325 221,325 221,335 197,335"/>
+          <Glyph id="glyph_0013_0006_0000">
+            <Coords points="197,325 208,325 208,335 197,335"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0006_0001">
+            <Coords points="206,325 221,325 221,335 206,335"/>
+            <TextEquiv>
+              <Unicode>ला</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जला</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0007">
+          <Coords points="228,321 257,321 257,335 228,335"/>
+          <Glyph id="glyph_0013_0007_0000">
+            <Coords points="228,324 240,324 240,335 228,335"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0007_0001">
+            <Coords points="238,324 246,324 246,335 238,335"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0007_0002">
+            <Coords points="244,321 257,321 257,335 244,335"/>
+            <TextEquiv>
+              <Unicode>ती</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>करती</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0008">
+          <Coords points="265,321 279,321 279,337 265,337"/>
+          <Glyph id="glyph_0013_0008_0000">
+            <Coords points="265,321 279,321 279,337 265,337"/>
+            <TextEquiv>
+              <Unicode>थी,</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>थी,</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0009">
+          <Coords points="287,321 309,321 309,335 287,335"/>
+          <Glyph id="glyph_0013_0009_0000">
+            <Coords points="287,324 297,324 297,335 287,335"/>
+            <TextEquiv>
+              <Unicode>उ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0009_0001">
+            <Coords points="295,321 309,321 309,335 295,335"/>
+            <TextEquiv>
+              <Unicode>सी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>उसी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0010">
+          <Coords points="316,321 363,321 363,339 316,339"/>
+          <Glyph id="glyph_0013_0010_0000">
+            <Coords points="316,324 331,324 331,339 316,339"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0010_0001">
+            <Coords points="329,321 340,321 340,336 329,336"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0010_0002">
+            <Coords points="338,324 349,324 349,336 338,336"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0010_0003">
+            <Coords points="347,321 363,321 363,336 347,336"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीवको</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0011">
+          <Coords points="368,321 402,321 402,336 368,336"/>
+          <Glyph id="glyph_0013_0011_0000">
+            <Coords points="368,324 378,324 378,336 368,336"/>
+            <TextEquiv>
+              <Unicode>उ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0011_0001">
+            <Coords points="376,321 390,321 390,336 376,336"/>
+            <TextEquiv>
+              <Unicode>न्हो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0011_0002">
+            <Coords points="388,321 402,321 402,336 388,336"/>
+            <TextEquiv>
+              <Unicode>ने</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>उन्होने</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0012">
+          <Coords points="408,321 453,321 453,335 408,335"/>
+          <Glyph id="glyph_0013_0012_0000">
+            <Coords points="408,324 418,324 418,335 408,335"/>
+            <TextEquiv>
+              <Unicode>वा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0012_0001">
+            <Coords points="416,324 425,324 425,335 416,335"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0012_0002">
+            <Coords points="423,321 434,321 434,335 423,335"/>
+            <TextEquiv>
+              <Unicode>रो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0012_0003">
+            <Coords points="432,321 447,321 447,335 432,335"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0012_0004">
+            <Coords points="445,324 453,324 453,335 445,335"/>
+            <TextEquiv>
+              <Unicode>का</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>वानरोंका</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0013">
+          <Coords points="459,325 482,325 482,335 459,335"/>
+          <Glyph id="glyph_0013_0013_0000">
+            <Coords points="459,325 470,325 470,335 459,335"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0013_0001">
+            <Coords points="468,325 482,325 482,335 468,335"/>
+            <TextEquiv>
+              <Unicode>जा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>राजा</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0013_0014">
+          <Coords points="489,325 508,325 508,335 489,335"/>
+          <Glyph id="glyph_0013_0014_0000">
+            <Coords points="489,325 499,325 499,335 489,335"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0013_0014_0001">
+            <Coords points="497,325 508,325 508,335 497,335"/>
+            <TextEquiv>
+              <Unicode>ना</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बना</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>थे और जिसकी छाती चिन्ताके मारे जला करती थी, उसी सुग्रीवको उन्होने वानरोंका राजा बना</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0014">
+      <Coords points="3,339 318,339 318,361 3,361"/>
+      <TextLine id="line_0014">
+        <Coords points="3,339 318,339 318,361 3,361"/>
+        <Word id="word_0014_0000">
+          <Coords points="3,343 27,343 27,357 3,357"/>
+          <Glyph id="glyph_0014_0000_0000">
+            <Coords points="3,343 16,343 16,357 3,357"/>
+            <TextEquiv>
+              <Unicode>दि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0000_0001">
+            <Coords points="14,345 27,345 27,357 14,357"/>
+            <TextEquiv>
+              <Unicode>या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दिया</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0001">
+          <Coords points="42,343 123,343 123,357 42,357"/>
+          <Glyph id="glyph_0014_0001_0000">
+            <Coords points="42,343 123,343 123,357 42,357"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0002">
+          <Coords points="130,346 167,346 167,356 130,356"/>
+          <Glyph id="glyph_0014_0002_0000">
+            <Coords points="130,346 138,346 138,356 130,356"/>
+            <TextEquiv>
+              <Unicode>श्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0002_0001">
+            <Coords points="136,346 142,346 142,355 136,355"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0002_0002">
+            <Coords points="140,346 146,346 146,356 140,356"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0002_0003">
+            <Coords points="144,346 151,346 151,354 144,354"/>
+            <TextEquiv>
+              <Unicode>च</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0002_0004">
+            <Coords points="149,346 159,346 159,356 149,356"/>
+            <TextEquiv>
+              <Unicode>न्द्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0002_0005">
+            <Coords points="157,346 163,346 163,355 157,355"/>
+            <TextEquiv>
+              <Unicode>जी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0002_0006">
+            <Coords points="161,346 167,346 167,356 161,356"/>
+            <TextEquiv>
+              <Unicode>का</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>श्रीरामचन्द्रजीका</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0003">
+          <Coords points="175,346 210,346 210,356 175,356"/>
+          <Glyph id="glyph_0014_0003_0000">
+            <Coords points="175,346 187,346 187,356 175,356"/>
+            <TextEquiv>
+              <Unicode>स्व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0003_0001">
+            <Coords points="185,346 200,346 200,356 185,356"/>
+            <TextEquiv>
+              <Unicode>भा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0003_0002">
+            <Coords points="198,346 210,346 210,356 198,356"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>स्वभाव</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0004">
+          <Coords points="218,343 230,343 230,357 218,357"/>
+          <Glyph id="glyph_0014_0004_0000">
+            <Coords points="218,343 225,343 225,357 218,357"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0004_0001">
+            <Coords points="223,343 227,343 227,357 223,357"/>
+            <TextEquiv>
+              <Unicode>त्य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0014_0004_0002">
+            <Coords points="225,343 230,343 230,357 225,357"/>
+            <TextEquiv>
+              <Unicode>न्त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अत्यन्त</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0005">
+          <Coords points="238,346 272,346 272,360 238,360"/>
+          <Glyph id="glyph_0014_0005_0000">
+            <Coords points="238,346 272,346 272,360 238,360"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>ही</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0006">
+          <Coords points="279,342 287,342 287,357 279,357"/>
+          <Glyph id="glyph_0014_0006_0000">
+            <Coords points="279,342 287,342 287,357 279,357"/>
+            <TextEquiv>
+              <Unicode>कृपालु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कृपालु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0007">
+          <Coords points="292,347 297,347 297,356 292,356"/>
+          <Glyph id="glyph_0014_0007_0000">
+            <Coords points="292,347 297,347 297,356 292,356"/>
+            <TextEquiv>
+              <Unicode>है</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>है</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0014_0008">
+          <Coords points="302,346 318,346 318,358 302,358"/>
+          <Glyph id="glyph_0014_0008_0000">
+            <Coords points="302,346 318,346 318,358 302,358"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>दिया ।  श्रीरामचन्द्रजीका  स्वभाव  अत्यन्त  ही  कृपालु  है ॥ २॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0015">
+      <Coords points="2,361 509,361 509,390 2,390"/>
+      <TextLine id="line_0015">
+        <Coords points="2,361 509,361 509,390 2,390"/>
+        <Word id="word_0015_0000">
+          <Coords points="3,363 61,363 61,389 3,389"/>
+          <Glyph id="glyph_0015_0000_0000">
+            <Coords points="3,369 19,369 19,384 3,384"/>
+            <TextEquiv>
+              <Unicode>जा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0000_0001">
+            <Coords points="17,369 30,369 30,385 17,385"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0000_0002">
+            <Coords points="28,369 42,369 42,385 28,385"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0000_0003">
+            <Coords points="40,364 51,364 51,385 40,385"/>
+            <TextEquiv>
+              <Unicode>हू</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0000_0004">
+            <Coords points="49,363 61,363 61,389 49,389"/>
+            <TextEquiv>
+              <Unicode>ँ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जानतहूँ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0001">
+          <Coords points="78,370 108,370 108,384 78,384"/>
+          <Glyph id="glyph_0015_0001_0000">
+            <Coords points="78,370 94,370 94,384 78,384"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0001_0001">
+            <Coords points="92,370 108,370 108,384 92,384"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अस</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0002">
+          <Coords points="127,370 156,370 156,389 127,389"/>
+          <Glyph id="glyph_0015_0002_0000">
+            <Coords points="127,370 141,370 141,385 127,385"/>
+            <TextEquiv>
+              <Unicode>प्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0002_0001">
+            <Coords points="139,370 156,370 156,389 139,389"/>
+            <TextEquiv>
+              <Unicode>भु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रभु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0003">
+          <Coords points="175,364 238,364 238,386 175,386"/>
+          <Glyph id="glyph_0015_0003_0000">
+            <Coords points="175,369 188,369 188,385 175,385"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0003_0001">
+            <Coords points="186,364 195,364 195,384 186,384"/>
+            <TextEquiv>
+              <Unicode>रि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0003_0002">
+            <Coords points="193,364 202,364 202,385 193,385"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0003_0003">
+            <Coords points="200,369 213,369 213,386 200,386"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0003_0004">
+            <Coords points="211,369 221,369 221,385 211,385"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0003_0005">
+            <Coords points="219,364 232,364 232,386 219,386"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0003_0006">
+            <Coords points="230,364 238,364 238,385 230,385"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>परिहरहीं।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0004">
+          <Coords points="246,370 248,370 248,383 246,383"/>
+          <Glyph id="glyph_0015_0004_0000">
+            <Coords points="246,370 248,370 248,383 246,383"/>
+            <TextEquiv>
+              <Unicode>काहे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>काहे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0005">
+          <Coords points="257,364 294,364 294,386 257,386"/>
+          <Glyph id="glyph_0015_0005_0000">
+            <Coords points="257,364 294,364 294,386 257,386"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>न</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0006">
+          <Coords points="302,370 315,370 315,383 302,383"/>
+          <Glyph id="glyph_0015_0006_0000">
+            <Coords points="302,370 309,370 309,380 302,380"/>
+            <TextEquiv>
+              <Unicode>बि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0006_0001">
+            <Coords points="307,370 311,370 311,383 307,383"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0006_0002">
+            <Coords points="309,370 315,370 315,383 309,383"/>
+            <TextEquiv>
+              <Unicode>ति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बिपति</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0007">
+          <Coords points="323,364 373,364 373,383 323,383"/>
+          <Glyph id="glyph_0015_0007_0000">
+            <Coords points="323,364 349,364 349,383 323,383"/>
+            <TextEquiv>
+              <Unicode>जा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0007_0001">
+            <Coords points="347,364 373,364 373,383 347,383"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जाल</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0008">
+          <Coords points="381,370 419,370 419,383 381,383"/>
+          <Glyph id="glyph_0015_0008_0000">
+            <Coords points="381,370 403,370 403,383 381,383"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0008_0001">
+            <Coords points="401,370 419,370 419,383 401,383"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नर</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0009">
+          <Coords points="427,370 449,370 449,383 427,383"/>
+          <Glyph id="glyph_0015_0009_0000">
+            <Coords points="427,370 434,370 434,380 427,380"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0009_0001">
+            <Coords points="432,370 436,370 436,383 432,383"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0009_0002">
+            <Coords points="434,370 440,370 440,383 434,383"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0009_0003">
+            <Coords points="438,370 446,370 446,383 438,383"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0009_0004">
+            <Coords points="444,370 449,370 449,383 444,383"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>परहीं॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0010">
+          <Coords points="456,364 495,364 495,386 456,386"/>
+          <Glyph id="glyph_0015_0010_0000">
+            <Coords points="456,369 464,369 464,381 456,381"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0010_0001">
+            <Coords points="462,369 477,369 477,385 462,385"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0010_0002">
+            <Coords points="475,364 488,364 488,386 475,386"/>
+            <TextEquiv>
+              <Unicode>ही</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0015_0010_0003">
+            <Coords points="486,364 495,364 495,385 486,385"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>परहीं</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0015_0011">
+          <Coords points="501,370 509,370 509,383 501,383"/>
+          <Glyph id="glyph_0015_0011_0000">
+            <Coords points="501,370 509,370 509,383 501,383"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>जानतहूँ  अस  प्रभु  परिहरहीं। काहे न बिपति जाल नर परहीं॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0016">
+      <Coords points="2,390 509,390 509,421 2,421"/>
+      <TextLine id="line_0016">
+        <Coords points="2,390 509,390 509,421 2,421"/>
+        <Word id="word_0016_0000">
+          <Coords points="3,394 34,394 34,419 3,419"/>
+          <Glyph id="glyph_0016_0000_0000">
+            <Coords points="3,394 22,394 22,419 3,419"/>
+            <TextEquiv>
+              <Unicode>पु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0000_0001">
+            <Coords points="20,394 34,394 34,415 20,415"/>
+            <TextEquiv>
+              <Unicode>नि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>पुनि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0001">
+          <Coords points="51,394 115,394 115,419 51,419"/>
+          <Glyph id="glyph_0016_0001_0000">
+            <Coords points="51,399 68,399 68,419 51,419"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0001_0001">
+            <Coords points="66,394 85,394 85,419 66,419"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0001_0002">
+            <Coords points="83,399 98,399 98,414 83,414"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0001_0003">
+            <Coords points="96,394 115,394 115,417 96,417"/>
+            <TextEquiv>
+              <Unicode>हि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीवहि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0002">
+          <Coords points="132,394 172,394 172,416 132,416"/>
+          <Glyph id="glyph_0016_0002_0000">
+            <Coords points="132,394 156,394 156,415 132,415"/>
+            <TextEquiv>
+              <Unicode>ली</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0002_0001">
+            <Coords points="154,399 172,399 172,416 154,416"/>
+            <TextEquiv>
+              <Unicode>न्ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लीन्ह</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0003">
+          <Coords points="187,394 239,394 239,417 187,417"/>
+          <Glyph id="glyph_0016_0003_0000">
+            <Coords points="187,394 207,394 207,415 187,415"/>
+            <TextEquiv>
+              <Unicode>बो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0003_0001">
+            <Coords points="205,399 223,399 223,415 205,415"/>
+            <TextEquiv>
+              <Unicode>ला</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0003_0002">
+            <Coords points="221,394 239,394 239,417 221,417"/>
+            <TextEquiv>
+              <Unicode>ई</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बोलाई</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0004">
+          <Coords points="246,400 249,400 249,413 246,413"/>
+          <Glyph id="glyph_0016_0004_0000">
+            <Coords points="246,400 249,400 249,413 246,413"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0005">
+          <Coords points="258,400 284,400 284,419 258,419"/>
+          <Glyph id="glyph_0016_0005_0000">
+            <Coords points="258,400 273,400 273,414 258,414"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0005_0001">
+            <Coords points="271,400 284,400 284,419 271,419"/>
+            <TextEquiv>
+              <Unicode>हु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बहु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0006">
+          <Coords points="301,400 347,400 347,414 301,414"/>
+          <Glyph id="glyph_0016_0006_0000">
+            <Coords points="301,400 315,400 315,414 301,414"/>
+            <TextEquiv>
+              <Unicode>प्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0006_0001">
+            <Coords points="313,400 332,400 332,414 313,414"/>
+            <TextEquiv>
+              <Unicode>का</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0006_0002">
+            <Coords points="330,400 347,400 347,414 330,414"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रकार</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0007">
+          <Coords points="363,394 423,394 423,419 363,419"/>
+          <Glyph id="glyph_0016_0007_0000">
+            <Coords points="363,399 376,399 376,419 363,419"/>
+            <TextEquiv>
+              <Unicode>नृ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0007_0001">
+            <Coords points="374,399 390,399 390,415 374,415"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0007_0002">
+            <Coords points="388,394 405,394 405,414 388,414"/>
+            <TextEquiv>
+              <Unicode>नी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0007_0003">
+            <Coords points="403,394 423,394 423,415 403,415"/>
+            <TextEquiv>
+              <Unicode>ति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नृपनीति</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0008">
+          <Coords points="439,394 495,394 495,417 439,417"/>
+          <Glyph id="glyph_0016_0008_0000">
+            <Coords points="439,394 454,394 454,415 439,415"/>
+            <TextEquiv>
+              <Unicode>सि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0008_0001">
+            <Coords points="452,399 468,399 468,415 452,415"/>
+            <TextEquiv>
+              <Unicode>खा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0008_0002">
+            <Coords points="466,399 485,399 485,415 466,415"/>
+            <TextEquiv>
+              <Unicode>ई</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0016_0008_0003">
+            <Coords points="483,394 495,394 495,417 483,417"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सिखाई॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0016_0009">
+          <Coords points="501,400 509,400 509,413 501,413"/>
+          <Glyph id="glyph_0016_0009_0000">
+            <Coords points="501,400 509,400 509,413 501,413"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>पुनि   सुग्रीवहि   लीन्ह   बोलाई ।  बहु   प्रकार   नृपनीति   सिखाई॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0017">
+      <Coords points="25,421 509,421 509,443 25,443"/>
+      <TextLine id="line_0017">
+        <Coords points="25,421 509,421 509,443 25,443"/>
+        <Word id="word_0017_0000">
+          <Coords points="25,425 40,425 40,439 25,439"/>
+          <Glyph id="glyph_0017_0000_0000">
+            <Coords points="25,425 40,425 40,439 25,439"/>
+            <TextEquiv>
+              <Unicode>जो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जो</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0001">
+          <Coords points="47,425 70,425 70,439 47,439"/>
+          <Glyph id="glyph_0017_0001_0000">
+            <Coords points="47,425 61,425 61,439 47,439"/>
+            <TextEquiv>
+              <Unicode>लो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0001_0001">
+            <Coords points="59,427 70,427 70,439 59,439"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लोग</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0002">
+          <Coords points="77,425 106,425 106,439 77,439"/>
+          <Glyph id="glyph_0017_0002_0000">
+            <Coords points="77,428 87,428 87,439 77,439"/>
+            <TextEquiv>
+              <Unicode>जा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0002_0001">
+            <Coords points="85,428 99,428 99,439 85,439"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0002_0002">
+            <Coords points="97,425 106,425 106,439 97,439"/>
+            <TextEquiv>
+              <Unicode>ते</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जानते</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0003">
+          <Coords points="113,429 130,429 130,442 113,442"/>
+          <Glyph id="glyph_0017_0003_0000">
+            <Coords points="113,429 122,429 122,442 113,442"/>
+            <TextEquiv>
+              <Unicode>हु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0003_0001">
+            <Coords points="120,429 130,429 130,442 120,442"/>
+            <TextEquiv>
+              <Unicode>ए</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हुए</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0004">
+          <Coords points="138,425 151,425 151,438 138,438"/>
+          <Glyph id="glyph_0017_0004_0000">
+            <Coords points="138,425 151,425 151,438 138,438"/>
+            <TextEquiv>
+              <Unicode>भी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>भी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0005">
+          <Coords points="158,425 176,425 176,441 158,441"/>
+          <Glyph id="glyph_0017_0005_0000">
+            <Coords points="158,425 168,425 168,441 158,441"/>
+            <TextEquiv>
+              <Unicode>ऐ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0005_0001">
+            <Coords points="166,425 176,425 176,441 166,441"/>
+            <TextEquiv>
+              <Unicode>से</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>ऐसे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0006">
+          <Coords points="183,425 216,425 216,442 183,442"/>
+          <Glyph id="glyph_0017_0006_0000">
+            <Coords points="183,428 193,428 193,440 183,440"/>
+            <TextEquiv>
+              <Unicode>प्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0006_0001">
+            <Coords points="191,428 204,428 204,442 191,442"/>
+            <TextEquiv>
+              <Unicode>भु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0006_0002">
+            <Coords points="202,425 216,425 216,440 202,440"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रभुको</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0007">
+          <Coords points="223,429 248,429 248,439 223,439"/>
+          <Glyph id="glyph_0017_0007_0000">
+            <Coords points="223,429 237,429 237,439 223,439"/>
+            <TextEquiv>
+              <Unicode>त्या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0007_0001">
+            <Coords points="235,429 248,429 248,439 235,439"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>त्याग</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0008">
+          <Coords points="255,425 271,425 271,440 255,440"/>
+          <Glyph id="glyph_0017_0008_0000">
+            <Coords points="255,425 264,425 264,440 255,440"/>
+            <TextEquiv>
+              <Unicode>दे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0008_0001">
+            <Coords points="262,425 271,425 271,440 262,440"/>
+            <TextEquiv>
+              <Unicode>ते</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>देते</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0009">
+          <Coords points="278,425 290,425 290,441 278,441"/>
+          <Glyph id="glyph_0017_0009_0000">
+            <Coords points="278,425 286,425 286,441 278,441"/>
+            <TextEquiv>
+              <Unicode>है</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0009_0001">
+            <Coords points="284,425 290,425 290,441 284,441"/>
+            <TextEquiv>
+              <Unicode>ं,</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हैं,</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0010">
+          <Coords points="298,425 307,425 307,439 298,439"/>
+          <Glyph id="glyph_0017_0010_0000">
+            <Coords points="298,425 307,425 307,439 298,439"/>
+            <TextEquiv>
+              <Unicode>वे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>वे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0011">
+          <Coords points="315,425 335,425 335,439 315,439"/>
+          <Glyph id="glyph_0017_0011_0000">
+            <Coords points="315,428 327,428 327,439 315,439"/>
+            <TextEquiv>
+              <Unicode>क्यो</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0011_0001">
+            <Coords points="325,425 335,425 335,439 325,439"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>क्यों</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0012">
+          <Coords points="342,429 350,429 350,439 342,439"/>
+          <Glyph id="glyph_0017_0012_0000">
+            <Coords points="342,429 350,429 350,439 342,439"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>न</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0013">
+          <Coords points="357,425 402,425 402,439 357,439"/>
+          <Glyph id="glyph_0017_0013_0000">
+            <Coords points="357,425 371,425 371,439 357,439"/>
+            <TextEquiv>
+              <Unicode>वि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0013_0001">
+            <Coords points="369,425 382,425 382,439 369,439"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0013_0002">
+            <Coords points="380,425 392,425 392,439 380,439"/>
+            <TextEquiv>
+              <Unicode>त्ति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0013_0003">
+            <Coords points="390,425 402,425 402,439 390,439"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>विपत्तिके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0014">
+          <Coords points="409,425 442,425 442,439 409,439"/>
+          <Glyph id="glyph_0017_0014_0000">
+            <Coords points="409,428 419,428 419,439 409,439"/>
+            <TextEquiv>
+              <Unicode>जा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0014_0001">
+            <Coords points="417,428 428,428 428,439 417,439"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0014_0002">
+            <Coords points="426,428 434,428 434,439 426,439"/>
+            <TextEquiv>
+              <Unicode>मे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0014_0003">
+            <Coords points="432,425 442,425 442,439 432,439"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जालमें</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0015">
+          <Coords points="449,424 471,424 471,439 449,439"/>
+          <Glyph id="glyph_0017_0015_0000">
+            <Coords points="449,424 455,424 455,437 449,437"/>
+            <TextEquiv>
+              <Unicode>फ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0015_0001">
+            <Coords points="453,424 462,424 462,439 453,439"/>
+            <TextEquiv>
+              <Unicode>ँ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0015_0002">
+            <Coords points="460,424 466,424 466,439 460,439"/>
+            <TextEquiv>
+              <Unicode>से</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0015_0003">
+            <Coords points="464,424 471,424 471,439 464,439"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>फँसें</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0016">
+          <Coords points="475,427 480,427 480,439 475,439"/>
+          <Glyph id="glyph_0017_0016_0000">
+            <Coords points="475,427 480,427 480,439 475,439"/>
+            <TextEquiv>
+              <Unicode>?</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>?</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0017_0017">
+          <Coords points="487,425 509,425 509,438 487,438"/>
+          <Glyph id="glyph_0017_0017_0000">
+            <Coords points="487,425 501,425 501,438 487,438"/>
+            <TextEquiv>
+              <Unicode>फि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0017_0017_0001">
+            <Coords points="499,428 509,428 509,438 499,438"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>फिर</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>जो लोग जानते हुए भी ऐसे प्रभुको त्याग देते हैं, वे क्यों न विपत्तिके जालमें फँसें ? फिर</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0018">
+      <Coords points="4,443 464,443 464,465 4,465"/>
+      <TextLine id="line_0018">
+        <Coords points="4,443 464,443 464,465 4,465"/>
+        <Word id="word_0018_0000">
+          <Coords points="5,446 56,446 56,460 5,460"/>
+          <Glyph id="glyph_0018_0000_0000">
+            <Coords points="5,446 18,446 18,460 5,460"/>
+            <TextEquiv>
+              <Unicode>श्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0000_0001">
+            <Coords points="16,449 27,449 27,460 16,460"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0000_0002">
+            <Coords points="25,449 36,449 36,460 25,460"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0000_0003">
+            <Coords points="34,446 46,446 46,460 34,460"/>
+            <TextEquiv>
+              <Unicode>जी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0000_0004">
+            <Coords points="44,446 56,446 56,460 44,460"/>
+            <TextEquiv>
+              <Unicode>ने</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>श्रीरामजीने</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0001">
+          <Coords points="64,446 111,446 111,464 64,464"/>
+          <Glyph id="glyph_0018_0001_0000">
+            <Coords points="64,449 76,449 76,464 64,464"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0001_0001">
+            <Coords points="74,446 88,446 88,464 74,464"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0001_0002">
+            <Coords points="86,449 97,449 97,461 86,461"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0001_0003">
+            <Coords points="95,446 111,446 111,461 95,461"/>
+            <TextEquiv>
+              <Unicode>को</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीवको</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0002">
+          <Coords points="118,450 142,450 142,464 118,464"/>
+          <Glyph id="glyph_0018_0002_0000">
+            <Coords points="118,450 133,450 133,464 118,464"/>
+            <TextEquiv>
+              <Unicode>बु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0002_0001">
+            <Coords points="131,450 142,450 142,461 131,461"/>
+            <TextEquiv>
+              <Unicode>ला</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बुला</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0003">
+          <Coords points="149,447 176,447 176,460 149,460"/>
+          <Glyph id="glyph_0018_0003_0000">
+            <Coords points="149,447 165,447 165,460 149,460"/>
+            <TextEquiv>
+              <Unicode>लि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0003_0001">
+            <Coords points="163,449 176,449 176,460 163,460"/>
+            <TextEquiv>
+              <Unicode>या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लिया</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0004">
+          <Coords points="184,446 205,446 205,460 184,460"/>
+          <Glyph id="glyph_0018_0004_0000">
+            <Coords points="184,446 193,446 193,460 184,460"/>
+            <TextEquiv>
+              <Unicode>औ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0004_0001">
+            <Coords points="191,446 205,446 205,460 191,460"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>और</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0005">
+          <Coords points="212,450 237,450 237,464 212,464"/>
+          <Glyph id="glyph_0018_0005_0000">
+            <Coords points="212,450 222,450 222,461 212,461"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0005_0001">
+            <Coords points="220,450 231,450 231,464 220,464"/>
+            <TextEquiv>
+              <Unicode>हु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0005_0002">
+            <Coords points="229,450 237,450 237,463 229,463"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बहुत</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0006">
+          <Coords points="245,446 283,446 283,460 245,460"/>
+          <Glyph id="glyph_0018_0006_0000">
+            <Coords points="245,449 254,449 254,460 245,460"/>
+            <TextEquiv>
+              <Unicode>प्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0006_0001">
+            <Coords points="252,449 265,449 265,460 252,460"/>
+            <TextEquiv>
+              <Unicode>का</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0006_0002">
+            <Coords points="263,449 274,449 274,460 263,460"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0006_0003">
+            <Coords points="272,446 283,446 283,460 272,460"/>
+            <TextEquiv>
+              <Unicode>से</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रकारसे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0007">
+          <Coords points="291,446 312,446 312,461 291,461"/>
+          <Glyph id="glyph_0018_0007_0000">
+            <Coords points="291,449 301,449 301,461 291,461"/>
+            <TextEquiv>
+              <Unicode>उ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0007_0001">
+            <Coords points="299,446 306,446 306,460 299,460"/>
+            <TextEquiv>
+              <Unicode>न्हे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0007_0002">
+            <Coords points="304,446 312,446 312,461 304,461"/>
+            <TextEquiv>
+              <Unicode>ं</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>उन्हें</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0008">
+          <Coords points="320,446 378,446 378,460 320,460"/>
+          <Glyph id="glyph_0018_0008_0000">
+            <Coords points="320,449 331,449 331,460 320,460"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0008_0001">
+            <Coords points="329,449 342,449 342,460 329,460"/>
+            <TextEquiv>
+              <Unicode>ज</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0008_0002">
+            <Coords points="340,446 356,446 356,460 340,460"/>
+            <TextEquiv>
+              <Unicode>नी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0008_0003">
+            <Coords points="354,446 365,446 365,460 354,460"/>
+            <TextEquiv>
+              <Unicode>ति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0008_0004">
+            <Coords points="363,446 378,446 378,460 363,460"/>
+            <TextEquiv>
+              <Unicode>की</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>राजनीतिकी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0009">
+          <Coords points="385,447 413,447 413,460 385,460"/>
+          <Glyph id="glyph_0018_0009_0000">
+            <Coords points="385,447 401,447 401,460 385,460"/>
+            <TextEquiv>
+              <Unicode>शि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0009_0001">
+            <Coords points="399,449 413,449 413,460 399,460"/>
+            <TextEquiv>
+              <Unicode>क्षा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>शिक्षा</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0018_0010">
+          <Coords points="421,446 464,446 464,461 421,461"/>
+          <Glyph id="glyph_0018_0010_0000">
+            <Coords points="421,446 445,446 445,461 421,461"/>
+            <TextEquiv>
+              <Unicode>दी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0018_0010_0001">
+            <Coords points="443,449 464,449 464,461 443,461"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दी॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>श्रीरामजीने  सुग्रीवको  बुला  लिया  और  बहुत  प्रकारसे  उन्हें  राजनीतिकी  शिक्षा  दी॥ ३॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0019">
+      <Coords points="2,465 509,465 509,495 2,495"/>
+      <TextLine id="line_0019">
+        <Coords points="2,465 509,465 509,495 2,495"/>
+        <Word id="word_0019_0000">
+          <Coords points="2,474 33,474 33,490 2,490"/>
+          <Glyph id="glyph_0019_0000_0000">
+            <Coords points="2,474 21,474 21,488 2,488"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0000_0001">
+            <Coords points="19,474 33,474 33,490 19,490"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>कह</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0001">
+          <Coords points="46,474 76,474 76,493 46,493"/>
+          <Glyph id="glyph_0019_0001_0000">
+            <Coords points="46,474 60,474 60,489 46,489"/>
+            <TextEquiv>
+              <Unicode>प्र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0001_0001">
+            <Coords points="58,474 76,474 76,493 58,493"/>
+            <TextEquiv>
+              <Unicode>भु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>प्रभु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0002">
+          <Coords points="88,474 117,474 117,493 88,493"/>
+          <Glyph id="glyph_0019_0002_0000">
+            <Coords points="88,474 106,474 106,493 88,493"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0002_0001">
+            <Coords points="104,474 117,474 117,493 104,493"/>
+            <TextEquiv>
+              <Unicode>नु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुनु</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0003">
+          <Coords points="129,468 177,468 177,493 129,493"/>
+          <Glyph id="glyph_0019_0003_0000">
+            <Coords points="129,473 146,473 146,493 129,493"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0003_0001">
+            <Coords points="144,468 163,468 163,493 144,493"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0003_0002">
+            <Coords points="161,473 177,473 177,488 161,488"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीव</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0004">
+          <Coords points="192,468 248,468 248,489 192,489"/>
+          <Glyph id="glyph_0019_0004_0000">
+            <Coords points="192,473 205,473 205,489 192,489"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0004_0001">
+            <Coords points="203,468 218,468 218,489 203,489"/>
+            <TextEquiv>
+              <Unicode>री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0004_0002">
+            <Coords points="216,473 233,473 233,489 216,489"/>
+            <TextEquiv>
+              <Unicode>सा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0004_0003">
+            <Coords points="231,473 248,473 248,488 231,488"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>हरीसा।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0005">
+          <Coords points="257,474 280,474 280,493 257,493"/>
+          <Glyph id="glyph_0019_0005_0000">
+            <Coords points="257,474 272,474 272,493 257,493"/>
+            <TextEquiv>
+              <Unicode>पु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0005_0001">
+            <Coords points="270,474 280,474 280,493 270,493"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>पुर</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0006">
+          <Coords points="290,474 304,474 304,487 290,487"/>
+          <Glyph id="glyph_0019_0006_0000">
+            <Coords points="290,474 304,474 304,487 290,487"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>न</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0007">
+          <Coords points="315,467 349,467 349,487 315,487"/>
+          <Glyph id="glyph_0019_0007_0000">
+            <Coords points="315,473 326,473 326,486 315,486"/>
+            <TextEquiv>
+              <Unicode>जा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0007_0001">
+            <Coords points="324,473 338,473 338,487 324,487"/>
+            <TextEquiv>
+              <Unicode>उ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0007_0002">
+            <Coords points="336,467 349,467 349,487 336,487"/>
+            <TextEquiv>
+              <Unicode>ँ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>जाउँ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0008">
+          <Coords points="360,474 387,474 387,490 360,490"/>
+          <Glyph id="glyph_0019_0008_0000">
+            <Coords points="360,474 374,474 374,490 360,490"/>
+            <TextEquiv>
+              <Unicode>द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0008_0001">
+            <Coords points="372,474 387,474 387,489 372,489"/>
+            <TextEquiv>
+              <Unicode>स</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>दस</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0009">
+          <Coords points="398,468 436,468 436,487 398,487"/>
+          <Glyph id="glyph_0019_0009_0000">
+            <Coords points="398,473 415,473 415,487 398,487"/>
+            <TextEquiv>
+              <Unicode>चा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0009_0001">
+            <Coords points="413,468 436,468 436,487 413,487"/>
+            <TextEquiv>
+              <Unicode>रि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>चारि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0019_0010">
+          <Coords points="446,468 509,468 509,488 446,488"/>
+          <Glyph id="glyph_0019_0010_0000">
+            <Coords points="446,473 461,473 461,488 446,488"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0010_0001">
+            <Coords points="459,468 475,468 475,488 459,488"/>
+            <TextEquiv>
+              <Unicode>री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0010_0002">
+            <Coords points="473,473 497,473 497,488 473,488"/>
+            <TextEquiv>
+              <Unicode>सा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0019_0010_0003">
+            <Coords points="495,473 509,473 509,488 495,488"/>
+            <TextEquiv>
+              <Unicode>॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बरीसा॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>कह  प्रभु  सुनु  सुग्रीव  हरीसा। पुर  न  जाउँ  दस  चारि  बरीसा॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0020">
+      <Coords points="2,495 508,495 508,511 2,511"/>
+      <TextLine id="line_0020">
+        <Coords points="2,495 508,495 508,511 2,511"/>
+        <Word id="word_0020_0000">
+          <Coords points="3,504 28,504 28,511 3,511"/>
+          <Glyph id="glyph_0020_0000_0000">
+            <Coords points="3,504 17,504 17,511 3,511"/>
+            <TextEquiv>
+              <Unicode>ग</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0000_0001">
+            <Coords points="15,504 28,504 28,511 15,511"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>गत</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0001">
+          <Coords points="43,499 88,499 88,511 43,511"/>
+          <Glyph id="glyph_0020_0001_0000">
+            <Coords points="43,499 58,499 58,511 43,511"/>
+            <TextEquiv>
+              <Unicode>गी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0001_0001">
+            <Coords points="56,499 75,499 75,511 56,511"/>
+            <TextEquiv>
+              <Unicode>ष</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0001_0002">
+            <Coords points="73,503 88,503 88,511 73,511"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>गीषम</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0002">
+          <Coords points="104,504 145,504 145,511 104,511"/>
+          <Glyph id="glyph_0020_0002_0000">
+            <Coords points="104,504 119,504 119,511 104,511"/>
+            <TextEquiv>
+              <Unicode>ब</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0002_0001">
+            <Coords points="117,504 133,504 133,511 117,511"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0002_0002">
+            <Coords points="131,504 145,504 145,511 131,511"/>
+            <TextEquiv>
+              <Unicode>षा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>बरषा</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0003">
+          <Coords points="160,499 187,499 187,511 160,511"/>
+          <Glyph id="glyph_0020_0003_0000">
+            <Coords points="160,499 175,499 175,511 160,511"/>
+            <TextEquiv>
+              <Unicode>रि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0003_0001">
+            <Coords points="173,503 187,503 187,511 173,511"/>
+            <TextEquiv>
+              <Unicode>त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रित</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0004">
+          <Coords points="206,498 248,498 248,511 206,511"/>
+          <Glyph id="glyph_0020_0004_0000">
+            <Coords points="206,503 227,503 227,511 206,511"/>
+            <TextEquiv>
+              <Unicode>आ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0004_0001">
+            <Coords points="225,498 248,498 248,511 225,511"/>
+            <TextEquiv>
+              <Unicode>ई</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>आई</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0005">
+          <Coords points="257,497 307,497 307,511 257,511"/>
+          <Glyph id="glyph_0020_0005_0000">
+            <Coords points="257,497 307,497 307,511 257,511"/>
+            <TextEquiv>
+              <Unicode>।</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0006">
+          <Coords points="320,499 369,499 369,511 320,511"/>
+          <Glyph id="glyph_0020_0006_0000">
+            <Coords points="320,499 328,499 328,511 320,511"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0006_0001">
+            <Coords points="326,499 339,499 339,511 326,511"/>
+            <TextEquiv>
+              <Unicode>हि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0006_0002">
+            <Coords points="337,503 352,503 352,511 337,511"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0006_0003">
+            <Coords points="350,503 358,503 358,511 350,511"/>
+            <TextEquiv>
+              <Unicode>त्त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0006_0004">
+            <Coords points="356,503 369,503 369,511 356,511"/>
+            <TextEquiv>
+              <Unicode>ँ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रहिहत्तँ</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0007">
+          <Coords points="383,498 414,498 414,511 383,511"/>
+          <Glyph id="glyph_0020_0007_0000">
+            <Coords points="383,498 396,498 396,511 383,511"/>
+            <TextEquiv>
+              <Unicode>नि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0007_0001">
+            <Coords points="394,501 404,501 404,511 394,511"/>
+            <TextEquiv>
+              <Unicode>क</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0007_0002">
+            <Coords points="402,503 414,503 414,511 402,511"/>
+            <TextEquiv>
+              <Unicode>ट</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>निकट</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0008">
+          <Coords points="428,504 450,504 450,511 428,511"/>
+          <Glyph id="glyph_0020_0008_0000">
+            <Coords points="428,504 441,504 441,511 428,511"/>
+            <TextEquiv>
+              <Unicode>सै</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0008_0001">
+            <Coords points="439,504 450,504 450,511 439,511"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सैल</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0009">
+          <Coords points="463,498 495,498 495,511 463,511"/>
+          <Glyph id="glyph_0020_0009_0000">
+            <Coords points="463,503 479,503 479,511 463,511"/>
+            <TextEquiv>
+              <Unicode>प</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0020_0009_0001">
+            <Coords points="477,498 495,498 495,511 477,511"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>पर</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0020_0010">
+          <Coords points="504,504 508,504 508,511 504,511"/>
+          <Glyph id="glyph_0020_0010_0000">
+            <Coords points="505,504 508,504 508,511 505,511"/>
+            <TextEquiv>
+              <Unicode>छाई॥</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>छाई॥</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>गत  गीषम  बरषा  रित  आई । रहिहत्तँ  निकट  सैल  पर  छाई॥</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+  </Page>
+</PcGts>
