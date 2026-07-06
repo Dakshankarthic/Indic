@@ -1,0 +1,139 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Surya OCR + DINO Pipeline</Creator>
+    <Created>2026-07-07T12:00:00</Created>
+    <LastChange>2026-07-07T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_711.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="1,0 510,0 510,13 1,13"/>
+      <TextLine id="line_0000">
+        <Coords points="1,0 510,0 510,13 1,13"/>
+        <Word id="word_0000_0000">
+          <Coords points="2,3 510,3 510,13 2,13"/>
+          <Glyph id="glyph_0000_0000_0000">
+            <Coords points="2,3 96,3 96,13 2,13"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0001">
+            <Coords points="94,3 198,3 198,7 94,7"/>
+            <TextEquiv>
+              <Unicode>ङ्का</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0002">
+            <Coords points="196,3 299,3 299,7 196,7"/>
+            <TextEquiv>
+              <Unicode>द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0003">
+            <Coords points="297,3 401,3 401,7 297,7"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0004">
+            <Coords points="399,3 510,3 510,13 399,13"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लङ्कादहन</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>लङ्कादहन</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="1,13 510,13 510,113 1,113"/>
+      <TextLine id="line_0001">
+        <Coords points="1,13 510,13 510,113 1,113"/>
+        <Word id="word_0001_0000">
+          <Coords points="2,13 5,13 5,113 2,113"/>
+          <TextEquiv>
+            <Unicode>000</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0001">
+          <Coords points="217,65 296,65 296,100 217,100"/>
+          <Glyph id="glyph_0001_0001_0000">
+            <Coords points="220,75 239,75 239,91 220,91"/>
+            <TextEquiv>
+              <Unicode>ल</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0001">
+            <Coords points="237,75 254,75 254,97 237,97"/>
+            <TextEquiv>
+              <Unicode>ङ्का</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0002">
+            <Coords points="252,75 271,75 271,93 252,93"/>
+            <TextEquiv>
+              <Unicode>द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0003">
+            <Coords points="269,75 280,75 280,93 269,93"/>
+            <TextEquiv>
+              <Unicode>ह</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0004">
+            <Coords points="278,75 295,75 295,93 278,93"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>लङ्कादहन</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0002">
+          <Coords points="507,13 510,13 510,113 507,113"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>000</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0002">
+      <Coords points="1,162 422,162 422,190 1,190"/>
+      <TextLine id="line_0002">
+        <Coords points="1,162 422,162 422,190 1,190"/>
+        <Word id="word_0002_0000">
+          <Coords points="2,162 5,162 5,190 2,190"/>
+          <TextEquiv>
+            <Unicode>.</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>. One</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0003">
+      <Coords points="2,190 509,190 509,511 2,511"/>
+      <TextLine id="line_0003">
+        <Coords points="2,190 509,190 509,511 2,511"/>
+        <TextEquiv>
+          <Unicode>0.01</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <GraphicRegion id="graphic_region_0001">
+      <Coords points="89,180 423,180 423,511 89,511"/>
+    </GraphicRegion>
+  </Page>
+</PcGts>
