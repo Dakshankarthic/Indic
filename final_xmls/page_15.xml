@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Antigravity Pipeline</Creator>
+    <Created>2026-07-05T12:00:00</Created>
+    <LastChange>2026-07-05T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_15.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="83,0 510,0 510,17 83,17"/>
+      <TextLine id="line_0000">
+        <Coords points="83,0 510,0 510,17 83,17"/>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="187,17 510,17 510,63 187,63"/>
+      <TextLine id="line_0001">
+        <Coords points="187,17 510,17 510,63 187,63"/>
+        <Word id="word_0001_0000">
+          <Coords points="188,37 258,37 258,56 188,56"/>
+          <Glyph id="glyph_0001_0000_0000">
+            <Coords points="188,37 208,37 208,51 188,51"/>
+            <TextEquiv>
+              <Unicode>मा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0000_0001">
+            <Coords points="206,37 226,37 226,51 206,51"/>
+            <TextEquiv>
+              <Unicode>या</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0000_0002">
+            <Coords points="224,37 241,37 241,56 224,56"/>
+            <TextEquiv>
+              <Unicode>मु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0000_0003">
+            <Coords points="239,37 258,37 258,56 239,56"/>
+            <TextEquiv>
+              <Unicode>क्त</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मायामुक्त</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0001">
+          <Coords points="265,31 324,31 324,53 265,53"/>
+          <Glyph id="glyph_0001_0001_0000">
+            <Coords points="265,36 278,36 278,51 265,51"/>
+            <TextEquiv>
+              <Unicode>ना</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0001">
+            <Coords points="276,35 292,35 292,52 276,52"/>
+            <TextEquiv>
+              <Unicode>र</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0002">
+            <Coords points="290,35 307,35 307,53 290,53"/>
+            <TextEquiv>
+              <Unicode>द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0003">
+            <Coords points="305,31 324,31 324,51 305,51"/>
+            <TextEquiv>
+              <Unicode>जी</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>नारदजी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0002">
+          <Coords points="503,17 507,17 507,63 503,63"/>
+          <Glyph id="glyph_0001_0002_0000">
+            <Coords points="503,17 507,17 507,63 503,63"/>
+            <TextEquiv>
+              <Unicode>|</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>मायामुक्त नारदजी |</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <GraphicRegion id="graphic_region_0001">
+      <Coords points="89,169 423,169 423,511 89,511"/>
+    </GraphicRegion>
+  </Page>
+</PcGts>

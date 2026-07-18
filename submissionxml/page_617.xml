@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Surya OCR + DINO Pipeline</Creator>
+    <Created>2026-07-07T12:00:00</Created>
+    <LastChange>2026-07-07T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_617.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="83,0 510,0 510,12 83,12"/>
+      <TextLine id="line_0000">
+        <Coords points="83,0 510,0 510,12 83,12"/>
+        <Word id="word_0000_0000">
+          <Coords points="83,2 510,2 510,12 83,12"/>
+          <Glyph id="glyph_0000_0000_0000">
+            <Coords points="83,2 219,2 219,6 83,6"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0001">
+            <Coords points="217,2 361,2 361,6 217,6"/>
+            <TextEquiv>
+              <Unicode>त्रि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0002">
+            <Coords points="359,2 510,2 510,12 359,12"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अत्रिके</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>अत्रिके</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="1,12 510,12 510,127 1,127"/>
+      <TextLine id="line_0001">
+        <Coords points="1,12 510,12 510,127 1,127"/>
+        <Word id="word_0001_0000">
+          <Coords points="2,12 5,12 5,127 2,127"/>
+          <TextEquiv>
+            <Unicode>अतिथि</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0001">
+          <Coords points="199,25 251,25 251,44 199,44"/>
+          <Glyph id="glyph_0001_0001_0000">
+            <Coords points="199,29 215,29 215,44 199,44"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0001">
+            <Coords points="213,25 233,25 233,44 213,44"/>
+            <TextEquiv>
+              <Unicode>ग्रि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0001_0002">
+            <Coords points="231,25 251,25 251,44 231,44"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अग्रिके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0002">
+          <Coords points="260,25 315,25 315,44 260,44"/>
+          <Glyph id="glyph_0001_0002_0000">
+            <Coords points="260,29 277,29 277,44 260,44"/>
+            <TextEquiv>
+              <Unicode>अ</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0002_0001">
+            <Coords points="275,25 294,25 294,44 275,44"/>
+            <TextEquiv>
+              <Unicode>ति</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0002_0002">
+            <Coords points="292,25 315,25 315,44 292,44"/>
+            <TextEquiv>
+              <Unicode>थि</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>अतिथि</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>अतिथि</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0002">
+      <Coords points="2,160 509,160 509,182 2,182"/>
+      <TextLine id="line_0002">
+        <Coords points="2,160 509,160 509,182 2,182"/>
+        <Word id="word_0002_0000">
+          <Coords points="2,160 5,160 5,182 2,182"/>
+          <TextEquiv>
+            <Unicode>.</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0001">
+          <Coords points="507,160 509,160 509,182 507,182"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>.</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0003">
+      <Coords points="2,182 509,182 509,511 2,511"/>
+      <TextLine id="line_0003">
+        <Coords points="2,182 509,182 509,511 2,511"/>
+      </TextLine>
+    </TextRegion>
+    <GraphicRegion id="graphic_region_0001">
+      <Coords points="84,164 438,164 438,511 84,511"/>
+    </GraphicRegion>
+  </Page>
+</PcGts>

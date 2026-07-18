@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Surya OCR + DINO Pipeline</Creator>
+    <Created>2026-07-07T12:00:00</Created>
+    <LastChange>2026-07-07T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_903.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="1,0 510,0 510,13 1,13"/>
+      <TextLine id="line_0000">
+        <Coords points="1,0 510,0 510,13 1,13"/>
+        <Word id="word_0000_0000">
+          <Coords points="2,3 510,3 510,13 2,13"/>
+          <Glyph id="glyph_0000_0000_0000">
+            <Coords points="2,3 249,3 249,13 2,13"/>
+            <TextEquiv>
+              <Unicode>गु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0001">
+            <Coords points="247,3 510,3 510,13 247,13"/>
+            <TextEquiv>
+              <Unicode>रु-</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>गुरु-</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>गुरु-</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="1,13 510,13 510,173 1,173"/>
+      <TextLine id="line_0001">
+        <Coords points="1,13 510,13 510,173 1,173"/>
+        <Word id="word_0001_0000">
+          <Coords points="213,37 299,37 299,70 213,70"/>
+          <Glyph id="glyph_0001_0000_0000">
+            <Coords points="216,46 246,46 246,68 216,68"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0000_0001">
+            <Coords points="244,46 267,46 267,62 244,62"/>
+            <TextEquiv>
+              <Unicode>न्द</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0001_0000_0002">
+            <Coords points="265,46 296,46 296,64 265,64"/>
+            <TextEquiv>
+              <Unicode>न</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>वन्दन</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>वन्दन</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0002">
+      <Coords points="1,173 510,173 510,196 1,196"/>
+      <TextLine id="line_0002">
+        <Coords points="1,173 510,173 510,196 1,196"/>
+        <Word id="word_0002_0000">
+          <Coords points="2,173 5,173 5,196 2,196"/>
+          <TextEquiv>
+            <Unicode>112.77</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0001">
+          <Coords points="507,173 510,173 510,196 507,196"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>112.77</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <GraphicRegion id="graphic_region_0001">
+      <Coords points="89,186 423,186 423,511 89,511"/>
+    </GraphicRegion>
+  </Page>
+</PcGts>

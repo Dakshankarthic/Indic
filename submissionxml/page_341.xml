@@ -1,0 +1,172 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Surya OCR + DINO Pipeline</Creator>
+    <Created>2026-07-07T12:00:00</Created>
+    <LastChange>2026-07-07T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_341.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="1,0 510,0 510,12 1,12"/>
+      <TextLine id="line_0000">
+        <Coords points="1,0 510,0 510,12 1,12"/>
+        <Word id="word_0000_0000">
+          <Coords points="2,2 510,2 510,12 2,12"/>
+          <Glyph id="glyph_0000_0000_0000">
+            <Coords points="2,2 122,2 122,12 2,12"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0001">
+            <Coords points="120,2 249,2 249,6 120,6"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0002">
+            <Coords points="247,2 376,2 376,6 247,6"/>
+            <TextEquiv>
+              <Unicode>ट</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0003">
+            <Coords points="374,2 510,2 510,12 374,12"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>केवटके</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>केवटके</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="1,12 510,12 510,32 1,32"/>
+      <TextLine id="line_0001">
+        <Coords points="1,12 510,12 510,32 1,32"/>
+        <Word id="word_0001_0000">
+          <Coords points="2,12 5,12 5,32 2,32"/>
+          <TextEquiv>
+            <Unicode>भाग्य</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0001">
+          <Coords points="507,12 510,12 510,32 507,32"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>भाग्य</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0002">
+      <Coords points="1,32 510,32 510,56 1,56"/>
+      <TextLine id="line_0002">
+        <Coords points="1,32 510,32 510,56 1,56"/>
+        <Word id="word_0002_0000">
+          <Coords points="2,32 5,32 5,56 2,56"/>
+          <TextEquiv>
+            <Unicode>vi</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0001">
+          <Coords points="201,35 258,35 258,53 201,53"/>
+          <Glyph id="glyph_0002_0001_0000">
+            <Coords points="201,35 219,35 219,53 201,53"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0001_0001">
+            <Coords points="217,40 231,40 231,53 217,53"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0001_0002">
+            <Coords points="229,40 242,40 242,53 229,53"/>
+            <TextEquiv>
+              <Unicode>ट</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0001_0003">
+            <Coords points="240,35 258,35 258,53 240,53"/>
+            <TextEquiv>
+              <Unicode>के</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>केवटके</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0002">
+          <Coords points="270,41 307,41 307,53 270,53"/>
+          <Glyph id="glyph_0002_0002_0000">
+            <Coords points="270,41 289,41 289,53 270,53"/>
+            <TextEquiv>
+              <Unicode>भा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0002_0001">
+            <Coords points="287,41 307,41 307,53 287,53"/>
+            <TextEquiv>
+              <Unicode>ग्य</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>भाग्य</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0003">
+          <Coords points="507,32 510,32 510,56 507,56"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>vi</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0003">
+      <Coords points="1,56 510,56 510,127 1,127"/>
+      <TextLine id="line_0003">
+        <Coords points="1,56 510,56 510,127 1,127"/>
+        <Word id="word_0003_0000">
+          <Coords points="2,56 5,56 5,127 2,127"/>
+          <TextEquiv>
+            <Unicode>..</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0001">
+          <Coords points="507,56 509,56 509,127 507,127"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>..</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0004">
+      <Coords points="2,160 509,160 509,511 2,511"/>
+      <TextLine id="line_0004">
+        <Coords points="2,160 509,160 509,511 2,511"/>
+        <TextEquiv>
+          <Unicode>a still in a</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <GraphicRegion id="graphic_region_0001">
+      <Coords points="93,173 427,173 427,511 93,511"/>
+    </GraphicRegion>
+  </Page>
+</PcGts>

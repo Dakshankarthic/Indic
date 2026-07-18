@@ -1,0 +1,214 @@
+<?xml version="1.0" ?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+  <Metadata>
+    <Creator>Surya OCR + DINO Pipeline</Creator>
+    <Created>2026-07-07T12:00:00</Created>
+    <LastChange>2026-07-07T12:00:00</LastChange>
+  </Metadata>
+  <Page imageFilename="page_679.jpg" imageWidth="512" imageHeight="512">
+    <TextRegion id="text_region_0000">
+      <Coords points="83,0 510,0 510,13 83,13"/>
+      <TextLine id="line_0000">
+        <Coords points="83,0 510,0 510,13 83,13"/>
+        <Word id="word_0000_0000">
+          <Coords points="83,3 510,3 510,13 83,13"/>
+          <Glyph id="glyph_0000_0000_0000">
+            <Coords points="83,3 290,3 290,7 83,7"/>
+            <TextEquiv>
+              <Unicode>मै</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0000_0000_0001">
+            <Coords points="288,3 510,3 510,13 288,13"/>
+            <TextEquiv>
+              <Unicode>त्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मैत्री</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>मैत्री</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0001">
+      <Coords points="1,13 510,13 510,46 1,46"/>
+      <TextLine id="line_0001">
+        <Coords points="1,13 510,13 510,46 1,46"/>
+        <Word id="word_0001_0000">
+          <Coords points="2,13 5,13 5,46 2,46"/>
+          <TextEquiv>
+            <Unicode>सुग्रीवसे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0001_0001">
+          <Coords points="507,13 509,13 509,46 507,46"/>
+          <TextEquiv>
+            <Unicode>।</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>सुग्रीवसे</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0002">
+      <Coords points="1,46 510,46 510,127 1,127"/>
+      <TextLine id="line_0002">
+        <Coords points="1,46 510,46 510,127 1,127"/>
+        <Word id="word_0002_0000">
+          <Coords points="2,46 5,46 5,127 2,127"/>
+          <TextEquiv>
+            <Unicode>भगवान्</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0001">
+          <Coords points="2,79 5,79 5,168 2,168"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0002">
+          <Coords points="131,58 191,58 191,77 131,77"/>
+          <Glyph id="glyph_0002_0002_0000">
+            <Coords points="131,58 152,58 152,73 131,73"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0002_0001">
+            <Coords points="150,58 171,58 171,73 150,73"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0002_0002">
+            <Coords points="169,58 191,58 191,77 169,77"/>
+            <TextEquiv>
+              <Unicode>की</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रामकी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0003">
+          <Coords points="195,53 248,53 248,72 195,72"/>
+          <Glyph id="glyph_0002_0003_0000">
+            <Coords points="195,57 212,57 212,72 195,72"/>
+            <TextEquiv>
+              <Unicode>रा</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0003_0001">
+            <Coords points="210,57 229,57 229,72 210,72"/>
+            <TextEquiv>
+              <Unicode>म</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0003_0002">
+            <Coords points="227,53 248,53 248,72 227,72"/>
+            <TextEquiv>
+              <Unicode>की</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>रामकी</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0004">
+          <Coords points="255,53 316,53 316,78 255,78"/>
+          <Glyph id="glyph_0002_0004_0000">
+            <Coords points="255,57 272,57 272,78 255,78"/>
+            <TextEquiv>
+              <Unicode>सु</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0004_0001">
+            <Coords points="270,53 289,53 289,78 270,78"/>
+            <TextEquiv>
+              <Unicode>ग्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0004_0002">
+            <Coords points="287,57 302,57 302,73 287,73"/>
+            <TextEquiv>
+              <Unicode>व</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0004_0003">
+            <Coords points="300,53 316,53 316,74 300,74"/>
+            <TextEquiv>
+              <Unicode>से</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>सुग्रीवसे</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0005">
+          <Coords points="323,52 356,52 356,72 323,72"/>
+          <Glyph id="glyph_0002_0005_0000">
+            <Coords points="323,52 338,52 338,72 323,72"/>
+            <TextEquiv>
+              <Unicode>मे</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <Glyph id="glyph_0002_0005_0001">
+            <Coords points="336,52 356,52 356,72 336,72"/>
+            <TextEquiv>
+              <Unicode>त्री</Unicode>
+            </TextEquiv>
+          </Glyph>
+          <TextEquiv>
+            <Unicode>मेत्री</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0002_0006">
+          <Coords points="507,46 510,46 510,127 507,127"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <TextEquiv>
+          <Unicode>भगवान्  रामकी</Unicode>
+        </TextEquiv>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0003">
+      <Coords points="2,79 509,79 509,168 2,168"/>
+      <TextLine id="line_0003">
+        <Coords points="2,79 509,79 509,168 2,168"/>
+        <Word id="word_0003_0000">
+          <Coords points="2,46 5,46 5,127 2,127"/>
+          <TextEquiv>
+            <Unicode>भगवान्</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0001">
+          <Coords points="2,79 5,79 5,168 2,168"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+        <Word id="word_0003_0002">
+          <Coords points="507,46 510,46 510,127 507,127"/>
+          <TextEquiv>
+            <Unicode>|</Unicode>
+          </TextEquiv>
+        </Word>
+      </TextLine>
+    </TextRegion>
+    <TextRegion id="text_region_0004">
+      <Coords points="2,168 509,168 509,511 2,511"/>
+      <TextLine id="line_0004">
+        <Coords points="2,168 509,168 509,511 2,511"/>
+      </TextLine>
+    </TextRegion>
+    <GraphicRegion id="graphic_region_0001">
+      <Coords points="89,180 423,180 423,511 89,511"/>
+    </GraphicRegion>
+  </Page>
+</PcGts>
