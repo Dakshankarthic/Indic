@@ -1,6 +1,8 @@
 *.zip
+!docs/*.zip
 __pycache__/
 .venv/
 models/
 ~$*
+
 
