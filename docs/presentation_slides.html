@@ -6,7 +6,7 @@
     <title>Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Latin+Modern+Roman:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --mu-base: #0000dc;
@@ -15,7 +15,6 @@
             --mu-border: #cbd5e1;
             --mu-text: #0f172a;
             --mu-text-muted: #475569;
-            --font-serif: 'Latin Modern Roman', serif;
             --font-sans: 'Inter', sans-serif;
             --font-mono: 'Fira Code', monospace;
         }
@@ -37,7 +36,7 @@
             justify-content: space-between;
         }
 
-        /* Masaryk University Beamer Top Header */
+        /* Top Bar */
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -79,7 +78,7 @@
             border: 1px solid var(--mu-border);
             border-radius: 8px;
             box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-            padding: 36px 48px;
+            padding: 32px 44px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -96,9 +95,9 @@
         }
 
         .slide-header {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             border-bottom: 2px solid var(--mu-base);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         .slide-section {
@@ -111,16 +110,16 @@
         }
 
         .slide-title {
-            font-size: 23px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--mu-dark);
             line-height: 1.25;
         }
 
         .slide-subtitle {
-            font-size: 13.5px;
+            font-size: 13px;
             color: var(--mu-text-muted);
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         /* Beamer Block Styling */
@@ -135,7 +134,7 @@
             border: 1px solid var(--mu-border);
             border-radius: 6px;
             overflow: hidden;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .block-header {
@@ -146,13 +145,9 @@
             font-weight: 700;
         }
 
-        .block-header.dark {
-            background: var(--mu-dark);
-        }
-
         .block-body {
-            padding: 14px;
-            font-size: 13px;
+            padding: 12px 14px;
+            font-size: 12.5px;
             line-height: 1.5;
             color: var(--mu-text);
         }
@@ -163,7 +158,7 @@
         }
 
         .block-body li {
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         /* Math Display Environment */
@@ -171,33 +166,62 @@
             background: #edf2f7;
             border-left: 4px solid var(--mu-base);
             font-family: var(--font-mono);
-            font-size: 12.5px;
-            padding: 8px 12px;
-            margin: 8px 0;
+            font-size: 12px;
+            padding: 7px 10px;
+            margin: 6px 0;
             color: #1e293b;
             border-radius: 0 4px 4px 0;
             overflow-x: auto;
+        }
+
+        /* Image Display Cards */
+        .image-card {
+            background: var(--mu-card-bg);
+            border: 1px solid var(--mu-border);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .image-card img {
+            max-width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .image-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--mu-dark);
+            margin-top: 10px;
         }
 
         /* Table Styling */
         table.beamer-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12.5px;
-            margin: 12px 0;
+            font-size: 12px;
+            margin: 10px 0;
         }
 
         table.beamer-table th {
             background: #f1f5f9;
             border-bottom: 2px solid var(--mu-dark);
             border-top: 2px solid var(--mu-dark);
-            padding: 7px 10px;
+            padding: 6px 8px;
             text-align: left;
             font-weight: 700;
         }
 
         table.beamer-table td {
-            padding: 7px 10px;
+            padding: 6px 8px;
             border-bottom: 1px solid #e2e8f0;
         }
 
@@ -211,7 +235,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 48px;
+            padding: 10px 48px;
             background: #ffffff;
             border-top: 1px solid var(--mu-border);
         }
@@ -236,34 +260,27 @@
         .btn:hover {
             background: var(--mu-base);
         }
-
-        .footer-info {
-            font-size: 12px;
-            color: var(--mu-text-muted);
-        }
     </style>
 </head>
 <body>
 
-    <!-- Top Navigation -->
     <div class="topbar">
-        <div>Automated Document Layout Analysis & Hierarchical Transcription for Indic Manuscripts</div>
+        <div>Automated Document Layout Analysis & Hierarchical Transcription for Historical Indic Manuscripts</div>
         <div class="slide-counter" id="slideNum">Slide 1 / 16</div>
     </div>
 
-    <!-- Main Stage -->
     <div class="stage">
 
         <!-- SLIDE 1: Title Slide -->
         <div class="slide active" style="justify-content: center; text-align: left;">
             <div style="border-left: 6px solid var(--mu-base); padding-left: 24px; margin-bottom: 28px;">
                 <div style="font-size: 13px; font-weight: 700; color: var(--mu-base); letter-spacing: 1px; text-transform: uppercase;">Research Monograph & Technical Presentation</div>
-                <h1 style="font-size: 27px; font-weight: 800; color: var(--mu-dark); margin: 12px 0; line-height: 1.25;">Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts</h1>
+                <h1 style="font-size: 26px; font-weight: 800; color: var(--mu-dark); margin: 12px 0; line-height: 1.25;">Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts</h1>
                 <h3 style="font-size: 15px; font-weight: 400; color: var(--mu-text-muted);">A Geometry-First Formulation with Structural Segmentation and Morphological Decomposition</h3>
             </div>
             <div style="background: var(--mu-card-bg); border: 1px solid var(--mu-border); padding: 18px 24px; border-radius: 6px; font-size: 13px; line-height: 1.7;">
-                <div><strong>Author:</strong> Dakshan Karthic &nbsp;|&nbsp; <strong>Affiliation:</strong> Department of Computer Science and Engineering</div>
-                <div><strong>Evaluation Scope:</strong> 1,054 Degraded Historical Folios &nbsp;|&nbsp; <strong>Standard:</strong> PRImA PAGE-XML 2013 Framework</div>
+                <div><strong>Author:</strong> Dakshan Karthic &nbsp;|&nbsp; <strong>Department:</strong> Department of Computer Science and Engineering</div>
+                <div><strong>Evaluation Scope:</strong> 1,054 Evaluated Historical Folios &nbsp;|&nbsp; <strong>Standard:</strong> PRImA PAGE-XML 2013 Framework</div>
             </div>
         </div>
 
@@ -283,7 +300,6 @@
                             <li>Classical connected component analysis fails by grouping the entire line into a single component.</li>
                         </ul>
                         <div class="math-box">S_word = \bigcup_{i=1}^M \mathcal{G}_i \cup \mathcal{H}_{\text{shirorekha}}</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">where \mathcal{G}_i denotes individual glyph components.</p>
                     </div>
                 </div>
                 <div class="beamer-block">
@@ -294,7 +310,6 @@
                             <li>Iron-gall ink bleed-through, fraying margins, and punched circular string holes.</li>
                         </ul>
                         <div class="math-box">I(x,y) = R(x,y) \cdot L(x,y) + \eta(x,y)</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">where R(x,y) is true reflectance, L(x,y) is illumination, and \eta(x,y) is additive noise.</p>
                     </div>
                 </div>
             </div>
@@ -348,13 +363,12 @@
                             <li>Elliptical structuring element \mathcal{E}_{3\times 3} eliminates isolated single-pixel noise:</li>
                         </ul>
                         <div class="math-box">B_{\text{clean}} = (B \ominus \mathcal{E}_{3\times 3}) \oplus \mathcal{E}_{3\times 3}</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">Preserves character stroke thickness while removing speckle artifacts.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 5: Self-Supervised Feature Manifolds -->
+        <!-- SLIDE 5: Self-Supervised Vision Transformer Geometry -->
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-section">Section 2: Methodology</div>
@@ -381,13 +395,12 @@
                             <li>Token matrix \mathbf{Z} reshaped into spatial feature grid:</li>
                         </ul>
                         <div class="math-box">\mathbf{F} \in \mathbb{R}^{(H'/14) \times (W'/14) \times 768}</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">Permits unsupervised clustering of foreground ink manifolds across substrate types.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: Substrate-Adaptive Clustering -->
+        <!-- SLIDE 6: Substrate-Adaptive Manifold Clustering -->
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-section">Section 2: Methodology</div>
@@ -402,7 +415,6 @@
                             <li>Evaluates boundary band luminance \bar{L}_{\text{border}} to detect substrate category:</li>
                         </ul>
                         <div class="math-box">\bar{L}_{\text{border}} = \frac{1}{|\mathcal{B}|} \sum_{(x,y) \in \mathcal{B}} I_{\text{gray}}(x,y)</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">Light Paper: \bar{L}_{\text{border}} > 200 &nbsp;|&nbsp; Dark Palm Leaf: \bar{L}_{\text{border}} \le 200</p>
                     </div>
                 </div>
                 <div class="beamer-block">
@@ -446,7 +458,6 @@
                         </ul>
                         <div class="math-box">B_{\text{ablated}}(y,x) = \begin{cases} 0 & \text{if } |y - y^*| \le \tau \\ B_{\text{line}}(y,x) & \text{otherwise} \end{cases}</div>
                         <div class="math-box">\tau = \max(2, \lfloor 0.06 \cdot H_L \rfloor)</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">Exposes isolated vertical character stems for connected-component analysis.</p>
                     </div>
                 </div>
             </div>
@@ -483,7 +494,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 9: Multi-Column & Illustration Filtering -->
+        <!-- SLIDE 9: Multi-Column Gutters & Illustration Filtering -->
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-section">Section 2: Methodology</div>
@@ -514,7 +525,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 10: 6-Channel nnU-Net -->
+        <!-- SLIDE 10: 6-Channel nnU-Net Architecture -->
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-section">Section 2: Methodology</div>
@@ -530,7 +541,6 @@
                             <li>Instance Normalization prevents batch-size scaling artifacts:</li>
                         </ul>
                         <div class="math-box">\text{IN}(\mathbf{x}) = \gamma \left( \frac{\mathbf{x} - \mu(\mathbf{x})}{\sqrt{\sigma^2(\mathbf{x}) + \epsilon}} \right) + \beta</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">6 Target Channels: TextRegion, Marginalia, GraphicRegion, PageFrame, Damage, TextLine.</p>
                     </div>
                 </div>
                 <div class="beamer-block">
@@ -540,7 +550,6 @@
                             <li>Supervised at 3 decoder scales (512, 256, 128) with weights w = [1.0, 0.5, 0.25]:</li>
                         </ul>
                         <div class="math-box">\mathcal{L}_{\text{total}} = \sum_{k=0}^{2} w_k \left[ \mathcal{L}_{\text{BCE}}(\hat{Y}_k, Y_k) + \mathcal{L}_{\text{Dice}}(\hat{Y}_k, Y_k) \right]</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">Dice loss eliminates severe foreground/background class imbalance.</p>
                     </div>
                 </div>
             </div>
@@ -571,44 +580,50 @@
                             <li>Contour isolated as damage if and only if:</li>
                         </ul>
                         <div class="math-box">\mathcal{C} \in \mathcal{R}_{\text{damage}} \iff \begin{cases} 500 \le \text{Area} \le 8000\text{ px} \\ \Psi(\mathcal{C}) > 0.85 \\ 0.5 \le \frac{\text{Width}}{\text{Height}} \le 2.0 \end{cases}</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">Eliminates 99.4% of false damage classifications prior to OCR inference.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 12: Orthographic Arbitration & Polygon Optimization -->
+        <!-- SLIDE 12: Visual Output Image Comparison (Lithograph) -->
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-section">Section 2: Methodology</div>
-                <div class="slide-title">Orthographic Scoring and Polygon Simplification</div>
-                <div class="slide-subtitle">Automated Quality Arbitration and Douglas-Peucker Reduction</div>
+                <div class="slide-section">Section 3: Visual Results</div>
+                <div class="slide-title">Visual Document Layout Parsing: Degraded Lithographic Folio</div>
+                <div class="slide-subtitle">Side-by-Side Verification of Segmented Bounding Polygons</div>
             </div>
             <div class="grid-2">
-                <div class="beamer-block">
-                    <div class="block-header">1. Devanagari Orthographic Scoring Metric</div>
-                    <div class="block-body">
-                        <ul>
-                            <li>Evaluates transcription quality autonomously:</li>
-                        </ul>
-                        <div class="math-box">\mathcal{S}_{\text{Dev}}(T) = \sum_{c \in T} \omega(c) - 8 \sum_{n \in \mathcal{N}} \text{count}(n, T) + 2 \min(|\text{words}(T)|, 12)</div>
-                        <p style="font-size: 11.5px; color: var(--mu-text-muted);">Weights: +5 for Devanagari Unicode, +1 for punctuation, -12 for Latin/ASCII noise.</p>
-                    </div>
+                <div class="image-card">
+                    <img src="input_folio.jpg" alt="Raw Input Folio">
+                    <div class="image-label">(a) Raw Input Folio</div>
                 </div>
-                <div class="beamer-block">
-                    <div class="block-header">2. Ramer-Douglas-Peucker (RDP) Simplification</div>
-                    <div class="block-body">
-                        <ul>
-                            <li>Perpendicular distance threshold \epsilon = 0.005 \cdot \text{ArcLength}:</li>
-                        </ul>
-                        <div class="math-box">d_\perp(p_i, \overline{p_1 p_n}) \le \epsilon \implies \text{Point removed}</div>
-                        <p style="font-size: 12px; color: var(--mu-text-muted);">Reduces polygon vertices by <strong>82.6%</strong> while preserving boundary IoU > 0.98.</p>
-                    </div>
+                <div class="image-card">
+                    <img src="output_annotation.jpg" alt="Layout & Text Extraction Overlay">
+                    <div class="image-label">(b) Layout & Text Extraction Overlay (PAGE-XML)</div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 13: Experimental Results -->
+        <!-- SLIDE 13: Visual Output Image Comparison (Palm-Leaf) -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-section">Section 3: Visual Results</div>
+                <div class="slide-title">Visual Document Layout Parsing: Palm-Leaf Manuscript</div>
+                <div class="slide-subtitle">Topological Binder Hole Isolation and Text Line Boundaries</div>
+            </div>
+            <div class="grid-2">
+                <div class="image-card">
+                    <img src="input_leaf.jpg" alt="Raw Palm-Leaf Capture">
+                    <div class="image-label">(a) Raw Palm-Leaf Capture</div>
+                </div>
+                <div class="image-card">
+                    <img src="output_leaf.jpg" alt="Damage Isolation & Line Parsing">
+                    <div class="image-label">(b) Damage Isolation & Line Parsing (Yellow=Damage, Green=Line)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Experimental Results -->
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-section">Section 3: Experimental Results</div>
@@ -642,7 +657,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 14: Layout F1 & Human Effort -->
+        <!-- SLIDE 15: Layout F1 & Human Effort -->
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-section">Section 3: Experimental Results</div>
@@ -676,36 +691,7 @@
                             <li>Standard Automated Baseline: 11.8 min/page (Effort: 142.6)</li>
                             <li><strong>Proposed Pre-Annotations: 2.9 min/page (Effort: 14.20)</strong></li>
                         </ul>
-                        <p style="font-size: 12px; color: var(--mu-base); font-weight: bold; margin-top: 6px;">75.4% reduction in manual annotation latency in Aletheia.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 15: Ablation Study -->
-        <div class="slide">
-            <div class="slide-header">
-                <div class="slide-section">Section 3: Experimental Results</div>
-                <div class="slide-title">Systematic Component Ablation Study</div>
-                <div class="slide-subtitle">Empirical Validation of Individual Algorithmic Dependencies</div>
-            </div>
-            <div class="beamer-block">
-                <div class="block-header">Ablation Findings across 1,054 Evaluated Pages</div>
-                <div class="block-body">
-                    <table class="beamer-table">
-                        <thead>
-                            <tr><th>Configuration</th><th>CER (%)</th><th>WER (%)</th><th>Layout F1</th><th>Effort (E)</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>Complete Proposed Pipeline</strong></td><td><strong>15.32</strong></td><td><strong>9.97</strong></td><td><strong>0.932</strong></td><td><strong>14.20</strong></td></tr>
-                            <tr><td>w/o DINOv2 Feature Clustering</td><td>28.60</td><td>22.40</td><td>0.741</td><td>68.50</td></tr>
-                            <tr><td>w/o Shirorekha Ablation</td><td>24.10</td><td>18.20</td><td>0.890</td><td>38.10</td></tr>
-                            <tr><td>w/o Gaussian Column Parsing</td><td>22.80</td><td>26.50</td><td>0.812</td><td>52.40</td></tr>
-                            <tr><td>w/o Binder Hole Filter</td><td>18.90</td><td>14.10</td><td>0.865</td><td>44.00</td></tr>
-                            <tr><td>w/o Douglas-Peucker Simplification</td><td>15.32</td><td>9.97</td><td>0.932</td><td>49.80</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="math-box">\Delta \text{CER}_{\text{DINO}} = +13.28\%, \quad \Delta \text{WER}_{\text{Column}} = +16.53\%, \quad \Delta E_{\text{RDP}} = +35.60</div>
                 </div>
             </div>
         </div>
@@ -723,14 +709,14 @@
                     <ul>
                         <li><strong>Substrate-Adaptive Manifold Clustering:</strong> Zero-shot spatial feature discovery via self-supervised vision transformer patch geometry.</li>
                         <li><strong>Morphological Orthographic Decomposition:</strong> Analytical headline ablation and vertical Gaussian valley tracking isolating Devanagari Aksharas.</li>
-                        <li><strong>6-Channel Semantic Segmentation:</strong> Deeply supervised nnU-Net with Instance Normalization and isoperimetric damage isolation (\Psi > 0.85).</li>
+                        <li><strong>6-Channel Semantic Segmentation:</strong> Deeply supervised nnU-Net with Instance Normalization and isoperimetric damage isolation.</li>
                         <li><strong>Empirical Verification:</strong> Validated across 1,054 manuscript pages achieving <strong>84.50% Accuracy, 15.32% CER</strong>, and reducing manual annotation latency by <strong>75.4%</strong>.</li>
                         <li><strong>Standardized Outputs:</strong> Fully compliant PRImA PAGE-XML 2013 hierarchy for direct production deployment in Aletheia.</li>
                     </ul>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 18px;">
-                <h3 style="color: var(--mu-base); font-size: 18px;">Thank You for Your Attention</h3>
+            <div style="text-align: center; margin-top: 14px;">
+                <h3 style="color: var(--mu-base); font-size: 17px;">Thank You for Your Attention</h3>
                 <p style="font-size: 13px; color: var(--mu-text-muted); margin-top: 4px;">Questions and Technical Discussion</p>
             </div>
         </div>
@@ -743,7 +729,6 @@
             <button class="btn" onclick="prevSlide()">◀ Previous</button>
             <button class="btn" onclick="nextSlide()">Next ▶</button>
         </div>
-        <div class="footer-info">Dakshan Karthic · Document Layout Analysis for Indic Manuscripts</div>
         <div class="btn-group">
             <button class="btn" onclick="toggleFullScreen()">Fullscreen ⛶</button>
         </div>
