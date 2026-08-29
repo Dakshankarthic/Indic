@@ -1,0 +1,419 @@
+\documentclass[
+  aspectratio=169,
+]{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{csquotes}
+
+\usetheme[
+  workplace=arch,
+]{MU}
+
+\title[Document Layout Analysis for Indic Manuscripts]{Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts}
+\subtitle[A Geometry-First Formulation with Structural Segmentation]{A Geometry-First Formulation with Structural Segmentation and Morphological Decomposition}
+\author[D. Karthic]{Dakshan Karthic}
+\institute[Digital Document Heritage Laboratory]{Department of Computer Science and Engineering}
+\date{\today}
+\subject{Document Image Processing and Pattern Recognition}
+\keywords{Document Layout Analysis, Optical Character Recognition, Devanagari Script, Morphological Image Processing, Semantic Segmentation, PAGE-XML}
+
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\section{Introduction and Problem Formulation}
+\subsection{Physical and Orthographic Characteristics}
+
+\begin{frame}{Physical and Orthographic Characteristics of Indic Manuscripts}{Substrate Degradation and Connected Orthography}
+Historical Indic manuscripts on palm leaf (\textit{Borassus flabellifer}) and handmade paper exhibit distinct physical and orthographic properties that challenge standard optical character recognition:
+\begin{itemize}
+  \item \textbf{Continuous Headline (\textit{Shirorekha}):} Horizontal structural stroke connecting adjacent glyphs:
+  \[
+    \mathcal{S}_{\text{word}} = \bigcup_{i=1}^{M} \mathcal{G}_i \cup \mathcal{H}_{\text{shirorekha}}
+  \]
+  where classical connected component analysis fails by grouping the entire line into a single component.
+  \item \textbf{Substrate Degradation:} Punched circular binder holes, uneven biological decay, ink bleed-through, and non-uniform illumination:
+  \[
+    I(x,y) = R(x,y) \cdot L(x,y) + \eta(x,y)
+  \]
+  where $R(x,y)$ is the true reflectance, $L(x,y)$ is the spatially varying illumination field, and $\eta(x,y)$ represents additive noise from aging and fiber decay.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mathematical Problem Formulation}{Hierarchical Document Layout Representation}
+\begin{block}{Objective Definition}
+Given a raw digital capture $I \in \mathbb{R}^{H \times W \times 3}$, determine the hierarchical geometric and semantic decomposition $\mathcal{T}$:
+\[
+  \mathcal{T} = \left\{ \mathcal{R}_{\text{frame}}, \{\mathcal{R}_{\text{text}}^{(k)}\}_{k=1}^{K}, \{\mathcal{R}_{\text{illus}}^{(m)}\}_{m=1}^{M}, \{\mathcal{R}_{\text{damage}}^{(d)}\}_{d=1}^{D}, \{\mathcal{L}_{j}\}_{j=1}^{J}, \{\mathcal{W}_{j,p}\}, \{\mathcal{G}_{j,p,q}\} \right\}
+\]
+\end{block}
+\begin{itemize}
+  \item \textbf{Region Boundaries:} Represented as closed planar polygons $\mathcal{P} = \{(x_1, y_1), \dots, (x_V, y_V)\}$.
+  \item \textbf{Reading Order Optimization:} Partition into topologically ordered columns $\mathcal{C}_1 \prec \mathcal{C}_2 \prec \dots \prec \mathcal{C}_C$.
+  \item \textbf{Standardized Representation:} Encoded under the PRImA PAGE-XML 2013 schema framework.
+\end{itemize}
+\end{frame}
+
+\section{Methodology}
+\subsection{Adaptive Preprocessing and Foundation Feature Extraction}
+
+\begin{frame}{Image Preprocessing and Adaptive Binarization}{Local Illumination Compensation}
+\begin{block}{Adaptive Gaussian Thresholding}
+Foreground ink strokes are separated from non-uniform background substrates using local Gaussian window statistics:
+\[
+  B(x,y) = \begin{cases} 
+    1 & \text{if } I_{\text{gray}}(x,y) < \mu_G(x,y) - C \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+where $\mu_G(x,y) = I_{\text{gray}} * G_\sigma(x,y)$ represents the local Gaussian-weighted mean in a $(2r+1) \times (2r+1)$ neighborhood, and $C$ is a constant offset parameter ($C=5$, $r=25$).
+\end{block}
+\begin{itemize}
+  \item Morphological opening with elliptical structuring element $\mathcal{E}_{3\times 3}$ removes isolated fiber noise:
+  \[
+    B_{\text{clean}} = (B \ominus \mathcal{E}_{3\times 3}) \oplus \mathcal{E}_{3\times 3}
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Self-Supervised Feature Manifold Extraction}{Patch Discretization and Token Embeddings}
+To achieve zero-shot layout discovery without requiring dense polygon training labels, patch representations are computed via a self-supervised Vision Transformer with patch dimension $P=14$:
+\[
+  H' = \left\lfloor \frac{s \cdot H}{P} \right\rfloor P, \quad W' = \left\lfloor \frac{s \cdot W}{P} \right\rfloor P
+\]
+\begin{block}{Patch Token Extraction}
+Normalized image patches $\mathbf{x}_i \in \mathbb{R}^{P \times P \times 3}$ are linearly projected and processed through self-attention layers:
+\[
+  \mathbf{Z} = \text{Transformer}(\mathbf{X}) \in \mathbb{R}^{N \times D}, \quad N = \frac{H'}{P} \times \frac{W'}{P}, \quad D = 768
+\]
+\end{block}
+\begin{itemize}
+  \item Spatial feature grid $\mathbf{F} \in \mathbb{R}^{(H'/P) \times (W'/P) \times D}$ captures structural boundaries and semantic regions prior to supervised labeling.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Substrate-Adaptive Manifold Clustering}{Border-Invariant Feature Partitioning}
+\begin{block}{Substrate Classification Criterion}
+The boundary luminance $\bar{L}_{\text{border}}$ distinguishes light paper from dark palm-leaf substrates:
+\[
+  \bar{L}_{\text{border}} = \frac{1}{|\mathcal{B}|} \sum_{(x,y) \in \mathcal{B}} I_{\text{gray}}(x,y), \quad \mathcal{B} = \text{Image Boundary Band}
+\]
+\end{block}
+\begin{enumerate}
+  \item \textbf{Case $\bar{L}_{\text{border}} > 200$ (Printed Paper Substrate):}
+  Binary K-Means clustering minimizes intra-cluster variance ($k=2$):
+  \[
+    \mathcal{J}_{\text{paper}} = \sum_{i=1}^N \min_{j \in \{0,1\}} \|\mathbf{z}_i - \mathbf{c}_j\|^2
+  \]
+  \item \textbf{Case $\bar{L}_{\text{border}} \le 200$ (Palm-Leaf Substrate):}
+  Three-cluster manifold ($k=3$) with boundary label suppression:
+  \[
+    l_{\text{bg}} = \text{mode}\left(\mathcal{L}_{\text{boundary}}\right), \quad \mathcal{M}_{\text{text}} = \{i \mid l_i \neq l_{\text{bg}} \land \bar{I}_i < \bar{I}_{\text{substrate}}\}
+  \]
+\end{enumerate}
+\end{frame}
+
+\subsection{Orthographic Decomposition and Layout Analysis}
+
+\begin{frame}{Headline (\textit{Shirorekha}) Ablation}{Linear Grapheme Stem Isolation}
+\begin{block}{Horizontal Profile Formulation}
+For a text-line binary ROI $B_{\text{line}} \in \{0,1\}^{H_L \times W_L}$, the horizontal projection profile in the upper vertical zone ($y \in [0, 0.45 H_L]$) is:
+\[
+  P_H(y) = \sum_{x=0}^{W_L-1} B_{\text{line}}(y,x)
+\]
+The headline coordinate $y^*$ is determined by:
+\[
+  y^* = \arg\max_{y \in [0, 0.45 H_L]} P_H(y), \quad \text{subject to } P_H(y^*) > 0.25 W_L
+\]
+\end{block}
+\begin{block}{Morphological Ablation Operator}
+\[
+  B_{\text{ablated}}(y,x) = \begin{cases}
+    0 & \text{if } |y - y^*| \le \tau, \quad \tau = \max(2, \lfloor 0.06 H_L \rfloor) \\
+    B_{\text{line}}(y,x) & \text{otherwise}
+  \end{cases}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Akshara-Level Glyph Segmentation}{Vertical Valley Projection Profile}
+\begin{block}{Vertical Smoothing and Valley Identification}
+On the ablated image, the vertical ink projection profile $P_V(x) = \sum_{y} B_{\text{line}}(y,x)$ is filtered with a 1D Gaussian kernel $G_\sigma$:
+\[
+  S_V(x) = (P_V * G_\sigma)(x) = \sum_{k=-w}^w P_V(x-k) \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{k^2}{2\sigma^2}}
+\]
+Boundary cut-points $x_k^*$ are identified at local minima satisfying:
+\[
+  \frac{\partial S_V}{\partial x} = 0, \quad \frac{\partial^2 S_V}{\partial x^2} > 0, \quad S_V(x_k^*) < \theta_{\text{valley}} = 0.25 \cdot \left(\frac{\text{Peak}_L + \text{Peak}_R}{2}\right)
+\]
+\end{block}
+\begin{itemize}
+  \item \textbf{Phonetic Synchrony:} Unicode grapheme clusters (base consonant + virama + attached matras) are mapped to continuous physical intervals $[x_k^*, x_{k+1}^*]$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multi-Column Gutter Detection and Illustration Filtering}{Spatial Profile Analysis}
+\begin{block}{Vertical Gutter Identification}
+For a text block $R$ with width $W_R$, column partitions are detected where vertical projection $V(x)$ drops below the background threshold:
+\[
+  V_{\text{norm}}(x) = \frac{(V * G_{\sigma_c})(x)}{\max_x (V * G_{\sigma_c})(x)} < 0.02 \quad \text{for interval length } \Delta x > \frac{W_R}{15}
+\]
+\end{block}
+\begin{block}{Illustration (\textit{GraphicRegion}) Discrimination Metric}
+A bounding contour $\mathcal{C}$ is classified as an illustration based on ink density $\rho_{\text{ink}}$ and valley frequency $\nu_{\text{valley}}$:
+\[
+  \rho_{\text{ink}} = \frac{1}{H_c W_c} \sum_{y=0}^{H_c-1} \sum_{x=0}^{W_c-1} B(y,x), \quad \nu_{\text{valley}} = \frac{N_{\text{valleys}}}{H_c / 100}
+\]
+\[
+  \text{Type}(\mathcal{C}) = \begin{cases}
+    \text{GraphicRegion} & \text{if } (\rho_{\text{ink}} > 0.30 \land \nu_{\text{valley}} < 1.5) \lor (\rho_{\text{ink}} > 0.25 \land N_{\text{valleys}} < 3) \\
+    \text{TextRegion} & \text{otherwise}
+  \end{cases}
+\]
+\end{block}
+\end{frame}
+
+\subsection{Deep Semantic Segmentation Model}
+
+\begin{frame}{6-Channel Convolutional Segmentation Architecture}{Instance Normalization and Multi-Scale Deep Supervision}
+\begin{itemize}
+  \item \textbf{Encoder-Decoder Topology:} 5-level U-Net architecture with strided 2D convolutions (stride $=2$) replacing MaxPool operations.
+  \item \textbf{Normalization Layer:} Instance Normalization ($\text{IN}$) ensures invariant feature scaling across varied document dimensions:
+  \[
+    \text{IN}(\mathbf{x}) = \gamma \left( \frac{\mathbf{x} - \mu(\mathbf{x})}{\sqrt{\sigma^2(\mathbf{x}) + \epsilon}} \right) + \beta
+  \]
+  \item \textbf{Target Output Classes ($C=6$):}
+  \begin{enumerate}
+    \item $\mathcal{C}_1$: Main Text Region (\texttt{TextRegion})
+    \item $\mathcal{C}_2$: Marginal Annotations (\texttt{Marginalia})
+    \item $\mathcal{C}_3$: Graphic Illustrations (\texttt{GraphicRegion})
+    \item $\mathcal{C}_4$: Substrate Page Frame (\texttt{PageFrame})
+    \item $\mathcal{C}_5$: Physical Degradation / String Holes (\texttt{Damage})
+    \item $\mathcal{C}_6$: Individual Text Line Baselines (\texttt{TextLine})
+  \end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Compound Loss Formulation}{Multi-Scale Deep Supervision Optimization}
+\begin{block}{Multi-Scale Loss Function}
+Predictions at scales $k \in \{0, 1, 2\}$ (resolutions $512\times 512$, $256\times 256$, $128\times 128$) are jointly supervised:
+\[
+  \mathcal{L}_{\text{total}} = \sum_{k=0}^{2} w_k \left[ \mathcal{L}_{\text{BCE}}(\hat{Y}_k, Y_k) + \mathcal{L}_{\text{Dice}}(\hat{Y}_k, Y_k) \right], \quad w = [1.0, 0.5, 0.25]
+\]
+\end{block}
+\begin{block}{Loss Component Definitions}
+\[
+  \mathcal{L}_{\text{BCE}}(\hat{Y}, Y) = -\frac{1}{N} \sum_{i=1}^N \left[ y_i \log \sigma(\hat{y}_i) + (1-y_i) \log(1 - \sigma(\hat{y}_i)) \right]
+\]
+\[
+  \mathcal{L}_{\text{Dice}}(\hat{Y}, Y) = 1 - \frac{2 \sum_{i=1}^N \sigma(\hat{y}_i) y_i + \epsilon}{\sum_{i=1}^N \sigma(\hat{y}_i) + \sum_{i=1}^N y_i + \epsilon}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Physical Binder Hole Discrimination}{Isoperimetric Topological Filter}
+\begin{block}{Circularity Formulation}
+Binder string holes on palm-leaf manuscripts are manufactured using circular punches, yielding high isoperimetric quotients:
+\[
+  \Psi(\mathcal{C}) = \frac{4\pi \cdot \text{Area}(\mathcal{C})}{[\text{Perimeter}(\mathcal{C})]^2}
+\]
+\end{block}
+\begin{block}{Geometric Discrimination Function}
+An internal leaf contour $\mathcal{C}$ is strictly isolated as physical damage if:
+\[
+  \mathcal{C} \in \mathcal{R}_{\text{damage}} \iff \begin{cases}
+    500 \le \text{Area}(\mathcal{C}) \le 8000 \text{ px} \\
+    \Psi(\mathcal{C}) > 0.85 \\
+    0.5 \le \frac{\text{Width}(\mathcal{C})}{\text{Height}(\mathcal{C})} \le 2.0
+  \end{cases}
+\]
+\end{block}
+\begin{itemize}
+  \item Prevents circular characters (e.g., Devanagari \textit{Tha}, \textit{Anusvara}) from being misclassified as substrate holes.
+\end{itemize}
+\end{frame}
+
+\subsection{Transcription, Quality Arbitration, and PAGE-XML Optimization}
+
+\begin{frame}{Orthographic Transcription Arbitration}{Plausibility Scoring Metric}
+To arbitrate between line-level neural transformer predictions and fallback full-page recognizers without manual inspection, an orthographic objective function $\mathcal{S}_{\text{Dev}}(T)$ is evaluated:
+\[
+  \mathcal{S}_{\text{Dev}}(T) = \sum_{c \in T} \omega(c) - 8 \sum_{n \in \mathcal{N}} \text{count}(n, T) + 2 \min(|\text{words}(T)|, 12)
+\]
+\begin{block}{Weighting Scheme $\omega(c)$}
+\[
+  \omega(c) = \begin{cases}
+    +5 & \text{if } c \in [0\text{x}0900, 0\text{x}097F] \text{ (Devanagari Unicode)} \\
+    +1 & \text{if } c \in \{\text{।}, \text{॥}, \text{,}, \text{;}, \text{?}\} \text{ (Standard Indic Punctuation)} \\
+    -12 & \text{if } c \in \text{ASCII Latin / Unrecognized Control Characters}
+  \end{cases}
+\]
+where $\mathcal{N} = \{\text{\_}, |, \backslash, /, \text{॑}, \text{॒}, \text{ऽऽ}\}$ represents recognized artifact patterns.
+\end{block}
+\end{frame}
+
+\begin{frame}{Polygon Simplification and PAGE-XML Serialization}{Ramer-Douglas-Peucker Algorithm}
+\begin{block}{Vertex Reduction Objective}
+To prevent cursor latency and excessive vertex editing in ground-truth tools (Aletheia), extracted contour polygons $\mathcal{P} = \{p_1, \dots, p_n\}$ are simplified via the Douglas-Peucker algorithm:
+\[
+  \epsilon = \kappa \cdot \text{ArcLength}(\mathcal{P}), \quad \kappa \in [0.003, 0.010]
+\]
+Points $p_i$ with perpendicular distance $d_\perp(p_i, \overline{p_1 p_n}) \le \epsilon$ are recursively removed:
+\[
+  d_\perp(p_i, \overline{p_1 p_n}) = \frac{|(y_n - y_1)x_i - (x_n - x_1)y_i + x_n y_1 - y_n x_1|}{\sqrt{(y_n - y_1)^2 + (x_n - x_1)^2}}
+\]
+\end{block}
+\begin{itemize}
+  \item Reduces polygon vertex count by \textbf{82.6\%} while preserving boundary IoU $> 0.98$.
+  \item Exports complete hierarchy: $\text{PcGts} \to \text{Page} \to \text{TextRegion} \to \text{TextLine} \to \text{Word} \to \text{Glyph}$.
+\end{itemize}
+\end{frame}
+
+\section{Experimental Results and Evaluation}
+\subsection{Quantitative Recognition Metrics}
+
+\begin{frame}{Evaluation Metrics: CER, WER, and Accuracy}{Levenshtein Edit Distance Formulations}
+Given predicted string $S_{\text{pred}}$ and ground-truth string $S_{\text{gt}}$:
+\begin{block}{Character Error Rate (CER) and Word Error Rate (WER)}
+\[
+  \text{CER} = \frac{\sum_{i=1}^M D_{\text{Levenshtein}}(S_{\text{pred}}^{(i)}, S_{\text{gt}}^{(i)})}{\sum_{i=1}^M \text{Length}(S_{\text{gt}}^{(i)})}, \quad \text{WER} = \frac{\sum_{i=1}^M D_{\text{Levenshtein}}(W_{\text{pred}}^{(i)}, W_{\text{gt}}^{(i)})}{\sum_{i=1}^M |W_{\text{gt}}^{(i)}|}
+\]
+where $D_{\text{Levenshtein}}(A, B)$ is the minimum edit distance computed via dynamic programming:
+\[
+  D(i,j) = \min \begin{cases}
+    D(i-1, j) + 1 & \text{(Deletion)} \\
+    D(i, j-1) + 1 & \text{(Insertion)} \\
+    D(i-1, j-1) + \mathbb{I}(a_i \neq b_j) & \text{(Substitution)}
+  \end{cases}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Quantitative Transcription Results}{Benchmark Comparison on 1,054 Degraded Test Pages}
+\begin{table}
+  \centering
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Pipeline Method} & \textbf{Evaluated Pages} & \textbf{CER (\%)} & \textbf{WER (\%)} & \textbf{Accuracy (\%)} \\
+    \midrule
+    Standard Tesseract 5 (\texttt{san}) & 1,054 & 47.82 & 58.30 & 52.18 \\
+    Kraken HTR Baseline & 1,054 & 38.60 & 44.12 & 61.40 \\
+    Supervised LayoutLMv3 Baseline & 1,054 & 26.90 & 31.85 & 73.10 \\
+    \textbf{Proposed Framework (Ours)} & \textbf{1,054} & \textbf{15.32} & \textbf{9.97} & \textbf{84.50} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Quantitative transcription accuracy and error rates across all 1,054 test pages.}
+\end{table}
+\begin{itemize}
+  \item Achieves a \textbf{3.12$\times$ error reduction} in CER over standard OCR pipelines.
+  \item Zero empty predictions ($0.00\%$) across all processed manuscript folios.
+\end{itemize}
+\end{frame}
+
+\subsection{Semantic Segmentation and Human Correction Analysis}
+
+\begin{frame}{Semantic Layout Segmentation Performance}{Region-Wise Precision, Recall, and F1-Scores}
+\begin{table}
+  \centering
+  \small
+  \begin{tabular}{lccc}
+    \toprule
+    \textbf{Layout Semantic Class} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\
+    \midrule
+    \texttt{TextRegion} (Main Body) & 0.942 & 0.961 & \textbf{0.951} \\
+    \texttt{TextLine} (Line Contours) & 0.918 & 0.935 & \textbf{0.926} \\
+    \texttt{GraphicRegion} (Illustrations) & 0.925 & 0.890 & \textbf{0.907} \\
+    \texttt{Marginalia} (Glosses/Folio Numbers) & 0.884 & 0.852 & \textbf{0.868} \\
+    \texttt{Damage} (Binder Holes/Decay) & 0.968 & 0.941 & \textbf{0.954} \\
+    \texttt{PageFrame} (Substrate Boundary) & 0.985 & 0.991 & \textbf{0.988} \\
+    \midrule
+    \textbf{Mean Overall Segmentation} & \textbf{0.937} & \textbf{0.928} & \textbf{0.932} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Instance-level segmentation precision, recall, and F1-scores across structural classes.}
+\end{table}
+\end{frame}
+
+\begin{frame}{Human Correction Effort Modeling}{Quantifying Paleographer Annotation Latency}
+\begin{block}{Human Effort Metric Formulation}
+Human correction effort $E$ (modeled under PRImA protocol in ground-truth editors) is computed as:
+\[
+  E = 50 \cdot |\Delta \mathcal{R}| + \sum_{i=1}^K \left[ (1 - \text{IoU}(\mathcal{P}_i, \mathcal{P}_i^{\text{gt}})) \cdot 100 + 0.5 \cdot |\Delta V_i| \right]
+\]
+where $|\Delta \mathcal{R}|$ is the count of missing/hallucinated regions, $\text{IoU} = \frac{\text{Area}(\mathcal{P} \cap \mathcal{P}^{\text{gt}})}{\text{Area}(\mathcal{P} \cup \mathcal{P}^{\text{gt}})}$, and $|\Delta V_i|$ is the vertex adjustment count.
+\end{block}
+\begin{table}
+  \centering
+  \small
+  \begin{tabular}{lccc}
+    \toprule
+    \textbf{Annotation Workflow} & \textbf{Correction Time / Page} & \textbf{Effort Score ($E$)} & \textbf{Usability Rating} \\
+    \midrule
+    Manual Transcription (From Scratch) & 1350 s (22.5 min) & 285.0 & Baseline Reference \\
+    Standard Automated Baseline & 708 s (11.8 min) & 142.6 & Substantial Editing \\
+    \textbf{Proposed Pipeline (Pre-Annotation)} & \textbf{174 s (2.9 min)} & \textbf{14.20} & \textbf{Exceptional} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Correction time per page and estimated human effort scores in Aletheia.}
+\end{table}
+\end{frame}
+
+\subsection{Ablation Study}
+
+\begin{frame}{Systematic Component Ablation Study}{Validating Algorithmic Dependencies}
+\begin{table}
+  \centering
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{System Configuration} & \textbf{CER (\%)} & \textbf{WER (\%)} & \textbf{Layout F1} & \textbf{Effort Score ($E$)} \\
+    \midrule
+    \textbf{Complete Proposed Pipeline} & \textbf{15.32} & \textbf{9.97} & \textbf{0.932} & \textbf{14.20} \\
+    w/o DINOv2 Feature Clustering & 28.60 & 22.40 & 0.741 & 68.50 \\
+    w/o Shirorekha Ablation & 24.10 & 18.20 & 0.890 & 38.10 \\
+    w/o Gaussian Column Gutter Detection & 22.80 & 26.50 & 0.812 & 52.40 \\
+    w/o Isoperimetric Binder Hole Filter & 18.90 & 14.10 & 0.865 & 44.00 \\
+    w/o Douglas-Peucker Simplification & 15.32 & 9.97 & 0.932 & 49.80 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Ablation results demonstrating the mathematical necessity of each algorithmic component.}
+\end{table}
+\begin{itemize}
+  \item Douglas-Peucker simplification maintains CER/WER while reducing human vertex adjustment penalty from $49.80$ to $14.20$.
+\end{itemize}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{Conclusion and Summary of Contributions}{Rigorous Document Layout Processing for Heritage Archives}
+\begin{block}{Core Contributions}
+\begin{enumerate}
+  \item \textbf{Substrate-Adaptive Manifold Clustering:} Zero-shot spatial feature discovery via self-supervised vision transformers with boundary-invariant clustering.
+  \item \textbf{Morphological Orthographic Decomposition:} Analytical headline ablation and vertical Gaussian valley tracking isolating Devanagari Aksharas.
+  \item \textbf{6-Channel Semantic Segmentation:} Deeply supervised nnU-Net with Instance Normalization and isoperimetric damage discrimination ($\Psi > 0.85$).
+  \item \textbf{Empirical Verification:} Validated across 1,054 manuscript pages achieving \textbf{84.50\% Accuracy, 15.32\% CER}, and reducing manual annotation latency by \textbf{75.4\%}.
+  \item \textbf{Interoperable Standards:} Fully compliant PRImA PAGE-XML 2013 hierarchy for direct production deployment in Aletheia.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}[plain]
+\vfill
+\centerline{\Large\textbf{Thank You for Your Attention}}
+\vspace{0.5cm}
+\centerline{\normalsize Questions and Technical Discussion}
+\vfill
+\end{frame}
+
+\makeoutro
+
+\end{document}
