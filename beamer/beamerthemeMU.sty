@@ -286,12 +286,7 @@
          depth \mubeamer@length@footlinebottompadding}
 \setbeamertemplate{title page}{%
   \vskip\mubeamer@length@margin
-  \mubeamer@subroutine@includegraphics%
-    [height=\mubeamer@length@logoheight]%
-    {\mubeamer@filename@logo}%
-    {\mubeamer@filename@logo@fallback}%
-    {\mubeamer@filename@logo@lastresort}%
-  \vskip0pt plus 6filll
+  \vskip0pt plus 2filll
   {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}%
   \vskip0pt plus 1filll
 
@@ -311,15 +306,13 @@
 \setbeamertemplate{blocks}[rounded][shadow=true]
 \newcommand\makeoutro{%
   \begingroup
-  \setbeamercolor{background canvas}{bg=mubeamer@label}
   \begin{frame}[plain]
   \vfill
   \centering
-  \mubeamer@subroutine@includegraphics%
-    [width=\textwidth]%
-    {\mubeamer@filename@label}%
-    {\mubeamer@filename@label@fallback}%
-    {\mubeamer@filename@label@lastresort}%
+  \Huge\textbf{\color{mubeamer@base} Thank You for Your Attention}
+  \vspace{0.6cm}
+  
+  \normalsize Questions and Technical Discussion
   \vfill
   \end{frame}
   \endgroup}
