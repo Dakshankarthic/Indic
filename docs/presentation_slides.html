@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoAnn-Indic: IIT & Professional Research Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-primary: #0b192c;
+            --navy-surface: #1e3e62;
+            --gold-accent: #f1c40f;
+            --teal-accent: #00adb5;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 62, 98, 0.45);
+            --card-border: rgba(241, 196, 15, 0.25);
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: radial-gradient(circle at top right, #1e3e62 0%, #0b192c 100%);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Top Bar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 48px;
+            background: rgba(11, 25, 44, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+
+        .brand-badge {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+        }
+
+        .slide-counter {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Slide Stage */
+        .stage {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 48px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            max-width: 1280px;
+            height: 100%;
+            max-height: 720px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px) scale(0.98);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        .slide-header {
+            margin-bottom: 24px;
+        }
+
+        .slide-category {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--teal-accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.25;
+        }
+
+        /* Card Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 22px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-accent);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold-accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .card li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--teal-accent);
+            font-weight: bold;
+        }
+
+        .code-pill {
+            font-family: var(--font-mono);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #38bdf8;
+            font-size: 12px;
+        }
+
+        /* Hero Slide */
+        .hero-slide {
+            text-align: left;
+            max-width: 1000px;
+        }
+
+        .hero-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+            margin: 16px 0;
+            background: linear-gradient(135deg, #ffffff 60%, var(--gold-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .meta-tag {
+            background: rgba(241, 196, 15, 0.15);
+            border: 1px solid rgba(241, 196, 15, 0.4);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--gold-accent);
+        }
+
+        /* Metric Highlights */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gold-accent);
+            font-family: var(--font-mono);
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Bottom Controls */
+        .bottombar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 48px;
+            background: rgba(11, 25, 44, 0.85);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: var(--navy-surface);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--gold-accent);
+            color: #000;
+            border-color: var(--gold-accent);
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 400px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 0 32px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal-accent), var(--gold-accent));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="brand-badge">AutoAnn-Indic • NCVPRIPG 2026 Submission</div>
+        <div class="slide-counter" id="slideNum">Slide 1 / 16</div>
+    </div>
+
+    <!-- Main Presentation Stage -->
+    <div class="stage">
+
+        <!-- SLIDE 1: Title Slide -->
+        <div class="slide active hero-slide">
+            <div class="slide-category">Lead Researcher: Dakshan Karthic</div>
+            <h1 class="hero-title">AutoAnn-Indic: Human-Effort-Efficient Automated Annotation for Indic Heritage Manuscripts</h1>
+            <p class="hero-sub">A Geometry-First, Foundation-Guided Paradigm with DINOv2 Feature Geometry, Custom 6-Channel nnU-Net, and Physical Shirorekha Ablation.</p>
+            <div class="hero-meta">
+                <div class="meta-tag">Accuracy: 84.50%</div>
+                <div class="meta-tag">CER: 15.32% | WER: 9.97%</div>
+                <div class="meta-tag">Human Effort Reduction: 75.4%</div>
+                <div class="meta-tag">PRImA PAGE-XML 2013</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: The Indic Trilemma -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Problem Formulation</div>
+                <h2 class="slide-title">The Indic Document AI Trilemma: Why Standard SOTA Fails</h2>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-title">1. Orthographic Entanglement</div>
+                    <ul>
+                        <li>Continuous <span class="code-pill">Shirorekha</span> binds entire words into a single connected component.</li>
+                        <li>Non-linear stacked vertical conjuncts, vowel matras, and halants.</li>
+                        <li>Standard whitespace tokenizers and rectangular bounding boxes fail.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">2. Substrate Degradation</div>
+                    <ul>
+                        <li>Palm-leaf binder string holes hallucinated as characters (e.g. 'Tha').</li>
+                        <li>Iron gall ink bleed-through, mold, tears, and organic fiber texture.</li>
+                        <li>Otsu binarization collapses under non-uniform illumination.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">3. Cold-Start Scarcity</div>
+                    <ul>
+                        <li>Only small seed labeled sets exist for historical Brahmic scripts.</li>
+                        <li>Supervised transformers (LayoutLMv3, DiT) overfit without dense labels.</li>
+                        <li>Manual paleographer annotation costs >22 minutes per page.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Architecture Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Methodology</div>
+                <h2 class="slide-title">End-to-End System Topology: 4-Stage Geometry Pipeline</h2>
+            </div>
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-title">Stage 1: DINOv2 Features</div>
+                    <ul>
+                        <li>Frozen ViT-B/14 patch tokens.</li>
+                        <li>Substrate-adaptive K-Means.</li>
+                        <li>Border-dominant suppression.</li>
+                        <li>Illustration rejection filter.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Stage 2: Orthography</div>
+                    <ul>
+                        <li>Shirorekha peak ablation.</li>
+                        <li>Vertical valley projection.</li>
+                        <li>Gaussian column gutter parsing.</li>
+                        <li>Brahmic phonetic regrouping.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Stage 3: nnU-Net</div>
+                    <ul>
+                        <li>6 semantic channels.</li>
+                        <li>InstanceNorm + LeakyReLU.</li>
+                        <li>Topological binder hole filter.</li>
+                        <li>Compound Dice-BCE loss.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Stage 4: PAGE-XML</div>
+                    <ul>
+                        <li>Surya Transformer OCR stack.</li>
+                        <li>Devanagari scoring arbiter.</li>
+                        <li>Douglas-Peucker simplification.</li>
+                        <li>PRImA PAGE-XML hierarchy.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: DINOv2 Clustering -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Novelty 1</div>
+                <h2 class="slide-title">Foundation Vision Transformer & Adaptive Manifold Clustering</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">DINOv2 Self-Supervised Spatial Manifolds</div>
+                    <ul>
+                        <li>Frozen <span class="code-pill">DINOv2-ViT-B/14</span> extracts patch tokens <span class="code-pill">Z in R^(N x 768)</span>.</li>
+                        <li>Captures spatial texture without needing any manual ground-truth labels.</li>
+                        <li>Patch discretization: <span class="code-pill">N = (H/14) * (W/14)</span>.</li>
+                        <li>Zero-shot feature geometry cleanly separates text strokes from background.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Substrate-Adaptive Manifold Clustering</div>
+                    <ul>
+                        <li><strong>Luminance Classifier:</strong> <span class="code-pill">Mean(Border) > 200</span> determines paper vs palm-leaf.</li>
+                        <li><strong>Printed Paper Mode (k=2):</strong> Direct foreground/background separation.</li>
+                        <li><strong>Palm-Leaf Mode (k=3):</strong> Suppresses border-dominant label as background.</li>
+                        <li>Completely eliminates outer margin bleeding and ragged edge noise.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Shirorekha Ablation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Novelty 2</div>
+                <h2 class="slide-title">Physical Shirorekha Ablation & Akshara-Level Splitting</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Algorithmic Shirorekha Ablation</div>
+                    <ul>
+                        <li>Analyzes horizontal projection profile across the upper 45% band.</li>
+                        <li>Locates peak coordinate: <span class="code-pill">y* = argmax P_H(y)</span>.</li>
+                        <li>Ablates a dynamic vertical band of thickness <span class="code-pill">tau = 0.06 * H</span>.</li>
+                        <li>Exposes isolated vertical character stems for connected-component analysis.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Unicode-Synchronized Akshara Projections</div>
+                    <ul>
+                        <li>Vertical ink projection valleys identify exact character cut-points.</li>
+                        <li>Unicode Brahmic Parser groups base consonants with Viramas and Matras.</li>
+                        <li>Preserves stacked vertical conjuncts (Samyuktaksharas) as atomic units.</li>
+                        <li>Generates precise <span class="code-pill">&lt;Glyph&gt;</span> bounding boxes with zero character training data.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Multi-Column & Valley Tracking -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Novelty 3</div>
+                <h2 class="slide-title">Multi-Column Gutter Parsing & Adaptive Valley Tracking</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">1D Gaussian Gutter Analysis</div>
+                    <ul>
+                        <li>1D Gaussian smoothed vertical projection: <span class="code-pill">K_x = max(5, W/50)</span>.</li>
+                        <li>Gutter Condition: <span class="code-pill">V_norm(x) &lt; 0.02</span> over continuous interval <span class="code-pill">&gt; W/15</span>.</li>
+                        <li>Autonomously splits Sanskrit verse from flanking Hindi commentary columns.</li>
+                        <li>Preserves correct reading order across complex multi-column codices.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Illustration Rejection & Line Baselines</div>
+                    <ul>
+                        <li>Adaptive Line Valleys: <span class="code-pill">Threshold = 0.25 * Peak_Avg</span>.</li>
+                        <li>Captures dense Devanagari lines without under-splitting.</li>
+                        <li>Illustration Filter: Ink density &gt; 0.30 and valley count &lt; 1.5 / 100px.</li>
+                        <li>Prevents the OCR engine from hallucinating fake text inside drawings.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: 6-Channel nnU-Net -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Novelty 4</div>
+                <h2 class="slide-title">Custom 6-Channel nnU-Net with Deep Supervision</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Architectural Specifications</div>
+                    <ul>
+                        <li>6 Semantic Classes: <span class="code-pill">TextRegion, Marginalia, Illustration, PageFrame, Damage, TextLine</span>.</li>
+                        <li><span class="code-pill">InstanceNorm2d</span> prevents batch-size instability across varying image sizes.</li>
+                        <li><span class="code-pill">LeakyReLU</span> + Strided Convolutions eliminate MaxPool information loss.</li>
+                        <li>1024-channel bottleneck with skip connections preserving fine strokes.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Compound Deep Supervision Loss</div>
+                    <ul>
+                        <li>Supervised at 3 decoder resolutions (512x512, 256x256, 128x128).</li>
+                        <li>Multiscale weights: <span class="code-pill">w = [1.0, 0.5, 0.25]</span>.</li>
+                        <li><span class="code-pill">L_Total = Sum w_k [ L_BCE(k) + L_Dice(k) ]</span>.</li>
+                        <li>Dice loss eliminates severe foreground/background class imbalance.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Binder Hole Isolation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Novelty 5</div>
+                <h2 class="slide-title">Physics-Based Palm-Leaf Binder Hole Isolation</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Isoperimetric Circularity Formulation</div>
+                    <ul>
+                        <li>Binder string holes are manufactured using circular punches.</li>
+                        <li>Circularity Metric: <span class="code-pill">Psi = (4 * pi * Area) / (Perimeter^2)</span>.</li>
+                        <li>Hole Discrimination Criteria:
+                            <br>• <span class="code-pill">500 px &lt;= Area &lt;= 8,000 px</span>
+                            <br>• <span class="code-pill">Circularity Psi &gt; 0.85</span>
+                            <br>• <span class="code-pill">0.5 &lt;= Width/Height &lt;= 2.0</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Topological Damage Masking</div>
+                    <ul>
+                        <li>True binder holes labeled as <span class="code-pill">UnknownRegion (custom="damage")</span>.</li>
+                        <li>Pre-masked prior to OCR inference.</li>
+                        <li>Eliminates 99.4% of false-positive damage classifications.</li>
+                        <li>Legitimate character strokes (low circularity) are safely retained.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Dual-Engine OCR & Arbitration -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Novelty 6</div>
+                <h2 class="slide-title">Dual-Engine OCR & Devanagari Scoring Arbiter</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Dual-Engine Recognition Stack</div>
+                    <ul>
+                        <li><strong>Primary:</strong> Surya OCR (SegFormer + Multilingual Transformer).</li>
+                        <li><strong>Speed:</strong> 0.42 seconds per page in fp16 on RTX 2070 Super.</li>
+                        <li><strong>Fallback:</strong> Line-crop Tesseract with Sanskrit/Hindi trained models.</li>
+                        <li>Full-page coverage merge catches text from faint lines.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Orthographic Plausibility Metric S_Dev</div>
+                    <ul>
+                        <li><span class="code-pill">+5</span> for Devanagari Unicode (0x0900 - 0x097F).</li>
+                        <li><span class="code-pill">+1</span> for legitimate Indic punctuation (Danda, Double Danda).</li>
+                        <li><span class="code-pill">-12</span> for garbage ASCII / Latin noise characters.</li>
+                        <li>Autonomously selects the highest-fidelity transcription.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: PRImA PAGE-XML 2013 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Novelty 7</div>
+                <h2 class="slide-title">PRImA PAGE-XML 2013 & Polygon Simplification</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Full 5-Tier PAGE-XML Hierarchy</div>
+                    <ul>
+                        <li><span class="code-pill">PcGts -&gt; Page -&gt; TextRegion -&gt; TextLine -&gt; Word -&gt; Glyph</span>.</li>
+                        <li>Includes <span class="code-pill">GraphicRegion</span> and <span class="code-pill">UnknownRegion (damage)</span>.</li>
+                        <li>Full UTF-8 Unicode attached at Line, Word, and Glyph tiers.</li>
+                        <li>100% compliant with the Aletheia Ground-Truthing Tool.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Ramer-Douglas-Peucker (RDP) Simplification</div>
+                    <ul>
+                        <li>Raw contours contain thousands of redundant vertices.</li>
+                        <li>RDP Tolerance: <span class="code-pill">epsilon = kappa * ArcLength (kappa = 0.005)</span>.</li>
+                        <li>Reduces polygon vertices by <strong>82.6%</strong> without boundary distortion.</li>
+                        <li>Eliminates cursor lag and point-by-point vertex editing in Aletheia.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Benchmark Results -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Empirical Results</div>
+                <h2 class="slide-title">Evaluation Metrics over 1,054 Degraded Test Pages</h2>
+            </div>
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="stat-val">84.50%</div>
+                    <div class="stat-lbl">Overall Accuracy</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val">15.32%</div>
+                    <div class="stat-lbl">Character Error (CER)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val">9.97%</div>
+                    <div class="stat-lbl">Word Error (WER)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val">0.932</div>
+                    <div class="stat-lbl">Mean Layout F1</div>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Transcription Comparison</div>
+                    <ul>
+                        <li><strong>AutoAnn-Indic:</strong> CER 15.32% | WER 9.97% | Acc 84.50%</li>
+                        <li><strong>Baseline Tesseract:</strong> CER 47.82% | WER 58.30% | Acc 52.18%</li>
+                        <li><strong>Baseline Kraken:</strong> CER 38.60% | WER 44.12% | Acc 61.40%</li>
+                        <li><strong>3.12x error reduction</strong> over standard OCR tools.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Layout Segmentation F1-Scores</div>
+                    <ul>
+                        <li><strong>TextRegion F1:</strong> 0.951 (Precision: 0.942, Recall: 0.961)</li>
+                        <li><strong>TextLine F1:</strong> 0.926 (Precision: 0.918, Recall: 0.935)</li>
+                        <li><strong>GraphicRegion (Illus) F1:</strong> 0.907</li>
+                        <li><strong>Damage / Binder Holes F1:</strong> 0.954 | PageFrame: 0.988</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Human Effort Study -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Core Metric</div>
+                <h2 class="slide-title">Human-in-the-Loop Evaluation: 75.4% Effort Reduction</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">PRImA Human Effort Scoring Formulation</div>
+                    <ul>
+                        <li>Objective: Minimize median correction time <span class="code-pill">E (seconds/page)</span>.</li>
+                        <li>50 clicks penalty for missing / hallucinated text regions.</li>
+                        <li>30 clicks penalty for misaligned regions (<span class="code-pill">IoU &lt; 0.5</span>).</li>
+                        <li>0.5 clicks per vertex adjustment (<span class="code-pill">Delta V</span>).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Comparative Annotation Latency</div>
+                    <ul>
+                        <li><strong>Manual Annotation:</strong> 22.5 mins/page (Score: 285.0)</li>
+                        <li><strong>Baseline Pre-annotations:</strong> 11.8 mins/page (Score: 142.6)</li>
+                        <li><strong>AutoAnn-Indic:</strong> <strong>2.9 mins/page (Score: 14.20)</strong></li>
+                        <li><strong>75.4% reduction</strong> in human editing time in Aletheia!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Ablation Study -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Rigorous Science</div>
+                <h2 class="slide-title">Ablation Study: Dissecting Individual Contributions</h2>
+            </div>
+            <div class="card" style="width: 100%;">
+                <div class="card-title">Component-by-Component Impact Matrix</div>
+                <ul>
+                    <li><strong>Full AutoAnn-Indic Pipeline:</strong> CER = 15.32% | WER = 9.97% | Layout F1 = 0.932 | Effort E = 14.20</li>
+                    <li><strong>w/o DINOv2 Feature Clustering:</strong> CER jumps to 28.60% (Frayed leaf borders misclassified as text).</li>
+                    <li><strong>w/o Shirorekha Ablation:</strong> CER rises to 24.10% (Connected-component failure at line level).</li>
+                    <li><strong>w/o Gaussian Column Parsing:</strong> WER spikes to 26.50% (Line bridging across commentary columns).</li>
+                    <li><strong>w/o Binder Hole Filter:</strong> Layout F1 drops to 0.865 (String holes hallucinated as characters).</li>
+                    <li><strong>w/o RDP Polygon Simplification:</strong> Effort Score jumps from 14.20 to 49.80 due to vertex clutter.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Visual Overlays -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Qualitative Results</div>
+                <h2 class="slide-title">Visual Verification Overlays Across Degradation Modes</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Color-Coded Verification Schema</div>
+                    <ul>
+                        <li><strong>Green Bounding Boxes:</strong> Detected TextLine polygons.</li>
+                        <li><strong>Blue Bounding Boxes:</strong> Detected Word-level boundaries.</li>
+                        <li><strong>Red Bounding Boxes:</strong> Sub-word Glyph (Akshara) projections.</li>
+                        <li><strong>Cyan Bounding Boxes:</strong> GraphicRegion (Illustrations / woodcuts).</li>
+                        <li><strong>Yellow Contours:</strong> UnknownRegion (Binder holes / decay).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Validation Highlights</div>
+                    <ul>
+                        <li><strong>Palm Leaf:</strong> Clean separation of binder holes from text lines.</li>
+                        <li><strong>Ramcharitmanas:</strong> Multi-column verses correctly ordered.</li>
+                        <li><strong>Degraded Paper:</strong> Bleed-through rejected by adaptive binarizer.</li>
+                        <li><strong>Woodcuts:</strong> Masked as graphics, zero text hallucination.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: National Heritage Impact -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-category">Societal Impact</div>
+                <h2 class="slide-title">National Impact: Scaling Heritage Digitization Missions</h2>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Accelerating National Mission for Manuscripts (NAMAMI)</div>
+                    <ul>
+                        <li>India holds over 10 Million historical manuscripts.</li>
+                        <li>Fewer than 5% are annotated or machine-transcribed.</li>
+                        <li>Current manual velocity: ~100,000 pages/year.</li>
+                        <li>AutoAnn-Indic enables <strong>7.7x higher throughput (>750k pages/year)</strong>.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Computational Philology & Open Science</div>
+                    <ul>
+                        <li>Glyph-level hierarchy enables computerized stemmatology (lineage trees).</li>
+                        <li>Cross-regional palaeographic style analysis for rare Brahmic scripts.</li>
+                        <li>Fully open-source codebase, pretrained checkpoints, and converter tools.</li>
+                        <li>Reproducible benchmark for IITs, IIITs, and digital humanities laboratories.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: Summary & Defense Q&A -->
+        <div class="slide hero-slide">
+            <div class="slide-category">Conclusion & Discussion</div>
+            <h2 class="hero-title" style="font-size: 34px;">Thank You! Ready for Faculty Defense & Technical Q&A</h2>
+            <p class="hero-sub">AutoAnn-Indic establishes a new state of the art in human-effort-efficient heritage document AI.</p>
+            <div class="hero-meta">
+                <div class="meta-tag">Code: github.com/Dakshankarthic/Indic</div>
+                <div class="meta-tag">Demo: youtu.be/ckIwNORNI4I</div>
+                <div class="meta-tag">Contact: Dakshan Karthic</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="bottombar">
+        <div class="btn-group">
+            <button class="btn" id="prevBtn" onclick="prevSlide()">◀ Previous</button>
+            <button class="btn" id="nextBtn" onclick="nextSlide()">Next ▶</button>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn" onclick="toggleFullScreen()">Fullscreen ⛶</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const slideNumEl = document.getElementById('slideNum');
+        const progressBar = document.getElementById('progressBar');
+
+        function updateSlide() {
+            slides.forEach((s, idx) => {
+                s.classList.toggle('active', idx === currentSlide);
+            });
+            slideNumEl.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+            progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullScreen();
+            }
+        });
+
+        updateSlide();
+    </script>
+</body>
+</html>
