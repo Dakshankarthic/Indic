@@ -111,13 +111,15 @@ def generate_archival_presentation():
             p_m.font.color.rgb = COLOR_MU_BASE
             p_m.space_after = Pt(4)
 
-    def add_beamer_footer(slide, current_frame, total_frames=16):
+    def add_beamer_footer(slide, current_frame, total_frames=17):
         foot_box = slide.shapes.add_textbox(Inches(0.8), Inches(7.05), Inches(11.7), Inches(0.35))
         tf_f = foot_box.text_frame
         p_f = tf_f.paragraphs[0]
         p_f.text = f"Slide {current_frame} / {total_frames}"
         p_f.font.size = Pt(9.5)
         p_f.font.color.rgb = COLOR_MUTED
+
+    TOTAL_SLIDES = 17
 
     # ─────────────────────────────────────────────────────────────
     # SLIDE 1: Title Frame
@@ -186,7 +188,7 @@ def generate_archival_presentation():
                          "Physical image formation equation:"
                      ],
                      math_eq="I(x,y) = R(x,y) · L(x,y) + eta(x,y)\nwhere R(x,y) is true reflectance, L(x,y) is illumination,\nand eta(x,y) is additive substrate noise.")
-    add_beamer_footer(slide2, 2)
+    add_beamer_footer(slide2, 2, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
     # SLIDE 3: Document Layout Hierarchy Formulation
@@ -203,7 +205,7 @@ def generate_archival_presentation():
                          "Reading order optimization defines an ordered permutation over columns: C_1 < C_2 < ... < C_k."
                      ],
                      math_eq="T = { R_frame, {R_text^(k)}_{k=1}^K, {R_illus^(m)}_{m=1}^M, {R_damage^(d)}_{d=1}^D, {L_j}_{j=1}^J, {W_{j,p}}, {G_{j,p,q}} }\nwhere PcGts -> Page -> TextRegion -> TextLine -> Word -> Glyph.")
-    add_beamer_footer(slide3, 3)
+    add_beamer_footer(slide3, 3, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
     # SLIDE 4: Preprocessing & Adaptive Binarization
@@ -229,33 +231,33 @@ def generate_archival_presentation():
                          "Morphological opening formulation:"
                      ],
                      math_eq="B_clean = (B (erosion) E_{3x3}) (dilation) E_{3x3}\nPreserves character strokes while removing background speckle.")
-    add_beamer_footer(slide4, 4)
+    add_beamer_footer(slide4, 4, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
-    # SLIDE 5: Self-Supervised Vision Transformer Geometry
+    # SLIDE 5: DINOv2 Multi-Head Attention Mathematics
     # ─────────────────────────────────────────────────────────────
     slide5 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide5, "Self-Supervised Feature Manifold Extraction", 
-                      "Vision Transformer Patch Discretization and Token Embeddings", "SECTION 2: METHODOLOGY")
+                      "DINOv2 Vision Transformer Patch Geometry & Self-Attention", "SECTION 2: METHODOLOGY")
 
     add_beamer_block(slide5, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
-                     "Patch Discretization Mechanics",
+                     "Patch Discretization & Position Encoding",
                      [
-                         "Input image dimensions are aligned to patch multiples (P = 14 px).",
-                         "Discretization equations:",
+                         "Model Architecture: DINOv2-ViT-B/14 (D = 768, P = 14).",
+                         "Input image dimensions aligned to patch multiples (P = 14 px):",
                          "Total extracted tokens: N = (H'/14) * (W'/14)."
                      ],
-                     math_eq="H' = floor(s·H / P)·P,   W' = floor(s·W / P)·P\nZ = Transformer(X) in R^(N x 768)")
+                     math_eq="x_0 = [ x_cls; x_p^1 E; ...; x_p^N E ] + E_pos\nE in R^(588 x 768),   E_pos in R^((N+1) x 768)")
 
     add_beamer_block(slide5, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
-                     "Zero-Shot Spatial Feature Geometry",
+                     "Multi-Head Self-Attention (MHSA)",
                      [
-                         "Self-attention layers capture spatial boundaries without supervision.",
-                         "Token matrix Z reshaped into spatial feature grid F:",
-                         "Isolates text blocks from unwritten margins prior to training."
+                         "Scaled dot-product pairwise affinity between patches:",
+                         "h = 12 attention heads tracking strokes, margins, and damage:",
+                         "Cosine similarity affinity metric:"
                      ],
-                     math_eq="F in R^((H'/14) x (W'/14) x 768)\nPermits clustering of foreground ink manifolds across substrates.")
-    add_beamer_footer(slide5, 5)
+                     math_eq="Attention(Q,K,V) = softmax( (Q·K^T) / sqrt(d_k) ) · V\nA_{ij} = (z_i · z_j) / (||z_i|| ||z_j||) = cos(theta_{ij})\nIsolates text manifolds without manual labels.")
+    add_beamer_footer(slide5, 5, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
     # SLIDE 6: Substrate-Adaptive Manifold Clustering
@@ -281,7 +283,7 @@ def generate_archival_presentation():
                          "Label suppression formula:"
                      ],
                      math_eq="l_bg = mode(L_boundary)\nM_text = { i | l_i != l_bg  and  I_mean(i) < I_substrate }\nEliminates dark outer margin bleed-through.")
-    add_beamer_footer(slide6, 6)
+    add_beamer_footer(slide6, 6, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
     # SLIDE 7: Shirorekha Ablation & Akshara Splitting
@@ -307,7 +309,7 @@ def generate_archival_presentation():
                          "Connected components now segment isolated aksharas."
                      ],
                      math_eq="B_ablated(y,x) = 0  if |y - y*| <= tau  else B_line(y,x)\ntau = max(2, floor(0.06 · H_L))")
-    add_beamer_footer(slide7, 7)
+    add_beamer_footer(slide7, 7, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
     # SLIDE 8: Akshara Glyph Segmentation
@@ -333,7 +335,7 @@ def generate_archival_presentation():
                          "Synchronized with Unicode Brahmic phonetic clusters."
                      ],
                      math_eq="dS_V / dx = 0,   d^2S_V / dx^2 > 0,   S_V(x_k*) < theta_valley\nYields precise <Glyph> bounding boxes without character labels.")
-    add_beamer_footer(slide8, 8)
+    add_beamer_footer(slide8, 8, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
     # SLIDE 9: Multi-Column Gutters & Illustration Filtering
@@ -359,43 +361,69 @@ def generate_archival_presentation():
                          "Discrimination rule:"
                      ],
                      math_eq="rho_ink = (1 / HW) Sum B(y,x),   nu_valley = N_valleys / (H/100)\nClassified as GraphicRegion if (rho_ink > 0.30 and nu < 1.5).")
-    add_beamer_footer(slide9, 9)
+    add_beamer_footer(slide9, 9, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
-    # SLIDE 10: 6-Channel nnU-Net Architecture
+    # SLIDE 10: 6-Channel nnU-Net Architecture & Compound Loss
     # ─────────────────────────────────────────────────────────────
     slide10 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide10, "6-Channel Convolutional Semantic Segmentation", 
-                      "Instance Normalization and Multi-Scale Deep Supervision", "SECTION 2: METHODOLOGY")
+                      "Instance Normalization and Multi-Scale Focal-Dice Supervision", "SECTION 2: METHODOLOGY")
 
     add_beamer_block(slide10, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
-                     "Architectural Specifications",
+                     "Feature Propagation & InstanceNorm",
                      [
                          "5-level U-Net topology with strided convolutions (stride=2).",
                          "Instance Normalization prevents batch-size scaling artifacts:",
                          "6 Semantic Target Channels:",
                          "  TextRegion, Marginalia, GraphicRegion, PageFrame, Damage, TextLine."
                      ],
-                     math_eq="IN(x) = gamma · ((x - mu(x)) / sqrt(sigma^2(x) + eps)) + beta\nLeakyReLU activation (alpha = 0.01).")
+                     math_eq="x^(l) = LeakyReLU( IN( W_2 * LeakyReLU( IN( W_1 * x^(l-1) ) ) ) )\nIN(x) = gamma · ((x - mu(x)) / sqrt(sigma^2(x) + eps)) + beta")
 
     add_beamer_block(slide10, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
-                     "Compound Multi-Scale Loss Formulation",
+                     "Multi-Scale Focal-Dice Compound Loss",
                      [
-                         "Supervised at 3 decoder scales: 512x512, 256x256, 128x128.",
-                         "Scale weights: w = [1.0, 0.5, 0.25].",
-                         "Joint Binary Cross-Entropy and Dice loss formulation:"
+                         "Supervised across 3 decoder scales (512, 256, 128) with weights w = [1.0, 0.5, 0.25]:",
+                         "Focal Loss downweights easy background pixels:",
+                         "Dice Loss optimizes boundary IoU directly:"
                      ],
-                     math_eq="L_total = Sum_{k=0}^2 w_k [ L_BCE(Y_hat_k, Y_k) + L_Dice(Y_hat_k, Y_k) ]\nOvercomes extreme class imbalance between text and margin.")
-    add_beamer_footer(slide10, 10)
+                     math_eq="L_total = Sum_{s=0}^2 w_s [ lambda_1·L_Focal(s) + lambda_2·L_Dice(s) ]\nL_Focal = -(1/N) Sum alpha_t (1-p_t)^gamma log(p_t)\nL_Dice = 1 - (2·Sum p_t·y_t + eps) / (Sum p_t^2 + Sum y_t^2 + eps)")
+    add_beamer_footer(slide10, 10, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
-    # SLIDE 11: Binder Hole & Damage Topological Filter
+    # SLIDE 11: Optical Character Recognition (OCR & HTR) Engine
     # ─────────────────────────────────────────────────────────────
     slide11 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide11, "Topological Discrimination of Physical Damage", 
-                      "Isoperimetric Quotient and Circularity Geometry", "SECTION 2: METHODOLOGY")
+    add_beamer_header(slide11, "Optical Character Recognition (OCR / HTR) Engine", 
+                      "Recurrent Sequence Modeling and Connectionist Temporal Classification", "SECTION 2: METHODOLOGY")
 
     add_beamer_block(slide11, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
+                     "CRNN Recurrent Feature Slicing",
+                     [
+                         "Text line crop slices x_t processed via Bidirectional LSTM:",
+                         "Combines left-to-right and right-to-left context to resolve attached vowel matras (e.g. 'Chhoti-i'):",
+                         "Softmax over Devanagari character vocabulary Sigma:"
+                     ],
+                     math_eq="h_t = [ Forward_LSTM(x_t); Backward_LSTM(x_t) ] in R^(2·D_hidden)\ny_t = softmax( W_out·h_t + b_out ) in R^(|Sigma| + 1)")
+
+    add_beamer_block(slide11, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
+                     "Connectionist Temporal Classification (CTC)",
+                     [
+                         "Eliminates manual character timestamp alignment:",
+                         "Collapse operator B removes consecutive duplicates & blanks:",
+                         "Beam Search with Sanskrit Language Model LM:"
+                     ],
+                     math_eq="P(Y|X) = Sum_{pi in B^(-1)(Y)} Product_{t=1}^T y_{pi_t}^t\nY_hat = argmax_Y [ log P_CTC(Y|X) + alpha·log P_LM(Y) + beta·|Y| ]\nP_LM enforces valid Sanskrit root grammar.")
+    add_beamer_footer(slide11, 11, TOTAL_SLIDES)
+
+    # ─────────────────────────────────────────────────────────────
+    # SLIDE 12: Binder Hole & Damage Topological Filter
+    # ─────────────────────────────────────────────────────────────
+    slide12 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide12, "Topological Discrimination of Physical Damage", 
+                      "Isoperimetric Quotient and Circularity Geometry", "SECTION 2: METHODOLOGY")
+
+    add_beamer_block(slide12, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
                      "Isoperimetric Circularity Formulation",
                      [
                          "Punched palm-leaf binder string holes form near-perfect circles.",
@@ -404,7 +432,7 @@ def generate_archival_presentation():
                      ],
                      math_eq="Psi(C) = (4 · pi · Area(C)) / [Perimeter(C)]^2\n500 px <= Area(C) <= 8000 px")
 
-    add_beamer_block(slide11, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
+    add_beamer_block(slide12, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
                      "Geometric Damage Isolation Rule",
                      [
                          "Contour classified as UnknownRegion (damage) if and only if:",
@@ -412,60 +440,58 @@ def generate_archival_presentation():
                          "Prevents false-positive character hallucinations (e.g. 'Tha')."
                      ],
                      math_eq="C in R_damage <==> (500 <= Area <= 8000) and (Psi > 0.85) and (0.5 <= W/H <= 2.0)\nEliminates 99.4% of false damage classifications.")
-    add_beamer_footer(slide11, 11)
+    add_beamer_footer(slide12, 12, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
-    # SLIDE 12: Visual Output Image Comparison (Lithograph)
-    # ─────────────────────────────────────────────────────────────
-    slide12 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide12, "Visual Document Layout Parsing: Degraded Lithographic Folio", 
-                      "Side-by-Side Verification of Segmented Bounding Polygons", "SECTION 3: VISUAL RESULTS")
-
-    # Image Card 1 (Input)
-    in_img_path = img_dir / "input_folio.jpg"
-    if in_img_path.exists():
-        slide12.shapes.add_picture(str(in_img_path), Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
-    else:
-        add_beamer_block(slide12, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8), "(a) Raw Input Folio", ["Raw historical folio image with uneven lighting."])
-
-    # Image Card 2 (Output)
-    out_img_path = img_dir / "output_annotation.jpg"
-    if out_img_path.exists():
-        slide12.shapes.add_picture(str(out_img_path), Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8))
-    else:
-        add_beamer_block(slide12, Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8), "(b) Layout & Text Extraction Overlay", ["Bounding boxes: Green=TextLine, Blue=Word, Cyan=GraphicRegion."])
-
-    add_beamer_footer(slide12, 12)
-
-    # ─────────────────────────────────────────────────────────────
-    # SLIDE 13: Visual Output Image Comparison (Palm-Leaf)
+    # SLIDE 13: Visual Output Image Comparison (Lithograph)
     # ─────────────────────────────────────────────────────────────
     slide13 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide13, "Visual Document Layout Parsing: Palm-Leaf Manuscript", 
+    add_beamer_header(slide13, "Visual Document Layout Parsing: Degraded Lithographic Folio", 
+                      "Side-by-Side Verification of Segmented Bounding Polygons", "SECTION 3: VISUAL RESULTS")
+
+    in_img_path = img_dir / "input_folio.jpg"
+    if in_img_path.exists():
+        slide13.shapes.add_picture(str(in_img_path), Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
+    else:
+        add_beamer_block(slide13, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8), "(a) Raw Input Folio", ["Raw historical folio image with uneven lighting."])
+
+    out_img_path = img_dir / "output_annotation.jpg"
+    if out_img_path.exists():
+        slide13.shapes.add_picture(str(out_img_path), Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8))
+    else:
+        add_beamer_block(slide13, Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8), "(b) Layout & Text Extraction Overlay", ["Bounding boxes: Green=TextLine, Blue=Word, Cyan=GraphicRegion."])
+
+    add_beamer_footer(slide13, 13, TOTAL_SLIDES)
+
+    # ─────────────────────────────────────────────────────────────
+    # SLIDE 14: Visual Output Image Comparison (Palm-Leaf)
+    # ─────────────────────────────────────────────────────────────
+    slide14 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide14, "Visual Document Layout Parsing: Palm-Leaf Manuscript", 
                       "Topological Binder Hole Isolation and Text Line Boundaries", "SECTION 3: VISUAL RESULTS")
 
     in_leaf_path = img_dir / "input_leaf.jpg"
     if in_leaf_path.exists():
-        slide13.shapes.add_picture(str(in_leaf_path), Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
+        slide14.shapes.add_picture(str(in_leaf_path), Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
     else:
-        add_beamer_block(slide13, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8), "(a) Raw Palm-Leaf Capture", ["Degraded narrow aspect ratio palm-leaf."])
+        add_beamer_block(slide14, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8), "(a) Raw Palm-Leaf Capture", ["Degraded narrow aspect ratio palm-leaf."])
 
     out_leaf_path = img_dir / "output_leaf.jpg"
     if out_leaf_path.exists():
-        slide13.shapes.add_picture(str(out_leaf_path), Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8))
+        slide14.shapes.add_picture(str(out_leaf_path), Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8))
     else:
-        add_beamer_block(slide13, Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8), "(b) Damage Isolation & Line Parsing", ["Yellow=DamageRegion, Green=TextLine."])
+        add_beamer_block(slide14, Inches(6.8), Inches(1.8), Inches(5.6), Inches(4.8), "(b) Damage Isolation & Line Parsing", ["Yellow=DamageRegion, Green=TextLine."])
 
-    add_beamer_footer(slide13, 13)
+    add_beamer_footer(slide14, 14, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
-    # SLIDE 14: Experimental Results (CER / WER / Accuracy)
+    # SLIDE 15: Experimental Results (CER / WER / Accuracy)
     # ─────────────────────────────────────────────────────────────
-    slide14 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide14, "Experimental Evaluation over 1,054 Degraded Folios", 
+    slide15 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide15, "Experimental Evaluation over 1,054 Degraded Folios", 
                       "Levenshtein Edit Distance Formulations and Benchmark Comparison", "SECTION 3: EXPERIMENTAL RESULTS")
 
-    add_beamer_block(slide14, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
+    add_beamer_block(slide15, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
                      "Metric Formulations (CER and WER)",
                      [
                          "Character Error Rate (CER) and Word Error Rate (WER):",
@@ -474,7 +500,7 @@ def generate_archival_presentation():
                      ],
                      math_eq="CER = (Sum D_Lev(S_pred, S_gt)) / (Sum Length(S_gt))\nWER = (Sum D_Lev(W_pred, W_gt)) / (Sum |W_gt|)\nD(i,j) = min( D(i-1,j)+1, D(i,j-1)+1, D(i-1,j-1)+I(a_i != b_j) )")
 
-    add_beamer_block(slide14, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
+    add_beamer_block(slide15, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
                      "Quantitative Benchmark Results (1,054 Pages)",
                      [
                          "Proposed Framework: CER = 15.32%, WER = 9.97%, Accuracy = 84.50%",
@@ -484,16 +510,16 @@ def generate_archival_presentation():
                          "Demonstrates 3.12x error reduction over classical OCR."
                      ],
                      math_eq="Overall Accuracy: 84.50%\nZero Empty Predictions (0.00%) across all test folios.")
-    add_beamer_footer(slide14, 14)
+    add_beamer_footer(slide15, 15, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
-    # SLIDE 15: Semantic Layout F1 & Human Effort Modeling
+    # SLIDE 16: Semantic Layout F1 & Human Effort Modeling
     # ─────────────────────────────────────────────────────────────
-    slide15 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide15, "Semantic Layout Segmentation and Human Effort Evaluation", 
+    slide16 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide16, "Semantic Layout Segmentation and Human Effort Evaluation", 
                       "Instance-Level F1-Scores and Paleographer Latency Reduction", "SECTION 3: EXPERIMENTAL RESULTS")
 
-    add_beamer_block(slide15, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
+    add_beamer_block(slide16, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1),
                      "1. Semantic Layout F1-Scores",
                      [
                          "TextRegion F1: 0.951 (Precision: 0.942, Recall: 0.961)",
@@ -504,7 +530,7 @@ def generate_archival_presentation():
                      ],
                      math_eq="F1 = 2 · (Precision · Recall) / (Precision + Recall)")
 
-    add_beamer_block(slide15, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
+    add_beamer_block(slide16, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1),
                      "2. Human Correction Effort Model (PRImA Protocol)",
                      [
                          "Manual Transcription (From Scratch): 22.5 min/page (Effort: 285.0)",
@@ -513,26 +539,26 @@ def generate_archival_presentation():
                          "Achieves 75.4% reduction in manual editing time."
                      ],
                      math_eq="E = 50·|Delta R| + Sum [ (1 - IoU)·100 + 0.5·|Delta V| ]\nRating in Aletheia: Exceptional.")
-    add_beamer_footer(slide15, 15)
+    add_beamer_footer(slide16, 16, TOTAL_SLIDES)
 
     # ─────────────────────────────────────────────────────────────
-    # SLIDE 16: Summary & Conclusion
+    # SLIDE 17: Summary & Conclusion
     # ─────────────────────────────────────────────────────────────
-    slide16 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide16, "Summary of Technical Contributions and Conclusion", 
+    slide17 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide17, "Summary of Technical Contributions and Conclusion", 
                       "Standardized Heritage Document Analysis Framework", "SECTION 4: CONCLUSION")
 
-    add_beamer_block(slide16, Inches(0.8), Inches(1.7), Inches(11.7), Inches(5.1),
+    add_beamer_block(slide17, Inches(0.8), Inches(1.7), Inches(11.7), Inches(5.1),
                      "Core Technical Contributions",
                      [
-                         "1. Geometry-First Formulation: Combined self-supervised Vision Transformer manifolds with morphological operators.",
+                         "1. Geometry-First Paradigm: Fused DINOv2 self-supervised manifolds with physical morphology to eliminate labeled data cold-start.",
                          "2. Analytical Shirorekha Ablation: Formulated horizontal peak ablation and vertical Gaussian valley tracking.",
                          "3. Deep Multi-Class Segmentation: 6-channel nnU-Net with Instance Normalization and isoperimetric damage isolation.",
-                         "4. Empirical Verification: 84.50% Accuracy, 15.32% CER, 9.97% WER across 1,054 degraded historical manuscript folios.",
-                         "5. Human Annotation Acceleration: 75.4% latency reduction in Aletheia under the PRImA PAGE-XML 2013 schema standard."
+                         "4. CTC-HTR Sanskrit Transcription: Bidirectional LSTM sequence modeling with Beam Search and Language Model decoding.",
+                         "5. Empirical Verification: 84.50% Accuracy, 15.32% CER, 9.97% WER, and 75.4% human latency reduction across 1,054 degraded folios under the PRImA PAGE-XML 2013 standard."
                      ],
                      math_eq="Framework Status: Fully Reproducible  ·  Standard PRImA PAGE-XML 2013 Output  ·  Open Academic Release")
-    add_beamer_footer(slide16, 16)
+    add_beamer_footer(slide17, 17, TOTAL_SLIDES)
 
     output_path = Path(r"d:\indic_challenge\docs\AutoAnn_Indic_IIT_Presentation.pptx")
     output_path.parent.mkdir(parents=True, exist_ok=True)
