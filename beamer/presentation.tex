@@ -16,7 +16,7 @@
   workplace=arch,
 ]{MU}
 
-\title{Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts}
+\title{AutoAnn-Indic: Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts}
 \subtitle{A Geometry-First Formulation with Structural Segmentation and Morphological Decomposition}
 \author{Dakshan Karthic}
 \institute{Department of Computer Science and Engineering}
@@ -43,11 +43,63 @@
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 2: Challenges Faced in Indic Manuscripts
+% FRAME 2: Introduction & Problem Statement
 % ─────────────────────────────────────────────────────────────
 \section{Introduction and Problem Formulation}
-\subsection{Physical and Orthographic Challenges}
+\subsection{Problem Statement and Challenges}
 
+\begin{frame}{Introduction \& Problem Statement}{Heritage Preservation Bottlenecks in Indic Manuscripts}
+\begin{columns}
+  \begin{column}{0.55\textwidth}
+    \begin{block}{Heritage at Risk \& OCR Bottlenecks}
+      \begin{itemize}
+        \item Thousands of Indic manuscripts (\textit{Ramcharitmanas}, palm-leaf texts) are decaying due to humidity, insects, and ink corrosion.
+        \item Existing OCR (Tesseract, Google Vision) fails on Devanagari with conjuncts, matras, and non-standard layouts.
+        \item Paleographers spend 30--60 min/page drawing manual bounding boxes (2,000+ hours for 3,000+ pages).
+      \end{itemize}
+    \end{block}
+  \end{column}
+  \begin{column}{0.42\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{sample_dataset_intro.jpg}\\
+    \vspace{0.1cm}
+    \footnotesize\textbf{Figure 1.1:} Sample Historical Dataset Folio
+  \end{column}
+\end{columns}
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 3: Research Objectives & Dataset Scope
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Research Objectives \& Dataset Scope}{Analysis of 3,000+ Multi-Column Illustrated Folios}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \begin{block}{Dataset Characteristics (3,000+ Pages)}
+      \begin{itemize}
+        \item \textbf{Substrates:} Palm leaf (\textit{Borassus flabellifer}) and handmade rag paper.
+        \item \textbf{Scripts:} Devanagari (Sanskrit, Hindi, and Awadhi).
+        \item \textbf{Layouts:} Multi-column commentaries (\textit{Mula Shloka} vs. \textit{Tika}) and illustrated folios.
+      \end{itemize}
+    \end{block}
+    \begin{block}{Core Research Objectives}
+      \begin{itemize}
+        \item \textbf{Multi-Level Hierarchy:} Region $\rightarrow$ Line $\rightarrow$ Word $\rightarrow$ Akshara.
+        \item \textbf{Degradation Robustness:} Handles holes and ink bleed.
+      \end{itemize}
+    \end{block}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{sample_palmleaf_ancient.jpg}\\
+    \vspace{0.1cm}
+    \footnotesize\textbf{Figure 1.2:} Ancient Palm-Leaf Manuscript Sample
+  \end{column}
+\end{columns}
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 4: Physical Challenges Faced in Indic Manuscripts
+% ─────────────────────────────────────────────────────────────
 \begin{frame}{Physical and Orthographic Challenges in Indic Manuscripts}{Continuous Headlines, Substrate Degradation, and Binder Punch Holes}
 \centering
 \includegraphics[width=0.92\textwidth,height=0.38\textheight,keepaspectratio]{shirorekha_challenge_demo.png}
@@ -75,7 +127,7 @@
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 3: Mathematical Problem Formulation
+% FRAME 5: Mathematical Problem Formulation
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Mathematical Problem Formulation}{Hierarchical Document Layout Representation}
 \begin{block}{Objective Definition (PRImA PAGE-XML 2013 Framework)}
@@ -92,7 +144,7 @@ Given raw digital capture $I \in \mathbb{R}^{H \times W \times 3}$, determine hi
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 4: Proposed 3-Stage System Flowchart
+% FRAME 6: Proposed 3-Stage System Flowchart
 % ─────────────────────────────────────────────────────────────
 \section{Methodology}
 \subsection{System Architecture and Pipeline Flowchart}
@@ -103,11 +155,38 @@ Given raw digital capture $I \in \mathbb{R}^{H \times W \times 3}$, determine hi
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 5: Image Preprocessing & Adaptive Binarization
+% FRAME 7: Stage 1: Layout Detection & Geometry (DINOv2 + U-Net)
 % ─────────────────────────────────────────────────────────────
 \subsection{Stage 1: Layout Detection and Geometry}
 
-\begin{frame}{Image Preprocessing and Adaptive Binarization}{Local Illumination Compensation}
+\begin{frame}{Stage 1: Layout Detection \& Deep Foundation Features}{DINOv2 Patch Embeddings, Multi-Head Self-Attention, and 6-Channel Architecture}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{stage1_dino_unet_diag.png}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \begin{block}{DINOv2 Vision Transformer ($P=14$)}
+      Extracts zero-shot patch tokens $\mathbf{x}_0$:
+      \[
+        \mathbf{x}_0 = [\mathbf{x}_{\text{cls}}; \mathbf{x}_p \mathbf{E}] + \mathbf{E}_{\text{pos}}, \quad \mathbf{E} \in \mathbb{R}^{588 \times 768}
+      \]
+      Scaled dot-product attention affinity:
+      \[
+        \text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}
+      \]
+    \end{block}
+    \begin{itemize}
+      \item $A_{ij} = \cos(\theta_{ij})$ clusters text ink strokes away from background margins.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 8: Stage 1: Adaptive Preprocessing & Binarization
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Stage 1: Image Preprocessing \& Adaptive Binarization}{Local Illumination Compensation and Substrate Filtering}
 \begin{block}{Adaptive Gaussian Thresholding: $I(x,y) \rightarrow B(x,y)$}
 Foreground ink strokes are separated from non-uniform background substrates using local Gaussian statistics:
 \[
@@ -127,25 +206,7 @@ Isolated substrate fiber noise is suppressed via morphological opening with stru
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 6: Stage 1: DINOv2 Feature Geometry & Self-Attention
-% ─────────────────────────────────────────────────────────────
-\begin{frame}{Stage 1: Foundation Vision Transformer (DINOv2)}{Patch Embedding, Multi-Head Self-Attention, and Zero-Shot Manifolds}
-\begin{block}{Patch Discretization \& Position Encoding: $I \rightarrow \mathbf{x}_0$}
-Model: \texttt{DINOv2-ViT-B/14} ($D = 768, P = 14$). Image dimensions aligned to patch multiples ($N = \frac{H'}{14} \times \frac{W'}{14}$):
-\[
-  \mathbf{x}_0 = \left[ \mathbf{x}_{\text{cls}}; \, \mathbf{x}_p^1 \mathbf{E}; \, \dots; \, \mathbf{x}_p^N \mathbf{E} \right] + \mathbf{E}_{\text{pos}}, \quad \mathbf{E} \in \mathbb{R}^{588 \times 768}, \quad \mathbf{E}_{\text{pos}} \in \mathbb{R}^{(N+1) \times 768}
-\]
-\end{block}
-\begin{block}{Multi-Head Self-Attention (MHSA) Affinity Matrix: $\mathbf{x}_0 \rightarrow \mathbf{Z}$}
-Pairwise spatial attention across $h=12$ heads ($d_k = 64$) extracting intrinsic stroke geometry:
-\[
-  \text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} \right) \mathbf{V}, \quad A_{ij} = \frac{\mathbf{z}_i \cdot \mathbf{z}_j}{\|\mathbf{z}_i\| \|\mathbf{z}_j\|} = \cos(\theta_{ij})
-\]
-\end{block}
-\end{frame}
-
-% ─────────────────────────────────────────────────────────────
-% FRAME 7: Stage 1: Substrate-Adaptive Manifold Clustering
+% FRAME 9: Stage 1: Substrate-Adaptive Manifold Clustering
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Stage 1: Substrate-Adaptive Manifold Clustering}{Border-Invariant Feature Partitioning}
 \begin{block}{Substrate Classification Metric: $I_{\text{gray}} \rightarrow \bar{L}_{\text{border}}$}
@@ -169,7 +230,7 @@ Boundary band luminance $\bar{L}_{\text{border}}$ distinguishes light paper from
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 8: Stage 1: 6-Channel nnU-Net Deep Semantic Segmentation
+% FRAME 10: Stage 1: 6-Channel nnU-Net Deep Semantic Segmentation
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Stage 1: 6-Channel nnU-Net Deep Semantic Segmentation}{Mathematical Formulations, Instance Normalization, and Multi-Scale Loss}
 \begin{block}{Encoder-Decoder Feature Propagation \& Instance Normalization}
@@ -192,7 +253,7 @@ Supervised at 3 decoder scales ($w = [1.0, 0.5, 0.25]$) for \texttt{TextRegion, 
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 9: Stage 1: Column Parsing & Illustration Filtering
+% FRAME 11: Stage 1: Column Parsing & Illustration Filtering
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Stage 1: Multi-Column Gutter Parsing \& Illustration Discrimination}{Spatial Profile Analysis}
 \begin{block}{Vertical Gutter Identification: $\mathcal{R}_{\text{text}} \rightarrow \{\mathcal{C}_1, \dots, \mathcal{C}_k\}$}
@@ -213,50 +274,114 @@ Contour $\mathcal{C}$ is classified as an illustration based on ink density $\rh
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 10: Stage 2: Multilingual Text Recognition Engine
+% FRAME 12: Stage 2: Multilingual Text Recognition Engine
 % ─────────────────────────────────────────────────────────────
 \subsection{Stage 2: Multilingual Text Recognition Engine}
 
-\begin{frame}{Stage 2: Multilingual Text Recognition Engine}{Recurrent Sequence Modeling and Connectionist Temporal Classification}
-\begin{block}{CRNN Feature Sequence Extraction: $\mathcal{L}_j \rightarrow \mathbf{h}_t$}
-Line crop slices $\mathbf{x}_t$ encoded via Bidirectional LSTM context (Surya OCR v2 reference with JSON text cache):
-\[
-  \mathbf{h}_t = \left[ \overrightarrow{\text{LSTM}}(\mathbf{x}_t); \, \overleftarrow{\text{LSTM}}(\mathbf{x}_t) \right] \in \mathbb{R}^{2 D_{\text{hidden}}}, \quad \mathbf{y}_t = \text{softmax}(\mathbf{W}_o \mathbf{h}_t + \mathbf{b}_o) \in \mathbb{R}^{|\Sigma|+1}
-\]
-\end{block}
-\begin{block}{Connectionist Temporal Classification (CTC) Decoding: $\mathbf{h}_t \rightarrow \hat{\mathbf{Y}}$}
-\[
-  P(\mathbf{Y} \mid \mathbf{X}) = \sum_{\boldsymbol{\pi} \in \mathcal{B}^{-1}(\mathbf{Y})} \prod_{t=1}^T y_{\pi_t}^t, \quad \hat{\mathbf{Y}} = \arg\max_{\mathbf{Y}} \left[ \log P_{\text{CTC}}(\mathbf{Y} \mid \mathbf{X}) + \alpha \log P_{\text{LM}}(\mathbf{Y}) + \beta |\mathbf{Y}| \right]
-\]
-\end{block}
-\begin{itemize}
-  \item $P_{\text{LM}}(\mathbf{Y})$ enforces Sanskrit grammatical constraints and valid Brahmic root morphology.
-\end{itemize}
+\begin{frame}{Stage 2: Multilingual Text Recognition Engine (OCR / HTR)}{Transformer-Based Recognition, Recurrent Sequence Slicing, and CTC Loss}
+\begin{columns}
+  \begin{column}{0.40\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{stage2_ocr_surya_demo.png}
+  \end{column}
+  \begin{column}{0.56\textwidth}
+    \begin{block}{CRNN Recurrent Slicing \& CTC Loss}
+      Line crop slices $\mathbf{x}_t$ encoded via Bidirectional LSTM:
+      \[
+        \mathbf{h}_t = \left[ \overrightarrow{\text{LSTM}}(\mathbf{x}_t); \, \overleftarrow{\text{LSTM}}(\mathbf{x}_t) \right] \in \mathbb{R}^{2 D_{\text{hidden}}}
+      \]
+      \[
+        P(\mathbf{Y} \mid \mathbf{X}) = \sum_{\boldsymbol{\pi} \in \mathcal{B}^{-1}(\mathbf{Y})} \prod_{t=1}^T y_{\pi_t}^t
+      \]
+      \[
+        \hat{\mathbf{Y}} = \arg\max_{\mathbf{Y}} \left[ \log P_{\text{CTC}} + \alpha \log P_{\text{LM}}(\mathbf{Y}) + \beta |\mathbf{Y}| \right]
+      \]
+    \end{block}
+    \begin{itemize}
+      \item Surya OCR v2 reference with JSON text cache for 1,054 folios.
+    \end{itemize}
+  \end{column}
+\end{columns}
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 11: Stage 3: Shirorekha Ablation & Akshara Splitting
+% FRAME 13: Stage 2: Text Recognition Output Segmentation
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Stage 2: Text Recognition Output Segmentation}{Acute Line and Word Bounding Polygon Overlays}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \begin{block}{Stage 2 Visual Output}
+      \begin{itemize}
+        \item Extracted line bounding boxes combined with Surya OCR v2 text recognition.
+        \item Line-level text attributes attached to Unicode transcription tags.
+        \item Accurate boundary extraction on degraded paper and palm leaves.
+      \end{itemize}
+    \end{block}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{stage2_output_segment.jpg}\\
+    \vspace{0.1cm}
+    \footnotesize\textbf{Verification Overlay:} Stage 2 Text Line Boundaries
+  \end{column}
+\end{columns}
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 14: Stage 3: Granular Word & Character (Akshara) Splitting
 % ─────────────────────────────────────────────────────────────
 \subsection{Stage 3: Granular Extraction}
 
-\begin{frame}{Stage 3: Headline (\textit{Shirorekha}) Ablation \& Akshara Splitting}{Analytical Peak Detection and Gaussian Valley Tracking}
-\begin{block}{Horizontal Profile Formulation \& Dynamic Ablation: $B_{\text{line}} \rightarrow B_{\text{ablated}}$}
-\[
-  P_H(y) = \sum_{x=0}^{W_L-1} B_{\text{line}}(y,x), \quad y^* = \arg\max_{y \in [0, 0.45 H_L]} P_H(y) \quad \text{s.t. } P_H(y^*) > 0.25 W_L
-\]
-\[
-  B_{\text{ablated}}(y,x) = \begin{cases} 0 & \text{if } |y - y^*| \le \tau, \quad \tau = \max(2, \lfloor 0.06 H_L \rfloor) \\ B_{\text{line}}(y,x) & \text{otherwise} \end{cases}
-\]
-\end{block}
-\begin{block}{1D Gaussian Valley Cut-Point Detection: $B_{\text{ablated}} \rightarrow \{\mathcal{G}_k\}$}
-\[
-  S_V(x) = (P_V * G_\sigma)(x), \quad \frac{\partial S_V}{\partial x} = 0, \quad \frac{\partial^2 S_V}{\partial x^2} > 0, \quad S_V(x_k^*) < \theta_{\text{valley}} = 0.25 \cdot \left(\frac{\text{Peak}_L + \text{Peak}_R}{2}\right)
-\]
-\end{block}
+\begin{frame}{Stage 3: Granular Word \& Character (Akshara) Splitting}{Headline (\textit{Shirorekha}) Slicing and 1D Gaussian Valley Tracking}
+\begin{columns}
+  \begin{column}{0.40\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{stage3_akshara_split_demo.png}
+  \end{column}
+  \begin{column}{0.56\textwidth}
+    \begin{block}{Shirorekha Ablation: $B_{\text{line}} \rightarrow B_{\text{ablated}}$}
+      Horizontal projection peak: $y^* = \arg\max P_H(y)$
+      \[
+        B_{\text{ablated}}(y,x) = 0 \quad \text{if } |y - y^*| \le \tau = \max(2, \lfloor 0.06 H_L \rfloor)
+      \]
+    \end{block}
+    \begin{block}{1D Gaussian Valley Minima Cut-Points}
+      Smoothed vertical projection $S_V(x) = (P_V * G_\sigma)(x)$:
+      \[
+        \frac{\partial S_V}{\partial x} = 0, \, \frac{\partial^2 S_V}{\partial x^2} > 0, \, S_V(x_k^*) < \theta_{\text{valley}}
+      \]
+    \end{block}
+    \begin{itemize}
+      \item Automatically isolates glyphs without character-level labels.
+    \end{itemize}
+  \end{column}
+\end{columns}
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 12: Stage 3: Physical Damage & Binder Hole Discrimination
+% FRAME 15: Stage 3: Acute Segmentation & Final Output
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Stage 3: Acute Word and Glyph Segmentation Output}{Side-by-Side Granular Polygon Verification}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{(a) Acute Segmentations}\\
+    \vspace{0.2cm}
+    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{stage3_acute_segment.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{(b) Final Granular PAGE-XML Output}\\
+    \vspace{0.2cm}
+    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{stage3_final_output.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.2cm}
+\footnotesize\textbf{Verification Overlay:} Granular extraction of word bounding boxes and Akshara glyph components.
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 16: Stage 3: Physical Binder Hole Discrimination
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Stage 3: Physical Damage \& Binder Hole Discrimination}{Isoperimetric Topological Filter}
 \begin{block}{Isoperimetric Circularity Formulation}
@@ -281,73 +406,64 @@ An internal leaf contour $\mathcal{C}$ from nnU-Net channel 5 is strictly isolat
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 13: Stage 3: RDP Polygon Simplification & Quality Scoring
-% ─────────────────────────────────────────────────────────────
-\begin{frame}{Stage 3: Polygon Simplification \& Quality Arbitration}{Douglas-Peucker Vector Reduction and Devanagari Scoring}
-\begin{block}{Devanagari Orthographic Objective Metric: $T \rightarrow \mathcal{S}_{\text{Dev}}(T)$}
-Evaluates candidate transcriptions autonomously:
-\[
-  \mathcal{S}_{\text{Dev}}(T) = \sum_{c \in T} \omega(c) - 8 \sum_{n \in \mathcal{N}} \text{count}(n, T) + 2 \min(|\text{words}(T)|, 12)
-\]
-\end{block}
-\begin{block}{Ramer-Douglas-Peucker (RDP) Polygon Simplification: $\mathcal{P} \rightarrow \mathcal{P}_{\text{simp}}$}
-Perpendicular distance threshold $\epsilon = 0.005 \cdot \text{ArcLength}(\mathcal{P})$:
-\[
-  d_\perp(p_i, \overline{p_1 p_n}) = \frac{|(y_n - y_1)x_i - (x_n - x_1)y_i + x_n y_1 - y_n x_1|}{\sqrt{(y_n - y_1)^2 + (x_n - x_1)^2}} \le \epsilon \implies p_i \text{ is removed}
-\]
-Reduces vertex count by \textbf{82.6\%} while preserving boundary IoU $> 0.98$.
-\end{block}
-\end{frame}
-
-% ─────────────────────────────────────────────────────────────
-% FRAME 14: Visual Layout Output (Lithograph)
+% FRAME 17: Visual Pipeline Progression Across All Stages
 % ─────────────────────────────────────────────────────────────
 \section{Visual Layout Output and Experimental Results}
 \subsection{Visual Inspection of Document Parsing}
 
-\begin{frame}{Visual Document Layout Parsing: Degraded Lithographic Folio}{Side-by-Side Verification of Segmented Bounding Polygons}
-\begin{columns}
-  \begin{column}{0.48\textwidth}
-    \centering
-    \textbf{(a) Raw Input Folio}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{input_folio.jpg}
-  \end{column}
-  \begin{column}{0.48\textwidth}
-    \centering
-    \textbf{(b) Layout & Text Extraction Overlay}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{output_annotation.jpg}
-  \end{column}
-\end{columns}
-\vspace{0.2cm}
-\footnotesize\textbf{Verification Key:} Green = \texttt{TextLine}, Blue = \texttt{Word}, Cyan = \texttt{GraphicRegion}.
+\begin{frame}{Visual Pipeline Progression Across All Stages}{End-to-End Processing: Raw Image $\rightarrow$ Layout Detection $\rightarrow$ OCR $\rightarrow$ Granular PAGE-XML}
+\centering
+\includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{output_all_stages_progression.png}\\
+\vspace{0.15cm}
+\footnotesize\textbf{Pipeline Flow:} (1) Raw Input Capture $\rightarrow$ (2) DINOv2 \& nnU-Net Layout Regions $\rightarrow$ (3) Text Recognition $\rightarrow$ (4) Granular Word \& Akshara Bounding Boxes.
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 15: Visual Layout Output (Palm Leaf)
+% FRAME 18: Visual Results: Standard Text Page (Page 1)
 % ─────────────────────────────────────────────────────────────
-\begin{frame}{Visual Document Layout Parsing: Palm-Leaf Manuscript}{Topological Binder Hole Isolation and Text Line Boundaries}
+\begin{frame}{Visual Results: Standard Text Page (Page 1)}{Side-by-Side Comparison of Original Folio vs. Annotated Output}
 \begin{columns}
   \begin{column}{0.48\textwidth}
     \centering
-    \textbf{(a) Raw Palm-Leaf Capture}\\
+    \textbf{Original Capture (Page 1)}\\
     \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{input_leaf.jpg}
+    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page1_orig.jpg}
   \end{column}
   \begin{column}{0.48\textwidth}
     \centering
-    \textbf{(b) Damage Isolation & Line Parsing}\\
+    \textbf{Annotated Output (Page 1)}\\
     \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{output_leaf.jpg}
+    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page1_annot.jpg}
   \end{column}
 \end{columns}
 \vspace{0.2cm}
-\footnotesize\textbf{Verification Key:} Yellow Contour = \texttt{DamageRegion} (Punched holes), Green = \texttt{TextLine}.
+\footnotesize\textbf{Figure 1.5:} Multi-level annotations for standard text folios showing region, line, and word boundaries.
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 16: Quantitative Recognition Metrics
+% FRAME 19: Visual Results: Dense Multi-Script Page (Page 100)
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Dense Multi-Script Page (Page 100)}{Side-by-Side Comparison on Complex Multi-Column Manuscript}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Original Capture (Page 100)}\\
+    \vspace{0.2cm}
+    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page100_orig.png}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Annotated Output (Page 100)}\\
+    \vspace{0.2cm}
+    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page100_annot.png}
+  \end{column}
+\end{columns}
+\vspace{0.2cm}
+\footnotesize\textbf{Figure 1.6:} Accurate separation of commentary text, central verse columns, and marginal notations.
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 20: Quantitative Recognition & Transcription Metrics
 % ─────────────────────────────────────────────────────────────
 \subsection{Quantitative Recognition and Layout Metrics}
 
@@ -375,7 +491,7 @@ Reduces vertex count by \textbf{82.6\%} while preserving boundary IoU $> 0.98$.
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 17: Semantic Layout Segmentation & Human Effort
+% FRAME 21: Semantic Layout F1-Scores & Human Effort Reduction
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Semantic Layout Segmentation and Human Effort Evaluation}{Instance-Level F1-Scores and Paleographer Latency Reduction}
 \begin{table}
@@ -405,7 +521,7 @@ Reduces human correction time from \textbf{22.5 min/page down to 2.9 min/page} (
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 18: Summary & Conclusion
+% FRAME 22: Summary of Technical Contributions & Conclusion
 % ─────────────────────────────────────────────────────────────
 \section{Conclusion}
 
