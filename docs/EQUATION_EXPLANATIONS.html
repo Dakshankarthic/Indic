@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathematical Formulations & Equations Explained</title>
-    <!-- MathJax for rendering LaTeX equations -->
+    <title>Comprehensive Mathematical Formulations & Algorithms</title>
+    <!-- MathJax for high-quality mathematical typesetting -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -16,19 +16,20 @@
             --border: #e2e8f0;
             --text: #1e293b;
             --muted: #64748b;
+            --accent: #0284c7;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: #f1f5f9;
             color: var(--text);
-            line-height: 1.65;
+            line-height: 1.7;
             padding: 40px 20px;
             margin: 0;
         }
 
         .container {
-            max-width: 960px;
+            max-width: 1040px;
             margin: 0 auto;
             background: #ffffff;
             border-radius: 12px;
@@ -39,11 +40,21 @@
 
         h1 {
             color: var(--dark);
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 800;
             margin-bottom: 8px;
             border-bottom: 3px solid var(--primary);
             padding-bottom: 12px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 36px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
         }
 
         .subtitle {
@@ -59,6 +70,18 @@
             border-radius: 8px;
             padding: 24px;
             margin-bottom: 28px;
+        }
+
+        .eq-card.dino {
+            border-left-color: #4338ca;
+        }
+
+        .eq-card.nnunet {
+            border-left-color: #0284c7;
+        }
+
+        .eq-card.ocr {
+            border-left-color: #059669;
         }
 
         .eq-title {
@@ -79,6 +102,10 @@
             padding: 3px 8px;
             border-radius: 4px;
         }
+
+        .badge.dino { background: #4338ca; }
+        .badge.nnunet { background: #0284c7; }
+        .badge.ocr { background: #059669; }
 
         .formula-box {
             background: #ffffff;
@@ -122,284 +149,204 @@
 <body>
 
     <div class="container">
-        <h1>Document Layout Analysis & Transcription</h1>
-        <div class="subtitle">Complete Mathematical Formulations, Variable Definitions & Algorithmic Explanations</div>
+        <h1>Comprehensive Mathematical Formulations</h1>
+        <div class="subtitle">Detailed Mathematical Mechanics of DINOv2 Vision Transformers, 6-Channel nnU-Net Segmentation, and CTC-HTR Optical Character Recognition</div>
 
-        <!-- 1. Degradation Model -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 1</span> Physical Image Degradation & Non-Uniform Illumination</div>
+        <!-- ========================================== -->
+        <!-- SECTION 1: DINOv2 VISION TRANSFORMER -->
+        <!-- ========================================== -->
+        <h2>1. Self-Supervised Vision Transformer (DINOv2) Mechanics</h2>
+
+        <div class="eq-card dino">
+            <div class="eq-title"><span class="badge dino">DINO 1</span> Patch Embedding & 2D Position Encoding</div>
             <div class="formula-box">
-                $$I(x,y) = R(x,y) \cdot L(x,y) + \eta(x,y)$$
+                $$\mathbf{x}_0 = \left[ \mathbf{x}_{\text{cls}}; \, \mathbf{x}_p^1 \mathbf{E}; \, \mathbf{x}_p^2 \mathbf{E}; \, \dots; \, \mathbf{x}_p^N \mathbf{E} \right] + \mathbf{E}_{\text{pos}}, \quad \mathbf{E} \in \mathbb{R}^{(P^2 C) \times D}, \quad \mathbf{E}_{\text{pos}} \in \mathbb{R}^{(N+1) \times D}$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(I(x,y)\): The actual observed pixel intensity in the scanned manuscript image.</li>
-                    <li>\(R(x,y)\): The true physical reflectance of the ink and paper substrate (what we want to isolate).</li>
-                    <li>\(L(x,y)\): Spatially non-uniform illumination field (shadows, gradient lighting from curvature).</li>
-                    <li>\(\eta(x,y)\): Additive noise representing physical decay (mold, ink bleed-through, paper rot).</li>
+                    <li>\(P = 14\): Patch dimension (\(14\times 14\) pixels); \(C = 3\): RGB channels; \(P^2 C = 588\) input features per patch.</li>
+                    <li>\(\mathbf{E}\): Linear projection matrix mapping raw image pixels into \(D = 768\) latent embedding space.</li>
+                    <li>\(\mathbf{x}_p^i\): The flattened \(i\)-th image patch on the manuscript folio.</li>
+                    <li>\(\mathbf{E}_{\text{pos}}\): Learnable 2D positional encodings providing spatial coordinates of text lines on the page.</li>
+                    <li>\(\mathbf{x}_{\text{cls}}\): Global classification token capturing overall folio illumination state.</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> Standard OCR fails because it assumes even lighting and clean white paper. This model accounts for real-world lighting gradients and substrate decay mathematically.
+                <strong>How it works on Indic manuscripts:</strong> The manuscript image is diced into a grid of \(N\) spatial tokens. The linear projection preserves high-frequency stroke details while mapping them into a dense 768-dimensional space.
             </div>
         </div>
 
-        <!-- 2. Shirorekha Model -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 2</span> Brahmic Connected Orthography (Headline Union)</div>
+        <div class="eq-card dino">
+            <div class="eq-title"><span class="badge dino">DINO 2</span> Multi-Head Self-Attention (MHSA) Spatial Manifold Extraction</div>
             <div class="formula-box">
-                $$\mathcal{S}_{\text{word}} = \bigcup_{i=1}^{M} \mathcal{G}_i \cup \mathcal{H}_{\text{shirorekha}}$$
+                $$\mathbf{Q} = \mathbf{X} \mathbf{W}_Q, \quad \mathbf{K} = \mathbf{X} \mathbf{W}_K, \quad \mathbf{V} = \mathbf{X} \mathbf{W}_V$$
+                $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} \right) \mathbf{V}$$
+                $$\text{MultiHead}(\mathbf{X}) = \left[ \text{head}_1; \, \text{head}_2; \, \dots; \, \text{head}_h \right] \mathbf{W}_O, \quad h = 12, \, d_k = 64$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(\mathcal{S}_{\text{word}}\): The complete connected pixel component of a Devanagari word.</li>
-                    <li>\(\mathcal{G}_i\): The \(i\)-th individual character glyph (Akshara vertical stem or attached vowel sign).</li>
-                    <li>\(\mathcal{H}_{\text{shirorekha}}\): The continuous horizontal top headline binding all characters together.</li>
+                    <li>\(\mathbf{Q}, \mathbf{K}, \mathbf{V}\): Query, Key, and Value matrices projected via weight matrices \(\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V \in \mathbb{R}^{D \times d_k}\).</li>
+                    <li>\(\frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}}\): Scaled dot-product pairwise affinity matrix measuring structural correlation between distant patches.</li>
+                    <li>\(\text{softmax}(\dots)\): Normalizes attention weights across the entire page (summing to 1 across rows).</li>
+                    <li>\(h = 12\): 12 distinct attention heads tracking character lines, margins, headlines, and damage independently.</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> In Latin scripts (like English), letters are separated by blank space. In Sanskrit/Devanagari, the Shirorekha binds letters into one long stroke. This formula is the foundation for cutting the headline to isolate letters.
+                <strong>How it works on Indic manuscripts:</strong> Queries and Keys allow patches containing text ink to attend strongly to adjacent characters along the same line while ignoring unwritten margins, creating distinct text manifolds without any supervised training.
             </div>
         </div>
 
-        <!-- 3. Layout Target -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 3</span> Hierarchical Layout Decomposition Target (PAGE-XML)</div>
+        <div class="eq-card dino">
+            <div class="eq-title"><span class="badge dino">DINO 3</span> Spatial Feature Grid & Cosine Similarity Affinity</div>
             <div class="formula-box">
-                $$\mathcal{T} = \left\{ \mathcal{R}_{\text{frame}}, \{\mathcal{R}_{\text{text}}^{(k)}\}_{k=1}^{K}, \{\mathcal{R}_{\text{illus}}^{(m)}\}_{m=1}^{M}, \{\mathcal{R}_{\text{damage}}^{(d)}\}_{d=1}^{D}, \{\mathcal{L}_{j}\}_{j=1}^{J}, \{\mathcal{W}_{j,p}\}, \{\mathcal{G}_{j,p,q}\} \right\}$$
+                $$\mathbf{F} = \text{Reshape}\left( \mathbf{Z}_{1:N}, \left(\frac{H'}{14}, \frac{W'}{14}, 768\right) \right)$$
+                $$A_{ij} = \frac{\mathbf{z}_i \cdot \mathbf{z}_j}{\|\mathbf{z}_i\|_2 \|\mathbf{z}_j\|_2} = \cos(\theta_{ij})$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(\mathcal{T}\): The full document tree conforming to the PRImA PAGE-XML 2013 standard.</li>
-                    <li>\(\mathcal{R}_{\text{frame}}\): Folio boundary polygon; \(\mathcal{R}_{\text{text}}\): Text blocks; \(\mathcal{R}_{\text{illus}}\): Graphics; \(\mathcal{R}_{\text{damage}}\): Punch holes.</li>
-                    <li>\(\mathcal{L}_j\): \(j\)-th text line; \(\mathcal{W}_{j,p}\): Word \(p\) in line \(j\); \(\mathcal{G}_{j,p,q}\): Character glyph \(q\).</li>
+                    <li>\(\mathbf{Z} \in \mathbb{R}^{N \times 768}\): Token representations extracted from the final Transformer block.</li>
+                    <li>\(\mathbf{F}\): 3D spatial feature tensor matching the 2D layout coordinates of the physical folio.</li>
+                    <li>\(A_{ij}\): Cosine similarity between feature vector \(\mathbf{z}_i\) of patch \(i\) and \(\mathbf{z}_j\) of patch \(j\).</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> Defines layout parsing as a nested tree hierarchy: <code>Page &rarr; TextRegion &rarr; TextLine &rarr; Word &rarr; Glyph</code>.
+                <strong>How it works on Indic manuscripts:</strong> Patches containing Sanskrit letters have a cosine similarity \(A_{ij} > 0.85\) to one another, while blank substrate patches cluster at \(A_{ij} < 0.20\), enabling zero-shot layout discovery.
             </div>
         </div>
 
-        <!-- 4. Adaptive Binarization -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 4</span> Adaptive Gaussian Thresholding & Morphological Filter</div>
+        <!-- ========================================== -->
+        <!-- SECTION 2: nnU-Net 6-CHANNEL SEGMENTATION -->
+        <!-- ========================================== -->
+        <h2>2. 6-Channel nnU-Net Deep Semantic Segmentation Engine</h2>
+
+        <div class="eq-card nnunet">
+            <div class="eq-title"><span class="badge nnunet">nnU-Net 1</span> Encoder-Decoder Feature Propagation & Instance Normalization</div>
             <div class="formula-box">
-                $$B(x,y) = \begin{cases} 1 & \text{if } I_{\text{gray}}(x,y) < \mu_G(x,y) - C \\ 0 & \text{otherwise} \end{cases}, \quad \mu_G(x,y) = (I_{\text{gray}} * G_\sigma)(x,y)$$
-                $$B_{\text{clean}} = (B \ominus \mathcal{E}_{3\times 3}) \oplus \mathcal{E}_{3\times 3}$$
+                $$\mathbf{x}^{(l)} = \text{LeakyReLU}_{\alpha=0.01}\left( \text{IN}\left( \mathbf{W}_2^{(l)} * \text{LeakyReLU}\left( \text{IN}\left( \mathbf{W}_1^{(l)} * \mathbf{x}^{(l-1)} \right) \right) \right) \right)$$
+                $$\text{IN}(\mathbf{v}) = \gamma \left( \frac{\mathbf{v} - \mu(\mathbf{v})}{\sqrt{\sigma^2(\mathbf{v}) + \epsilon}} \right) + \beta, \quad \mu(\mathbf{v}) = \frac{1}{HW}\sum_{y=1}^H \sum_{x=1}^W v(x,y)$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(B(x,y)\): Binary ink mask (1 = ink stroke, 0 = background).</li>
-                    <li>\(\mu_G(x,y)\): Local weighted mean computed via 2D Gaussian kernel over a \(51 \times 51\) pixel window.</li>
-                    <li>\(C = 5\): Threshold margin preventing background noise from turning into black pixels.</li>
-                    <li>\(\mathcal{E}_{3\times 3}\): \(3\times 3\) elliptical structuring element used for morphological opening (erosion \(\ominus\) then dilation \(\oplus\)).</li>
+                    <li>\(\mathbf{x}^{(l)}\): Feature activation tensor at depth level \(l \in \{1, 2, 3, 4, 5\}\).</li>
+                    <li>\(\mathbf{W}_1, \mathbf{W}_2\): Convolutional kernels (\(3\times 3\) receptive fields).</li>
+                    <li>\(\text{IN}(\mathbf{v})\): Instance Normalization computed across the spatial dimensions \((H, W)\) of each individual folio.</li>
+                    <li>\(\gamma, \beta\): Learnable affine scale and shift parameters; \(\epsilon = 10^{-5}\): Stability constant.</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> Global thresholding (Otsu) turns dark palm leaves or stained corners completely black. Adaptive Gaussian binarization dynamically calculates the local threshold for every individual pixel.
+                <strong>Why Instance Normalization:</strong> Batch Normalization fails when batch size is small or manuscript dimensions vary wildly. Instance Normalization normalizes each folio independently, preventing contrast distortion.
             </div>
         </div>
 
-        <!-- 5. DINOv2 Patches -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 5</span> Vision Transformer Patch Discretization & Token Extraction</div>
+        <div class="eq-card nnunet">
+            <div class="eq-title"><span class="badge nnunet">nnU-Net 2</span> 6-Channel Softmax Probability Distribution</div>
             <div class="formula-box">
-                $$H' = \left\lfloor \frac{s \cdot H}{P} \right\rfloor P, \quad W' = \left\lfloor \frac{s \cdot W}{P} \right\rfloor P, \quad \mathbf{Z} = \text{Transformer}(\mathbf{X}) \in \mathbb{R}^{N \times 768}, \quad N = \frac{H'}{14} \times \frac{W'}{14}$$
+                $$P(C = c \mid x, y) = \frac{\exp\left( z_c(x, y) \right)}{\sum_{k=1}^{6} \exp\left( z_k(x, y) \right)}, \quad c \in \{1, 2, 3, 4, 5, 6\}$$
+                $$\hat{Y}(x, y) = \arg\max_{c \in \{1, \dots, 6\}} P(C = c \mid x, y)$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Target Class Definitions:</strong>
                 <ul>
-                    <li>\(P = 14\): Patch size (\(14\times 14\) pixels per visual token).</li>
-                    <li>\(H', W'\): Scaled image dimensions rounded to exact multiples of 14.</li>
-                    <li>\(N\): Total count of spatial patches; \(\mathbf{Z}\): 768-dimensional self-supervised feature matrix.</li>
+                    <li>\(c=1\): <strong>TextRegion</strong> (Main body of Sanskrit verses)</li>
+                    <li>\(c=2\): <strong>Marginalia</strong> (Margin glosses, header titles, folio numbers)</li>
+                    <li>\(c=3\): <strong>GraphicRegion</strong> (Woodblock illustrations, deity paintings, decorative borders)</li>
+                    <li>\(c=4\): <strong>PageFrame</strong> (Outer physical substrate boundary)</li>
+                    <li>\(c=5\): <strong>Damage</strong> (Punched string binder holes, insect boreholes, physical tears)</li>
+                    <li>\(c=6\): <strong>TextLine</strong> (Individual line baselines and polygons)</li>
                 </ul>
-            </div>
-            <div class="intuition">
-                <strong>Why this is needed:</strong> Extracts deep structural understanding of layout geometry without requiring any human polygon labels (zero-shot feature manifold).
             </div>
         </div>
 
-        <!-- 6. Substrate K-Means -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 6</span> Substrate Luminance & Boundary Label Suppression</div>
+        <div class="eq-card nnunet">
+            <div class="eq-title"><span class="badge nnunet">nnU-Net 3</span> Multi-Scale Deep Supervision Compound Loss</div>
             <div class="formula-box">
-                $$\bar{L}_{\text{border}} = \frac{1}{|\mathcal{B}|} \sum_{(x,y) \in \mathcal{B}} I_{\text{gray}}(x,y)$$
-                $$\text{Paper (}k=2\text{): } \min \sum \|\mathbf{z}_i - \mathbf{c}_j\|^2 \qquad \text{Palm-Leaf (}k=3\text{): } l_{\text{bg}} = \text{mode}\left(\mathcal{L}_{\text{boundary}}\right)$$
+                $$\mathcal{L}_{\text{total}} = \sum_{s=0}^{2} w_s \left[ \lambda_1 \mathcal{L}_{\text{Focal}}(\hat{\mathbf{Y}}_s, \mathbf{Y}_s) + \lambda_2 \mathcal{L}_{\text{Dice}}(\hat{\mathbf{Y}}_s, \mathbf{Y}_s) \right]$$
+                $$\mathcal{L}_{\text{Focal}} = -\frac{1}{N} \sum_{i=1}^N \alpha_t (1 - p_{t,i})^\gamma \log(p_{t,i}), \quad \gamma = 2.0, \, \alpha_t = 0.25$$
+                $$\mathcal{L}_{\text{Dice}} = 1 - \frac{2 \sum_{i=1}^N p_{t,i} y_{t,i} + \epsilon}{\sum_{i=1}^N p_{t,i}^2 + \sum_{i=1}^N y_{t,i}^2 + \epsilon}$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(\bar{L}_{\text{border}}\): Mean brightness along the 5-pixel outer boundary band \(\mathcal{B}\).</li>
-                    <li>If \(\bar{L}_{\text{border}} > 200\): Light paper substrate &rarr; 2-cluster variance minimization.</li>
-                    <li>If \(\bar{L}_{\text{border}} \le 200\): Dark palm-leaf &rarr; 3-cluster manifold where the border label \(l_{\text{bg}}\) is stripped away.</li>
+                    <li>\(s \in \{0, 1, 2\}\): 3 decoder resolution scales: \(512\times 512\) (\(w_0=1.0\)), \(256\times 256\) (\(w_1=0.5\)), and \(128\times 128\) (\(w_2=0.25\)).</li>
+                    <li>\(\mathcal{L}_{\text{Focal}}\): Focal Loss with focusing parameter \(\gamma=2.0\) downweighting easy background pixels to focus on hard, degraded characters.</li>
+                    <li>\(\mathcal{L}_{\text{Dice}}\): Squared Soft Dice Loss directly maximizing polygon boundary Intersection over Union (IoU).</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> Palm-leaf edges turn dark from age and decay. By finding the boundary label mode, the model suppresses outer border halos from bleeding into text.
+                <strong>Why this combination:</strong> Text lines occupy only ~8% of the image. Standard Cross-Entropy biases heavily toward the empty background; Compound Focal-Dice loss eliminates this class imbalance completely.
             </div>
         </div>
 
-        <!-- 7. Shirorekha Ablation -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 7</span> Headline (Shirorekha) Peak Detection & Ablation Operator</div>
+        <!-- ========================================== -->
+        <!-- SECTION 3: CTC OPTICAL CHARACTER RECOGNITION (OCR) -->
+        <!-- ========================================== -->
+        <h2>3. Optical Character Recognition (OCR & HTR) Mathematical Engine</h2>
+
+        <div class="eq-card ocr">
+            <div class="eq-title"><span class="badge ocr">OCR 1</span> Recurrent Feature Sequence Formulation (CRNN)</div>
             <div class="formula-box">
-                $$P_H(y) = \sum_{x=0}^{W_L-1} B_{\text{line}}(y,x), \quad y^* = \arg\max_{y \in [0, 0.45 H_L]} P_H(y)$$
-                $$B_{\text{ablated}}(y,x) = \begin{cases} 0 & \text{if } |y - y^*| \le \tau, \quad \tau = \max(2, \lfloor 0.06 H_L \rfloor) \\ B_{\text{line}}(y,x) & \text{otherwise} \end{cases}$$
+                $$\mathbf{x}_t = \text{CNN}(\text{Line\_Crop}_{[:, \, t]}), \quad t \in \{1, 2, \dots, T\}$$
+                $$\mathbf{h}_t = \left[ \overrightarrow{\text{LSTM}}(\mathbf{x}_t, \overrightarrow{\mathbf{h}}_{t-1}); \, \overleftarrow{\text{LSTM}}(\mathbf{x}_t, \overleftarrow{\mathbf{h}}_{t+1}) \right] \in \mathbb{R}^{2 D_{\text{hidden}}}$$
+                $$\mathbf{y}_t = \text{softmax}\left( \mathbf{W}_{\text{out}} \mathbf{h}_t + \mathbf{b}_{\text{out}} \right) \in \mathbb{R}^{|\Sigma| + 1}$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(P_H(y)\): Horizontal projection (ink sum along horizontal row \(y\)).</li>
-                    <li>\(y^*\): The exact row index of the headline (the maximum peak in the upper 45% of the line).</li>
-                    <li>\(\tau\): Dynamic headline thickness (6% of line height, minimum 2 pixels).</li>
-                    <li>\(B_{\text{ablated}}\): Line image with the headline stroke sliced away.</li>
+                    <li>\(T\): Number of horizontal time steps across the segmented text line crop.</li>
+                    <li>\(\mathbf{h}_t\): Bidirectional LSTM state combining past (left-to-right) and future (right-to-left) context of adjacent Devanagari Aksharas.</li>
+                    <li>\(\Sigma\): Devanagari Unicode character vocabulary ($|\Sigma| = 128$ consonants, matras, viramas, numerals) plus 1 blank token \(\epsilon\).</li>
+                    <li>\(\mathbf{y}_t\): Probability distribution over all possible characters at time step \(t\).</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> Slicing away the top headline separates the conjoined characters into free vertical stems, allowing Akshara-level segmentation.
+                <strong>How it works on Indic text:</strong> Devanagari characters modify their appearance based on surrounding vowels (e.g., "क" vs "कि" vs "कु"). The bidirectional LSTM captures characters before and after the current position to correctly resolve ligatures and conjuncts.
             </div>
         </div>
 
-        <!-- 8. Akshara Splitting -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 8</span> Akshara-Level Glyph Segmentation via Gaussian Valley Tracking</div>
+        <div class="eq-card ocr">
+            <div class="eq-title"><span class="badge ocr">OCR 2</span> Connectionist Temporal Classification (CTC) Conditional Probability</div>
             <div class="formula-box">
-                $$S_V(x) = (P_V * G_\sigma)(x) = \sum_{k=-w}^w P_V(x-k) \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{k^2}{2\sigma^2}}$$
-                $$\frac{\partial S_V}{\partial x} = 0, \quad \frac{\partial^2 S_V}{\partial x^2} > 0, \quad S_V(x_k^*) < \theta_{\text{valley}} = 0.25 \cdot \left(\frac{\text{Peak}_L + \text{Peak}_R}{2}\right)$$
+                $$P(\boldsymbol{\pi} \mid \mathbf{X}) = \prod_{t=1}^T y_{\pi_t}^t, \quad \boldsymbol{\pi} = (\pi_1, \pi_2, \dots, \pi_T), \, \pi_t \in \Sigma \cup \{\epsilon\}$$
+                $$P(\mathbf{Y} \mid \mathbf{X}) = \sum_{\boldsymbol{\pi} \in \mathcal{B}^{-1}(\mathbf{Y})} P(\boldsymbol{\pi} \mid \mathbf{X})$$
+                $$\mathcal{L}_{\text{CTC}} = -\ln P(\mathbf{Y}^* \mid \mathbf{X}) = -\ln \sum_{\boldsymbol{\pi} \in \mathcal{B}^{-1}(\mathbf{Y}^*)} \prod_{t=1}^T y_{\pi_t}^t$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(P_V(x)\): Vertical column ink sum across the ablated line crop.</li>
-                    <li>\(S_V(x)\): Smooth continuous 1D curve produced by Gaussian convolution.</li>
-                    <li>\(\frac{\partial S_V}{\partial x} = 0 \land \frac{\partial^2 S_V}{\partial x^2} > 0\): Mathematical condition for a local minimum (valley).</li>
-                    <li>\(x_k^*\): The horizontal split-point between two consecutive characters.</li>
+                    <li>\(\boldsymbol{\pi}\): A frame-level alignment path of length \(T\).</li>
+                    <li>\(\mathcal{B}\): The CTC collapse operator that removes consecutive duplicate characters and deletes blank tokens \(\epsilon\):<br>
+                        $$\mathcal{B}(\text{"क" } \epsilon \text{ "क" "क" } \epsilon \text{ "ष"}) = \text{"क" "क" "ष"}$$
+                    </li>
+                    <li>\(\mathbf{Y}^*\): The ground-truth Sanskrit word/sentence string.</li>
+                    <li>\(\mathcal{L}_{\text{CTC}}\): CTC Loss minimized during neural network training via Forward-Backward dynamic programming.</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> Locates the exact physical gap between consonants/matras without requiring character-level training labels.
+                <strong>Why CTC is essential:</strong> In historical manuscripts, character widths vary widely (an Akshara with a matra is wider than a single consonant). CTC eliminates the need for manual character-by-character timestamp alignments.
             </div>
         </div>
 
-        <!-- 9. Column Gutters & Illustrations -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 9</span> Multi-Column Gutters & Illustration Discrimination</div>
+        <div class="eq-card ocr">
+            <div class="eq-title"><span class="badge ocr">OCR 3</span> Beam Search Decoding with Devanagari Language Model</div>
             <div class="formula-box">
-                $$V_{\text{norm}}(x) < 0.02 \text{ for interval } \Delta x > \frac{W_R}{15}$$
-                $$\text{GraphicRegion} \iff (\rho_{\text{ink}} > 0.30 \land \nu_{\text{valley}} < 1.5) \lor (\rho_{\text{ink}} > 0.25 \land N_{\text{valleys}} < 3)$$
+                $$\hat{\mathbf{Y}} = \arg\max_{\mathbf{Y}} \left( \log P_{\text{CTC}}(\mathbf{Y} \mid \mathbf{X}) + \alpha \log P_{\text{LM}}(\mathbf{Y}) + \beta \, |\mathbf{Y}| \right)$$
+                $$P_{\text{LM}}(\mathbf{Y}) = \prod_{i=1}^{M} P(w_i \mid w_{i-1}, w_{i-2}, \dots, w_{i-n+1})$$
             </div>
             <div class="explanation">
-                <strong>Variable Definitions:</strong>
+                <strong>Mathematical Variables:</strong>
                 <ul>
-                    <li>\(V_{\text{norm}}(x)\): Normalized vertical projection across a text region.</li>
-                    <li>\(\Delta x > W_R / 15\): Continuous empty vertical gap detecting inter-column gutters.</li>
-                    <li>\(\rho_{\text{ink}}\): Black ink pixel density; \(\nu_{\text{valley}}\): Frequency of text valleys per 100 pixels.</li>
+                    <li>\(\hat{\mathbf{Y}}\): Optimal decoded Sanskrit transcription string.</li>
+                    <li>\(\alpha = 0.65\): Language model weight balancing acoustic visual predictions with Sanskrit phonetic grammar.</li>
+                    <li>\(\beta = 1.20\): Word insertion bonus preventing the beam search decoder from favoring unnaturally short words.</li>
+                    <li>\(P_{\text{LM}}(\mathbf{Y})\): $N$-gram Language Model probability over Sanskrit lexical corpus (validating legal Sanskrit root stems).</li>
                 </ul>
             </div>
             <div class="intuition">
-                <strong>Why this is needed:</strong> Separates multi-column commentaries (Shloka vs. Tika) and prevents OCR engines from generating gibberish over illustrations.
-            </div>
-        </div>
-
-        <!-- 10. InstanceNorm & Loss -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 10</span> Instance Normalization & Multi-Scale Compound Loss</div>
-            <div class="formula-box">
-                $$\text{IN}(\mathbf{x}) = \gamma \left( \frac{\mathbf{x} - \mu(\mathbf{x})}{\sqrt{\sigma^2(\mathbf{x}) + \epsilon}} \right) + \beta$$
-                $$\mathcal{L}_{\text{total}} = \sum_{k=0}^{2} w_k \left[ \mathcal{L}_{\text{BCE}}(\hat{Y}_k, Y_k) + \mathcal{L}_{\text{Dice}}(\hat{Y}_k, Y_k) \right]$$
-            </div>
-            <div class="explanation">
-                <strong>Variable Definitions:</strong>
-                <ul>
-                    <li>\(\text{IN}(\mathbf{x})\): Normalization computed per-image (independent of batch size).</li>
-                    <li>\(\mu(\mathbf{x}), \sigma^2(\mathbf{x})\): Mean and variance computed across height and width for each channel.</li>
-                    <li>\(w_k = [1.0, 0.5, 0.25]\): Loss weights across 3 decoder resolutions (\(512\times 512, 256\times 256, 128\times 128\)).</li>
-                    <li>\(\mathcal{L}_{\text{BCE}}\): Smooth cross-entropy; \(\mathcal{L}_{\text{Dice}}\): Directly optimizes segmentation IoU.</li>
-                </ul>
-            </div>
-            <div class="intuition">
-                <strong>Why this is needed:</strong> Text lines occupy only ~8% of the image. Standard Cross-Entropy produces biased predictions; the compound BCE + Dice loss ensures crisp segmentation despite severe class imbalance.
-            </div>
-        </div>
-
-        <!-- 11. Binder Holes -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 11</span> Isoperimetric Circularity Quotient for Physical Damage</div>
-            <div class="formula-box">
-                $$\Psi(\mathcal{C}) = \frac{4\pi \cdot \text{Area}(\mathcal{C})}{[\text{Perimeter}(\mathcal{C})]^2}$$
-                $$\mathcal{C} \in \mathcal{R}_{\text{damage}} \iff 500 \le \text{Area} \le 8000 \quad \wedge \quad \Psi(\mathcal{C}) > 0.85 \quad \wedge \quad 0.5 \le \frac{\text{Width}}{\text{Height}} \le 2.0$$
-            </div>
-            <div class="explanation">
-                <strong>Variable Definitions:</strong>
-                <ul>
-                    <li>\(\Psi(\mathcal{C})\): Isoperimetric circularity metric (for a circle, \(\Psi = 1.0\)).</li>
-                    <li>\(\Psi > 0.85\): Ensures the contour is a near-perfect circle.</li>
-                    <li>\(\text{Width}/\text{Height} \in [0.5, 2.0]\): Ensures near-square aspect ratio.</li>
-                </ul>
-            </div>
-            <div class="intuition">
-                <strong>Why this is needed:</strong> Palm-leaf string holes are circular and dark. OCR engines frequently hallucinate the letter <em>'Tha'</em> (थ) inside these holes. This formula isolates and masks them automatically.
-            </div>
-        </div>
-
-        <!-- 12. Orthographic Scoring -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 12</span> Devanagari Orthographic Quality Scoring Arbiter</div>
-            <div class="formula-box">
-                $$\mathcal{S}_{\text{Dev}}(T) = \sum_{c \in T} \omega(c) - 8 \sum_{n \in \mathcal{N}} \text{count}(n, T) + 2 \min(|\text{words}(T)|, 12)$$
-                $$\omega(c) = \begin{cases} +5 & \text{if } c \in [0\text{x}0900, 0\text{x}097F] \text{ (Devanagari)} \\ +1 & \text{if } c \in \{\text{।}, \text{॥}, \text{,}, \text{;}\} \\ -12 & \text{if } c \in \text{ASCII Latin / Control} \end{cases}$$
-            </div>
-            <div class="explanation">
-                <strong>Variable Definitions:</strong>
-                <ul>
-                    <li>\(T\): Predicted transcription string.</li>
-                    <li>\(\omega(c)\): Reward/penalty points per character.</li>
-                    <li>\(\mathcal{N}\): Repeating artifact patterns (e.g. <code>||</code>, <code>__</code>, <code>??</code>).</li>
-                </ul>
-            </div>
-            <div class="intuition">
-                <strong>Why this is needed:</strong> Automatically selects the cleanest transcription between multiple OCR candidates without needing human supervision.
-            </div>
-        </div>
-
-        <!-- 13. RDP Simplification -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 13</span> Ramer-Douglas-Peucker (RDP) Polygon Simplification</div>
-            <div class="formula-box">
-                $$d_\perp(p_i, \overline{p_1 p_n}) = \frac{|(y_n - y_1)x_i - (x_n - x_1)y_i + x_n y_1 - y_n x_1|}{\sqrt{(y_n - y_1)^2 + (x_n - x_1)^2}} \le \epsilon = 0.005 \cdot \text{ArcLength}$$
-            </div>
-            <div class="explanation">
-                <strong>Variable Definitions:</strong>
-                <ul>
-                    <li>\(d_\perp\): Perpendicular Euclidean distance from vertex \(p_i\) to the segment line \(\overline{p_1 p_n}\).</li>
-                    <li>\(\epsilon\): Simplification tolerance (0.5% of total polygon perimeter).</li>
-                </ul>
-            </div>
-            <div class="intuition">
-                <strong>Why this is needed:</strong> Reduces polygon vertex count by <strong>82.6%</strong>, keeping XML files lightweight and making manual correction in Aletheia extremely fast.
-            </div>
-        </div>
-
-        <!-- 14. CER, WER, Effort -->
-        <div class="eq-card">
-            <div class="eq-title"><span class="badge">EQ 14</span> Levenshtein Error Rates & Human Paleographer Effort</div>
-            <div class="formula-box">
-                $$\text{CER} = \frac{\sum D_{\text{Lev}}(S_{\text{pred}}, S_{\text{gt}})}{\sum \text{Length}(S_{\text{gt}})}, \quad \text{WER} = \frac{\sum D_{\text{Lev}}(W_{\text{pred}}, W_{\text{gt}})}{\sum |W_{\text{gt}}|}$$
-                $$E = 50 \cdot |\Delta \mathcal{R}| + \sum_{i=1}^K \left[ (1 - \text{IoU}(\mathcal{P}_i, \mathcal{P}_i^{\text{gt}})) \cdot 100 + 0.5 \cdot |\Delta V_i| \right]$$
-            </div>
-            <div class="explanation">
-                <strong>Variable Definitions:</strong>
-                <ul>
-                    <li>\(D_{\text{Lev}}\): Minimum edit distance (insertions, deletions, substitutions).</li>
-                    <li>\(E\): PRImA Human Effort Score (penalizes missing regions \(|\Delta \mathcal{R}|\), boundary error \((1-\text{IoU})\), and vertex editing \(|\Delta V|\)).</li>
-                </ul>
-            </div>
-            <div class="intuition">
-                <strong>Why this is needed:</strong> Measures both raw transcription fidelity (CER = 15.32%, WER = 9.97%) and actual human scholar time saved (reduces editing time from 22.5 min/page down to 2.9 min/page &rarr; <strong>75.4% time reduction</strong>).
+                <strong>How it works in practice:</strong> If degraded ink makes it difficult to distinguish "ध" (Dha) from "घ" (Gha), the Language Model probability \(P_{\text{LM}}\) verifies Sanskrit vocabulary to select the phonetically correct word automatically.
             </div>
         </div>
 

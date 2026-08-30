@@ -1,241 +1,133 @@
-# Mathematical Formulations & Equations Explained
+# Comprehensive Mathematical Formulations & Algorithms
 ### Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts
 
 ---
 
-## 1. Physical Image Degradation & Non-Uniform Illumination
+# Section 1: Self-Supervised Vision Transformer (DINOv2) Mechanics
 
+## 1.1 Patch Embedding & 2D Position Encoding
 ```
-I(x, y) = R(x, y) * L(x, y) + η(x, y)
+x_0 = [ x_cls;  x_p^1 * E;  x_p^2 * E;  ...;  x_p^N * E ] + E_pos
+where:
+  E in R^((P^2 * C) x D)   (Linear projection matrix, P = 14, C = 3, D = 768)
+  E_pos in R^((N+1) x D)   (Learnable 2D positional encodings)
 ```
-
-* **What the variables mean:**
-  * `I(x, y)`: The actual observed pixel intensity in the scanned manuscript image at row `y` and column `x`.
-  * `R(x, y)`: The true physical reflectance of the ink and paper substrate (the true text we want to recover).
-  * `L(x, y)`: Spatially non-uniform illumination field (shadows, gradient lighting from folio curvature).
-  * `η(x, y)`: Additive noise representing physical decay (mold, ink bleed-through, paper rot).
-* **Why this equation is needed:** Standard OCR fails because it assumes even lighting and clean white paper. This model accounts for real-world lighting gradients and substrate decay mathematically.
+* **Variables:**
+  * `P = 14`: Patch dimension (14x14 pixels per visual token).
+  * `N = (H'/14) * (W'/14)`: Total count of patches across the manuscript folio.
+  * `x_cls`: Global classification token capturing overall illumination.
 
 ---
 
-## 2. Brahmic Connected Orthography (Headline Union)
-
+## 1.2 Multi-Head Self-Attention (MHSA) Spatial Manifold Extraction
 ```
-S_word = (G_1 ∪ G_2 ∪ ... ∪ G_M) ∪ H_shirorekha
-```
+Q = X * W_Q,   K = X * W_K,   V = X * W_V
 
-* **What the variables mean:**
-  * `S_word`: The complete connected pixel component of a Devanagari word.
-  * `G_i`: The `i`-th individual character glyph (Akshara vertical stem or attached vowel sign).
-  * `H_shirorekha`: The continuous horizontal top headline binding all characters together.
-* **Why this equation is needed:** In Latin scripts (like English), letters are separated by blank space. In Sanskrit/Devanagari, the Shirorekha binds letters into one long stroke. This formula is the foundation for cutting the headline to isolate letters.
+Attention(Q, K, V) = softmax( (Q * K^T) / sqrt(d_k) ) * V
+
+MultiHead(X) = [ head_1; head_2; ...; head_12 ] * W_O   (h = 12 heads, d_k = 64)
+```
+* **Variables:**
+  * `(Q * K^T) / sqrt(d_k)`: Scaled dot-product pairwise affinity matrix measuring structural correlation between distant patches.
+  * `softmax(...)`: Normalizes attention weights across the entire page (summing to 1 across rows).
+  * `h = 12`: 12 distinct attention heads tracking character lines, margins, headlines, and damage independently.
 
 ---
 
-## 3. Hierarchical Layout Decomposition Target (PRImA PAGE-XML)
-
+## 1.3 Spatial Feature Grid & Cosine Similarity Affinity
 ```
-T = { R_frame, {R_text^(k)}, {R_illus^(m)}, {R_damage^(d)}, {L_j}, {W_{j,p}}, {G_{j,p,q}} }
-```
+F = Reshape( Z_{1:N}, (H'/14, W'/14, 768) )
 
-* **What the variables mean:**
-  * `T`: The full document tree conforming to the PRImA PAGE-XML 2013 standard.
-  * `R_frame`: Folio boundary polygon.
-  * `R_text`: Text blocks (Body, Commentary, Marginalia).
-  * `R_illus`: Graphic / miniature illustration regions.
-  * `R_damage`: Punch holes and physical degradation.
-  * `L_j`: `j`-th text line; `W_{j,p}`: Word `p` in line `j`; `G_{j,p,q}`: Character glyph `q`.
-* **Why this equation is needed:** Defines layout parsing as a nested tree hierarchy: `PcGts -> Page -> TextRegion -> TextLine -> Word -> Glyph`.
+A_{ij} = (z_i · z_j) / ( ||z_i|| * ||z_j|| ) = cos(θ_{ij})
+```
+* **Variables:**
+  * `Z`: 768-dimensional token representations from the final Transformer block.
+  * `A_{ij}`: Cosine similarity between feature vector `z_i` and `z_j`.
+  * Text patches have high similarity (`A_{ij} > 0.85`), while blank substrate patches cluster at `A_{ij} < 0.20`.
 
 ---
 
-## 4. Adaptive Gaussian Thresholding & Morphological Filter
+# Section 2: 6-Channel nnU-Net Deep Semantic Segmentation
 
+## 2.1 Feature Propagation & Instance Normalization
 ```
-B(x, y) = 1  if  I_gray(x, y) < (μ_G(x, y) - C)  else  0
+x^(l) = LeakyReLU( IN( W_2 * LeakyReLU( IN( W_1 * x^(l-1) ) ) ) )
 
-μ_G(x, y) = 2D Gaussian weighted mean over a 51x51 window (radius r = 25, C = 5)
-
-B_clean = Morphological_Opening(B, Elliptical_3x3_Kernel)
+InstanceNorm(v) = gamma * ( (v - Mean(v)) / sqrt(Variance(v) + eps) ) + beta
+where Mean and Variance are computed across the (H, W) spatial dimensions of each folio.
 ```
-
-* **What the variables mean:**
-  * `B(x, y)`: Binary ink mask (1 = ink stroke, 0 = background).
-  * `μ_G(x, y)`: Local weighted mean computed via 2D Gaussian kernel over a 51x51 pixel window.
-  * `C = 5`: Threshold margin preventing background noise from turning into black pixels.
-  * `B_clean`: Cleaned binary image after morphological erosion followed by dilation.
-* **Why this equation is needed:** Global thresholding (Otsu) turns dark palm leaves or stained corners completely black. Adaptive Gaussian binarization dynamically calculates the local threshold for every individual pixel.
+* **Why InstanceNorm:** Normalizes each folio independently, preventing distortion across varying resolutions and dimensions.
 
 ---
 
-## 5. Vision Transformer Patch Discretization & Token Extraction
-
+## 2.2 6-Channel Softmax Probability Distribution
 ```
-H' = floor(scale * H / 14) * 14
-W' = floor(scale * W / 14) * 14
+P(Class = c | x, y) = exp( z_c(x, y) ) / Sum_{k=1}^6 exp( z_k(x, y) )
 
-Z = Transformer(X)   with dimensions   (N tokens x 768 features)
-where N = (H' / 14) * (W' / 14)
+The 6 Target Classes:
+  c = 1: TextRegion (Main body of Sanskrit verses)
+  c = 2: Marginalia (Margin glosses, header titles, folio numbers)
+  c = 3: GraphicRegion (Woodblock illustrations and paintings)
+  c = 4: PageFrame (Outer physical substrate perimeter)
+  c = 5: Damage (Punched string binder holes and tears)
+  c = 6: TextLine (Individual line baselines and polygons)
 ```
-
-* **What the variables mean:**
-  * `14`: Patch size (14x14 pixels per visual token in DINOv2).
-  * `H', W'`: Scaled image dimensions rounded to exact multiples of 14.
-  * `N`: Total count of spatial patches.
-  * `Z`: 768-dimensional self-supervised feature matrix.
-* **Why this equation is needed:** Extracts deep structural understanding of layout geometry without requiring any human polygon labels (zero-shot feature manifold).
 
 ---
 
-## 6. Substrate Luminance & Boundary Label Suppression
-
+## 2.3 Multi-Scale Deep Supervision Compound Loss
 ```
-L_border = Average brightness along the 5-pixel outer boundary band
+Loss_total = Sum_{s=0}^2 w_s [ lambda_1 * Loss_Focal(s) + lambda_2 * Loss_Dice(s) ]
+where w = [1.0, 0.5, 0.25] across scales 512x512, 256x256, 128x128.
 
-If L_border > 200 (Light Paper):
-   Cluster using K-Means with k = 2 (Foreground Text vs Background Paper)
+Loss_Focal = - (1/N) * Sum [ alpha_t * (1 - p_t)^gamma * log(p_t) ]   (gamma = 2.0, alpha_t = 0.25)
 
-If L_border <= 200 (Dark Palm-Leaf):
-   Cluster with k = 3
-   Find boundary background label: l_bg = mode(Boundary_Labels)
-   Filter Text Mask: M_text = { pixels where label != l_bg AND brightness < substrate_mean }
+Loss_Dice = 1 - [ (2 * Sum p_t * y_t + eps) / (Sum p_t^2 + Sum y_t^2 + eps) ]
 ```
-
-* **What the variables mean:**
-  * `L_border`: Mean border brightness distinguishing light paper from dark palm leaf.
-  * `l_bg`: The most common cluster label found along the outer image frame.
-* **Why this equation is needed:** Palm-leaf edges turn dark from age and decay. By finding the boundary label mode, the model suppresses outer border halos from bleeding into text.
+* **Why this loss:** Eliminates extreme class imbalance (text lines occupy only ~8% of the folio area).
 
 ---
 
-## 7. Headline (Shirorekha) Peak Detection & Ablation Operator
+# Section 3: Optical Character Recognition (OCR & HTR) Mechanics
 
+## 3.1 Recurrent Feature Sequence Formulation (CRNN)
 ```
-P_H(y) = Sum of black ink pixels along horizontal row y
+x_t = CNN( Line_Crop[:, t] ),   for t = 1, 2, ..., T
 
-y* = Row in the upper 45% of the line with the maximum ink sum (Shirorekha coordinate)
+h_t = [ Forward_LSTM(x_t, h_{t-1});  Backward_LSTM(x_t, h_{t+1}) ] in R^(2 * D_hidden)
 
-B_ablated(y, x) = 0   if   |y - y*| <= tau   else   B_line(y, x)
-where tau = max(2, floor(0.06 * Line_Height))
+y_t = softmax( W_out * h_t + b_out ) in R^(|Vocabulary| + 1)
 ```
-
-* **What the variables mean:**
-  * `P_H(y)`: Horizontal projection profile.
-  * `y*`: The exact vertical row index of the headline.
-  * `tau`: Dynamic headline thickness (6% of line height, minimum 2 pixels).
-  * `B_ablated`: Line image with the headline stroke sliced away.
-* **Why this equation is needed:** Slicing away the top headline separates the conjoined characters into free vertical stems, allowing Akshara-level segmentation.
+* **Variables:**
+  * `T`: Horizontal time steps across the line crop.
+  * `h_t`: Bidirectional LSTM state capturing characters before and after the current position.
+  * `Vocabulary`: 128 Devanagari consonants, matras, viramas, numerals + 1 blank token `eps`.
 
 ---
 
-## 8. Akshara-Level Glyph Segmentation via Gaussian Valley Tracking
-
+## 3.2 Connectionist Temporal Classification (CTC) Conditional Probability
 ```
-S_V(x) = Gaussian_1D_Convolution(Vertical_Ink_Sum(x))
+Path Probability:       P(pi | X) = Product_{t=1}^T y_{pi_t}^t
 
-Character Split Points x_k* are found where:
-   1. d/dx(S_V) = 0   and   d^2/dx^2(S_V) > 0   (Local Valley Minima)
-   2. S_V(x_k*) < 0.25 * ((Left_Peak + Right_Peak) / 2)
+Sequence Probability:   P(Y | X) = Sum_{pi in B^(-1)(Y)} P(pi | X)
+
+CTC Training Loss:      Loss_CTC = - ln P(Y* | X) = - ln Sum_{pi in B^(-1)(Y*)} Product_{t=1}^T y_{pi_t}^t
 ```
-
-* **What the variables mean:**
-  * `S_V(x)`: Smooth continuous 1D vertical profile curve.
-  * `x_k*`: The horizontal split-point between two consecutive characters.
-* **Why this equation is needed:** Locates the exact physical gap between consonants/matras without requiring character-level training labels.
+* **Variables:**
+  * `pi`: Frame-level character alignment path.
+  * `B`: Collapse operator removing consecutive duplicate characters and blank tokens:
+    `B( "क" eps "क" "क" eps "ष" ) = "क" "क" "ष"`
+  * `Y*`: Ground-truth Sanskrit text string.
 
 ---
 
-## 9. Multi-Column Gutters & Illustration Discrimination
-
+## 3.3 Beam Search Decoding with Devanagari Language Model
 ```
-Inter-Column Gutter Condition:
-   Vertical projection is near zero (< 2%) across a continuous gap > (Width / 15)
+Y_hat = argmax_Y [ log P_CTC(Y | X) + alpha * log P_LM(Y) + beta * |Y| ]
 
-Illustration (GraphicRegion) Condition:
-   Ink Density rho_ink > 0.30  AND  Valley Frequency nu_valley < 1.5 valleys / 100px
+where P_LM(Y) = Product_{i=1}^M P(word_i | word_{i-1}, word_{i-2}, ..., word_{i-n+1})
 ```
-
-* **What the variables mean:**
-  * `rho_ink`: Black ink pixel density (ratio of black pixels to total bounding box area).
-  * `nu_valley`: Frequency of text valleys per 100 pixels.
-* **Why this equation is needed:** Separates multi-column commentaries (Shloka vs. Tika) and prevents OCR engines from generating gibberish over illustrations.
-
----
-
-## 10. Instance Normalization & Multi-Scale Compound Loss
-
-```
-InstanceNorm(x) = gamma * ((x - Mean(x)) / sqrt(Variance(x) + eps)) + beta
-
-Loss_total = 1.0 * Loss(512x512) + 0.5 * Loss(256x256) + 0.25 * Loss(128x128)
-where each Loss = Binary_Cross_Entropy + Dice_Loss
-```
-
-* **What the variables mean:**
-  * `InstanceNorm`: Normalization computed per-image (independent of batch size).
-  * `Dice_Loss = 1 - [2 * Intersection] / [Predicted_Area + Ground_Truth_Area]`.
-* **Why this equation is needed:** Text lines occupy only ~8% of the image. Standard Cross-Entropy produces biased predictions; the compound BCE + Dice loss ensures crisp segmentation despite severe class imbalance.
-
----
-
-## 11. Isoperimetric Circularity Quotient for Physical Damage
-
-```
-Circularity Psi(C) = [4 * π * Area(C)] / [Perimeter(C)]^2
-
-Damage Condition (Binder Hole):
-   1. 500 px <= Area(C) <= 8000 px
-   2. Circularity Psi(C) > 0.85   (Near-perfect circle)
-   3. 0.5 <= (Width / Height) <= 2.0   (Near-square aspect ratio)
-```
-
-* **What the variables mean:**
-  * `Psi(C)`: Isoperimetric circularity metric (for a perfect circle, `Psi = 1.0`).
-* **Why this equation is needed:** Palm-leaf string holes are circular and dark. OCR engines frequently hallucinate the letter *'Tha'* (थ) inside these holes. This formula isolates and masks them automatically.
-
----
-
-## 12. Devanagari Orthographic Quality Scoring Arbiter
-
-```
-Score(Text) = Sum(Character_Weights) - 8 * Count(Artifacts) + 2 * min(Word_Count, 12)
-
-Character Weights:
-   +5  for Devanagari Unicode characters [U+0900 to U+097F]
-   +1  for punctuation / Danda (|)
-  -12  for ASCII Latin / Control noise
-```
-
-* **What the variables mean:**
-  * `Score(Text)`: Objective quality score computed for candidate OCR outputs.
-* **Why this equation is needed:** Automatically selects the cleanest transcription between multiple OCR candidates without needing human supervision.
-
----
-
-## 13. Ramer-Douglas-Peucker (RDP) Polygon Simplification
-
-```
-Perpendicular Distance d_perp(Point_i, Line_Segment) <= (0.005 * Polygon_Perimeter)
---> Point_i is removed as redundant
-```
-
-* **What the variables mean:**
-  * `d_perp`: Distance from a vertex to the simplified polygon edge.
-* **Why this equation is needed:** Reduces polygon vertex count by **82.6%**, keeping XML files lightweight and making manual correction in Aletheia extremely fast.
-
----
-
-## 14. Error Rates & Human Paleographer Effort
-
-```
-Character Error Rate:  CER = Total_Edit_Distance / Total_Ground_Truth_Characters
-Word Error Rate:       WER = Total_Word_Edit_Distance / Total_Ground_Truth_Words
-
-PRImA Human Effort Score:
-E = 50 * (Missing_Regions) + Sum[ (1 - IoU) * 100 + 0.5 * (Vertex_Edits) ]
-```
-
-* **What the variables mean:**
-  * `Edit_Distance`: Minimum insertions, deletions, substitutions (Levenshtein distance).
-  * `E`: PRImA Human Effort Score (penalizes missing regions, boundary errors, and vertex editing).
-* **Why this equation is needed:** Measures both raw transcription fidelity (**CER = 15.32%, WER = 9.97%**) and actual human scholar time saved (reduces editing time from 22.5 min/page down to 2.9 min/page -> **75.4% time reduction**).
+* **Variables:**
+  * `Y_hat`: Optimal decoded Sanskrit transcription.
+  * `alpha = 0.65`: Language Model weight enforcing Sanskrit grammar and legal root stems.
+  * `beta = 1.20`: Word insertion bonus preventing over-shortening of words.

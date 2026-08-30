@@ -94,19 +94,19 @@ Isolated substrate fiber noise is suppressed via morphological opening with an e
 \end{block}
 \end{frame}
 
-\begin{frame}{Self-Supervised Feature Manifold Extraction}{Patch Discretization and Token Embeddings}
-To achieve zero-shot layout discovery without manual polygon labels, patch representations are computed via a self-supervised Vision Transformer with patch dimension $P=14$:
+\begin{frame}{Self-Supervised Feature Manifold Extraction}{Vision Transformer (DINOv2) Attention Mechanics}
+To achieve zero-shot layout discovery without manual polygon labels, patch representations are computed via self-supervised Vision Transformers ($P=14$):
 \[
-  H' = \left\lfloor \frac{s \cdot H}{P} \right\rfloor P, \quad W' = \left\lfloor \frac{s \cdot W}{P} \right\rfloor P
+  \mathbf{x}_0 = \left[ \mathbf{x}_{\text{cls}}; \, \mathbf{x}_p^1 \mathbf{E}; \, \dots; \, \mathbf{x}_p^N \mathbf{E} \right] + \mathbf{E}_{\text{pos}}, \quad N = \frac{H'}{14} \times \frac{W'}{14}, \quad \mathbf{E} \in \mathbb{R}^{588 \times 768}
 \]
-\begin{block}{Patch Token Extraction}
-Normalized image patches $\mathbf{x}_i \in \mathbb{R}^{P \times P \times 3}$ are linearly projected and processed through self-attention layers:
+\begin{block}{Multi-Head Self-Attention (MHSA) Formulation}
+Pairwise spatial correlation between visual patches across the folio:
 \[
-  \mathbf{Z} = \text{Transformer}(\mathbf{X}) \in \mathbb{R}^{N \times D}, \quad N = \frac{H'}{P} \times \frac{W'}{P}, \quad D = 768
+  \text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}} \right) \mathbf{V}, \quad d_k = 64, \, h = 12 \text{ heads}
 \]
 \end{block}
 \begin{itemize}
-  \item Spatial feature grid $\mathbf{F} \in \mathbb{R}^{(H'/P) \times (W'/P) \times D}$ captures structural boundaries and semantic regions prior to supervised labeling.
+  \item Cosine similarity matrix $A_{ij} = \frac{\mathbf{z}_i \cdot \mathbf{z}_j}{\|\mathbf{z}_i\| \|\mathbf{z}_j\|}$ isolates text ink manifolds from unwritten margins.
 \end{itemize}
 \end{frame}
 
@@ -188,19 +188,35 @@ A bounding contour $\mathcal{C}$ is classified as an illustration based on ink d
 \subsection{Deep Semantic Segmentation Model}
 
 \begin{frame}{6-Channel Convolutional Segmentation Architecture}{Instance Normalization and Multi-Scale Deep Supervision}
-\begin{block}{Instance Normalization Formulation}
-Prevents batch-size scaling artifacts across variable document resolutions:
+\begin{block}{Instance Normalization & Feature Propagation}
 \[
-  \text{IN}(\mathbf{x}) = \gamma \left( \frac{\mathbf{x} - \mu(\mathbf{x})}{\sqrt{\sigma^2(\mathbf{x}) + \epsilon}} \right) + \beta
+  \mathbf{x}^{(l)} = \text{LeakyReLU}\left( \text{IN}\left( \mathbf{W}_2 * \text{LeakyReLU}\left( \text{IN}\left( \mathbf{W}_1 * \mathbf{x}^{(l-1)} \right) \right) \right) \right), \quad \text{IN}(\mathbf{x}) = \gamma \left( \frac{\mathbf{x} - \mu(\mathbf{x})}{\sqrt{\sigma^2(\mathbf{x}) + \epsilon}} \right) + \beta
 \]
 \end{block}
-\begin{block}{Compound Multi-Scale Loss Formulation}
-Supervised across 3 decoder scales ($512\times 512, 256\times 256, 128\times 128$) with weights $w = [1.0, 0.5, 0.25]$:
+\begin{block}{Multi-Scale Compound Focal-Dice Loss}
+Supervised at 3 decoder scales ($512\times 512, 256\times 256, 128\times 128$) with weights $w = [1.0, 0.5, 0.25]$:
 \[
-  \mathcal{L}_{\text{total}} = \sum_{k=0}^{2} w_k \left[ \mathcal{L}_{\text{BCE}}(\hat{Y}_k, Y_k) + \mathcal{L}_{\text{Dice}}(\hat{Y}_k, Y_k) \right]
+  \mathcal{L}_{\text{total}} = \sum_{k=0}^{2} w_k \left[ \mathcal{L}_{\text{Focal}}(\hat{Y}_k, Y_k) + \mathcal{L}_{\text{Dice}}(\hat{Y}_k, Y_k) \right]
 \]
-Target Classes: \texttt{TextRegion, Marginalia, GraphicRegion, PageFrame, Damage, TextLine}.
+Channels: \texttt{TextRegion, Marginalia, GraphicRegion, PageFrame, Damage, TextLine}.
 \end{block}
+\end{frame}
+
+\begin{frame}{Optical Character Recognition (OCR/HTR) Engine}{Recurrent Sequence Modeling and Connectionist Temporal Classification}
+\begin{block}{CRNN Feature Sequence Extraction}
+Line crop slices $\mathbf{x}_t$ encoded via Bidirectional LSTM context:
+\[
+  \mathbf{h}_t = \left[ \overrightarrow{\text{LSTM}}(\mathbf{x}_t); \, \overleftarrow{\text{LSTM}}(\mathbf{x}_t) \right] \in \mathbb{R}^{2 D_{\text{hidden}}}, \quad \mathbf{y}_t = \text{softmax}(\mathbf{W}_o \mathbf{h}_t + \mathbf{b}_o)
+\]
+\end{block}
+\begin{block}{Connectionist Temporal Classification (CTC) Decoding}
+\[
+  P(\mathbf{Y} \mid \mathbf{X}) = \sum_{\boldsymbol{\pi} \in \mathcal{B}^{-1}(\mathbf{Y})} \prod_{t=1}^T y_{\pi_t}^t, \quad \hat{\mathbf{Y}} = \arg\max_{\mathbf{Y}} \left[ \log P_{\text{CTC}}(\mathbf{Y} \mid \mathbf{X}) + \alpha \log P_{\text{LM}}(\mathbf{Y}) \right]
+\]
+\end{block}
+\begin{itemize}
+  \item $P_{\text{LM}}(\mathbf{Y})$ enforces Sanskrit grammatical constraints and valid Brahmic root morphology.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Physical Binder Hole Discrimination}{Isoperimetric Topological Filter}
