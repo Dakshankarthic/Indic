@@ -57,11 +57,30 @@
 \begin{document}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 1: Title Frame
+% FRAME 1: Title Frame (Clean Pure White Slide)
 % ─────────────────────────────────────────────────────────────
+{
+\setbeamercolor{background canvas}{bg=white}
 \begin{frame}[plain]
-\maketitle
+\vspace{0.4cm}
+{\color{colorword}\small\textbf{RESEARCH MONOGRAPH \& TECHNICAL PRESENTATION}}\\[0.35cm]
+{\color{black}\Large\textbf{AutoAnn-Indic: Automated Document Layout Analysis and Hierarchical Transcription for Historical Indic Manuscripts}}\\[0.25cm]
+{\color{black!70}\normalsize A Geometry-First Formulation with Structural Segmentation and Morphological Decomposition}\\[0.6cm]
+\rule{\textwidth}{0.8pt}\\[0.4cm]
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \textbf{Author:} Dakshan Karthic\\
+    \textbf{Department:} Computer Science and Engineering\\
+    \textbf{Affiliation:} Document Image Processing \& NLP
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \textbf{Scope:} 3,000+ Historical Document Folios\\
+    \textbf{Target:} PRImA PAGE-XML 2013 Hierarchy\\
+    \textbf{GPU Latency:} 350 ms / folio (NVIDIA RTX)
+  \end{column}
+\end{columns}
 \end{frame}
+}
 
 % ─────────────────────────────────────────────────────────────
 % FRAME 2: Introduction & Problem Statement
