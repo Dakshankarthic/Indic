@@ -138,60 +138,103 @@
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 4: Dataset Difficulty 1: Shirorekha & Matra Collisions
+% FRAME 4: Dataset Difficulty 1: Shirorekha & Matra Collisions (Real Manuscript)
 % ─────────────────────────────────────────────────────────────
-\begin{frame}{Dataset Difficulty 1: Continuous Headline \& Matra Collisions}{Failure Mode: Connected-Component Merging and Baseline Occlusion}
-\centering
-\includegraphics[width=0.92\textwidth,height=0.48\textheight,keepaspectratio]{challenge_1_shirorekha_matra.png}
-\vspace{0.15cm}
-\begin{block}{Orthographic Formulation \& Failure Mode}
-\[
-  \mathcal{S}_{\text{word}} = \bigcup_{i=1}^{M} \mathcal{G}_i \cup \mathcal{H}_{\text{shirorekha}}, \quad y_{\text{upper}} \in [y^* - \Delta_{\text{asc}}, y^*], \quad y_{\text{lower}} \in [y_{\text{base}}, y_{\text{base}} + \Delta_{\text{desc}}]
-\]
-Upper vowel modifiers (\textit{ikār, e, ai}) and lower modifiers (\textit{u, ū, r}) overlap adjacent lines. Classical bounding boxes merge entire multi-line sentences into single unsegmentable blobs.
-\end{block}
+\begin{frame}{Dataset Difficulty 1: Continuous Headline \& Matra Collisions}{Real Manuscript Failure Mode: Connected-Component Merging}
+\begin{columns}
+  \begin{column}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{stage3_akshara_split_demo.png}\\
+    \vspace{0.1cm}
+    \footnotesize\textbf{Real Manuscript Crop:} Headline \& Matra Slicing
+  \end{column}
+  \begin{column}{0.51\textwidth}
+    \begin{block}{Orthographic Challenge Formulation}
+      Devanagari characters are bound along the top horizontal stroke:
+      \[
+        \mathcal{S}_{\text{word}} = \bigcup_{i=1}^{M} \mathcal{G}_i \cup \mathcal{H}_{\text{shirorekha}}
+      \]
+      Upper vowel modifiers (\textit{ikār, e, ai}) and lower modifiers (\textit{u, ū, r}) collide with adjacent lines.
+    \end{block}
+    \begin{block}{Why Classical OCR Fails}
+      Standard bounding-box & connected-component algorithms merge entire multi-line sentences into a single unsegmentable blob.
+    \end{block}
+  \end{column}
+\end{columns}
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 5: Dataset Difficulty 2: Palm-Leaf Cord Holes & Fractures
+% FRAME 5: Dataset Difficulty 2: Palm-Leaf Punch Holes & Fractures (Real Manuscript)
 % ─────────────────────────────────────────────────────────────
-\begin{frame}{Dataset Difficulty 2: Palm-Leaf Punch Holes \& Fibrous Grain Fractures}{Failure Mode: False Character Hallucinations and Fracture-Induced Line Splits}
-\centering
-\includegraphics[width=0.92\textwidth,height=0.48\textheight,keepaspectratio]{challenge_2_palmleaf_holes_cracks.png}
-\vspace{0.15cm}
-\begin{block}{Physical Geometry \& Optical Confusion}
-\[
-  \Psi(\mathcal{C}) = \frac{4\pi \cdot \text{Area}(\mathcal{C})}{[\text{Perimeter}(\mathcal{C})]^2} > 0.85, \quad 500 \le \text{Area} \le 8000 \text{ px}
-\]
-Binding cord holes (\textit{Kanthas}) are circular, causing OCR to falsely hallucinate round characters (e.g. \textit{Tha} or \textit{0}). Longitudinal substrate grain fractures mimic genuine text lines, corrupting line segmentation.
-\end{block}
+\begin{frame}{Dataset Difficulty 2: Palm-Leaf Punch Holes \& Fibrous Grain Fractures}{Real Manuscript Failure Mode: False Character Hallucinations on Ancient Pothis}
+\begin{columns}
+  \begin{column}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.38\textheight,keepaspectratio]{wa_doc_img_8.jpg}\\[0.15cm]
+    \includegraphics[width=\textwidth,height=0.28\textheight,keepaspectratio]{page_1_input.jpg}\\
+    \vspace{0.1cm}
+    \footnotesize\textbf{Real Palm-Leaf Scans:} Punched Binder Holes \& Grain Lines
+  \end{column}
+  \begin{column}{0.42\textwidth}
+    \begin{block}{Physical Geometry \& Optical Error}
+      Binding cord holes (\textit{Kanthas}) form near-perfect circular voids:
+      \[
+        \Psi(\mathcal{C}) = \frac{4\pi \cdot \text{Area}(\mathcal{C})}{[\text{Perimeter}(\mathcal{C})]^2} > 0.85
+      \]
+    \end{block}
+    \begin{block}{Why Classical OCR Fails}
+      OCR engines falsely hallucinate round Sanskrit characters (e.g. \textit{Tha} 'थ', \textit{Dha} 'ध', or '0'). Longitudinal grain fractures trigger false line breaks.
+    \end{block}
+  \end{column}
+\end{columns}
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 6: Dataset Difficulty 3: Severe Ink Bleed-Through
+% FRAME 6: Dataset Difficulty 3: Severe Ink Bleed-Through (Real Manuscript)
 % ─────────────────────────────────────────────────────────────
-\begin{frame}{Dataset Difficulty 3: Iron-Gall Ink Bleed-Through (Verso Ghosting)}{Failure Mode: Ghost Character Superposition on Porous Rag Paper}
-\centering
-\includegraphics[width=0.92\textwidth,height=0.48\textheight,keepaspectratio]{challenge_3_ink_bleedthrough.png}
-\vspace{0.15cm}
-\begin{block}{Optical Transmission Superposition Model}
-\[
-  I_{\text{observed}}(x, y) = I_{\text{recto}}(x, y) + \alpha \cdot \text{Flip}(I_{\text{verso}}(x, y)) + \eta(x, y), \quad \alpha \in [0.25, 0.65]
-\]
-Chemical diffusion of iron-gall and carbon ink through rag paper creates reversed ghost characters on the recto side. Global thresholding (Otsu) fails catastrophically by binarizing bleed-through strokes as real text.
-\end{block}
+\begin{frame}{Dataset Difficulty 3: Iron-Gall Ink Bleed-Through (Verso Ghosting)}{Real Manuscript Failure Mode: Ghost Character Superposition on Degraded Paper}
+\begin{columns}
+  \begin{column}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{page_108_input.jpg}\\
+    \vspace{0.1cm}
+    \footnotesize\textbf{Real Folio (Page 108):} Severe Ink Bleed \& Paper Decay
+  \end{column}
+  \begin{column}{0.51\textwidth}
+    \begin{block}{Optical Transmission Superposition Model}
+      Corrosion and high paper porosity cause verso ink diffusion:
+      \[
+        I_{\text{observed}}(x, y) = I_{\text{recto}}(x, y) + \alpha \cdot \text{Flip}(I_{\text{verso}}(x, y)) + \eta(x, y)
+      \]
+      where transmission coefficient $\alpha \in [0.25, 0.65]$.
+    \end{block}
+    \begin{block}{Why Classical OCR Fails}
+      Standard Otsu and Sauvola thresholding binarize reversed ghost strokes from the back page, corrupting text line recognition.
+    \end{block}
+  \end{column}
+\end{columns}
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 7: Dataset Difficulty 4: Multi-Column Commentary Layouts
+% FRAME 7: Dataset Difficulty 4: Multi-Column Commentary Layouts (Real Manuscript)
 % ─────────────────────────────────────────────────────────────
-\begin{frame}{Dataset Difficulty 4: Multi-Column Commentaries (\textit{Mūla} vs. \textit{Tīkā})}{Failure Mode: Gutter Absence and Non-Linear Interleaved Reading Sequences}
-\centering
-\includegraphics[width=0.92\textwidth,height=0.48\textheight,keepaspectratio]{challenge_4_multicolumn_commentary.png}
-\vspace{0.15cm}
-\begin{block}{Layout Asymmetry \& Reading Order Ambiguity}
-Central sacred verse (\textit{Mūla Shloka}, large script) is framed by top, bottom, and side commentary glosses (\textit{Tīkā}, small script). Standard single-column OCR reads horizontally across columns, interleaving commentary into sacred verses.
-\end{block}
+\begin{frame}{Dataset Difficulty 4: Multi-Column Commentaries (\textit{Mūla} vs. \textit{Tīkā})}{Real Manuscript Failure Mode: Non-Linear Interleaved Reading Sequences}
+\begin{columns}
+  \begin{column}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{page_100_input.jpg}\\
+    \vspace{0.1cm}
+    \footnotesize\textbf{Real Folio (Page 100):} Central Verse Framed by Glosses
+  \end{column}
+  \begin{column}{0.51\textwidth}
+    \begin{block}{Layout Asymmetry \& Margin Glosses}
+      Central sacred verse (\textit{Mūla Shloka}, large script) is framed by top, bottom, and side commentary glosses (\textit{Tīkā}, small script).
+    \end{block}
+    \begin{block}{Why Classical OCR Fails}
+      Standard single-column OCR reads horizontally across column boundaries ($V_{\text{norm}} < 0.02$), interleaving commentary glosses into sacred verses.
+    \end{block}
+  \end{column}
+\end{columns}
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────

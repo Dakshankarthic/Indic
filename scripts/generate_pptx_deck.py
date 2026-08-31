@@ -2,7 +2,7 @@
 Academic Presentation Generator (16:9 Widescreen)
 Theme: Masaryk University Archives Beamer Style
 70%+ Visual Image & Results Presentation with Explicit Annotation Color Legends
-Includes Dedicated Visual Slides for All Dataset Difficulties and Error Modes
+Uses 100% Real Historical Manuscript Scans and Crops for Every Dataset Difficulty (Zero Generated Images)
 """
 
 import os
@@ -186,7 +186,7 @@ def generate_archival_presentation():
     p3.font.size = Pt(11)
     p3.font.color.rgb = COLOR_TEXT
 
-    # 2. Intro Problem Statement (with Image)
+    # 2. Intro Problem Statement (with Real Image)
     slide2 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide2, "Introduction & Problem Statement", "Heritage Preservation Bottlenecks in Indic Manuscripts", "SECTION 1: INTRODUCTION")
     add_beamer_block(slide2, Inches(0.8), Inches(1.7), Inches(6.0), Inches(4.7), "Heritage at Risk & OCR Limitations",
@@ -199,7 +199,7 @@ def generate_archival_presentation():
         slide2.shapes.add_picture(str(img2), Inches(7.1), Inches(1.7), Inches(5.4), Inches(4.7))
     add_beamer_footer(slide2, 2)
 
-    # 3. Research Objectives & Ancient Manuscripts (with Image)
+    # 3. Research Objectives & Ancient Manuscripts (with Real Image)
     slide3 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide3, "Research Objectives & Dataset Scope", "Analysis of 3,000+ Multi-Column Illustrated Folios", "SECTION 1: INTRODUCTION")
     add_beamer_block(slide3, Inches(0.8), Inches(1.7), Inches(6.0), Inches(4.7), "Dataset Scope (3,000+ Pages)",
@@ -213,55 +213,61 @@ def generate_archival_presentation():
         slide3.shapes.add_picture(str(img3), Inches(7.1), Inches(1.7), Inches(5.4), Inches(4.7))
     add_beamer_footer(slide3, 3)
 
-    # 4. Difficulty 1: Shirorekha & Matra (with Dedicated Diagram)
+    # 4. Difficulty 1: Shirorekha & Matra (Real Manuscript Crop)
     slide4 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide4, "Dataset Difficulty 1: Continuous Headline & Matra Collisions", "Failure Mode: Connected-Component Merging and Baseline Occlusion", "SECTION 1: DATASET DIFFICULTIES")
-    img_diff1 = img_dir / "challenge_1_shirorekha_matra.png"
+    add_beamer_header(slide4, "Dataset Difficulty 1: Continuous Headline & Matra Collisions", "Real Manuscript Failure Mode: Connected-Component Merging", "SECTION 1: DATASET DIFFICULTIES")
+    img_diff1 = img_dir / "stage3_akshara_split_demo.png"
     if img_diff1.exists():
-        slide4.shapes.add_picture(str(img_diff1), Inches(0.8), Inches(1.7), Inches(11.7), Inches(3.2))
-    add_beamer_block(slide4, Inches(0.8), Inches(5.0), Inches(11.7), Inches(1.9), "Orthographic Formulation & Failure Mode",
+        slide4.shapes.add_picture(str(img_diff1), Inches(0.8), Inches(1.7), Inches(4.5), Inches(5.1))
+    add_beamer_block(slide4, Inches(5.7), Inches(1.7), Inches(6.8), Inches(5.1), "Orthographic Challenge Formulation",
                      ["Devanagari characters are fused along the top horizontal stroke: S_word = Union G_i  UNION  H_shirorekha.",
-                      "Upper vowel modifiers (ikār, e, ai) and lower modifiers (u, ū, r) overlap adjacent lines, causing baseline tracking to fail."],
-                     math_eq="S_word = Union_{i=1}^M G_i  UNION  H_shirorekha,   y_upper in [y* - Delta_asc, y*],   y_lower in [y_base, y_base + Delta_desc]")
+                      "Upper vowel modifiers (ikār, e, ai) and lower modifiers (u, ū, r) overlap adjacent lines.",
+                      "Classical connected-component algorithms merge entire multi-line sentences into a single unsegmentable blob."],
+                     math_eq="S_word = Union_{i=1}^M G_i  UNION  H_shirorekha\ny_upper in [y* - Delta_asc, y*],   y_lower in [y_base, y_base + Delta_desc]")
     add_beamer_footer(slide4, 4)
 
-    # 5. Difficulty 2: Palm-Leaf Holes & Cracks (with Dedicated Diagram)
+    # 5. Difficulty 2: Palm-Leaf Holes & Cracks (Real Manuscript Scans)
     slide5 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide5, "Dataset Difficulty 2: Palm-Leaf Punch Holes & Fibrous Grain Fractures", "Failure Mode: False Character Hallucinations and Fracture-Induced Line Splits", "SECTION 1: DATASET DIFFICULTIES")
-    img_diff2 = img_dir / "challenge_2_palmleaf_holes_cracks.png"
-    if img_diff2.exists():
-        slide5.shapes.add_picture(str(img_diff2), Inches(0.8), Inches(1.7), Inches(11.7), Inches(3.2))
-    add_beamer_block(slide5, Inches(0.8), Inches(5.0), Inches(11.7), Inches(1.9), "Physical Geometry & Optical Confusion",
-                     ["Punched cord holes (Kanthas) exhibit near-perfect circularity (Psi > 0.85), causing OCR to hallucinate glyph 'Tha' (थ) / '0'.",
+    add_beamer_header(slide5, "Dataset Difficulty 2: Palm-Leaf Punch Holes & Fibrous Grain Fractures", "Real Manuscript Failure Mode: False Character Hallucinations on Ancient Pothis", "SECTION 1: DATASET DIFFICULTIES")
+    img_diff2a = img_dir / "wa_doc_img_8.jpg"
+    img_diff2b = img_dir / "page_1_input.jpg"
+    if img_diff2a.exists():
+        slide5.shapes.add_picture(str(img_diff2a), Inches(0.8), Inches(1.7), Inches(5.4), Inches(2.3))
+    if img_diff2b.exists():
+        slide5.shapes.add_picture(str(img_diff2b), Inches(0.8), Inches(4.2), Inches(5.4), Inches(2.6))
+    add_beamer_block(slide5, Inches(6.5), Inches(1.7), Inches(6.0), Inches(5.1), "Physical Geometry & Optical Error",
+                     ["Punched cord holes (Kanthas) form near-perfect circular voids with Psi > 0.85.",
+                      "OCR engines falsely hallucinate round Sanskrit characters (e.g. 'Tha' or '0').",
                       "Longitudinal substrate grain fractures mimic genuine text lines, corrupting line segmentation."],
-                     math_eq="Psi(C) = (4 · pi · Area(C)) / [Perimeter(C)]^2 > 0.85,   500 <= Area <= 8000 px")
+                     math_eq="Psi(C) = (4 · pi · Area(C)) / [Perimeter(C)]^2 > 0.85\n500 px <= Area(C) <= 8000 px")
     add_beamer_footer(slide5, 5)
 
-    # 6. Difficulty 3: Ink Bleed-Through (with Dedicated Diagram)
+    # 6. Difficulty 3: Ink Bleed-Through (Real Folio Page 108)
     slide6 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide6, "Dataset Difficulty 3: Iron-Gall Ink Bleed-Through (Verso Ghosting)", "Failure Mode: Ghost Character Superposition on Porous Rag Paper", "SECTION 1: DATASET DIFFICULTIES")
-    img_diff3 = img_dir / "challenge_3_ink_bleedthrough.png"
+    add_beamer_header(slide6, "Dataset Difficulty 3: Iron-Gall Ink Bleed-Through (Verso Ghosting)", "Real Manuscript Failure Mode: Ghost Character Superposition on Degraded Paper", "SECTION 1: DATASET DIFFICULTIES")
+    img_diff3 = img_dir / "page_108_input.jpg"
     if img_diff3.exists():
-        slide6.shapes.add_picture(str(img_diff3), Inches(0.8), Inches(1.7), Inches(11.7), Inches(3.2))
-    add_beamer_block(slide6, Inches(0.8), Inches(5.0), Inches(11.7), Inches(1.9), "Optical Transmission Superposition Model",
-                     ["Chemical diffusion of iron-gall and carbon ink through rag paper creates reversed ghost characters on the recto side.",
-                      "Global thresholding (Otsu) fails catastrophically by binarizing bleed-through strokes as real text."],
-                     math_eq="I_observed(x,y) = I_recto(x,y) + alpha · Flip(I_verso(x,y)) + eta(x,y),   alpha in [0.25, 0.65]")
+        slide6.shapes.add_picture(str(img_diff3), Inches(0.8), Inches(1.7), Inches(4.8), Inches(5.1))
+    add_beamer_block(slide6, Inches(6.0), Inches(1.7), Inches(6.5), Inches(5.1), "Optical Transmission Superposition Model",
+                     ["Corrosion and high paper porosity cause verso ink diffusion:",
+                      "Transmission coefficient alpha in [0.25, 0.65].",
+                      "Standard Otsu and Sauvola thresholding binarize reversed ghost strokes from the back page, corrupting text line recognition."],
+                     math_eq="I_observed(x,y) = I_recto(x,y) + alpha · Flip(I_verso(x,y)) + eta(x,y)\nClassical global binarization fails catastrophically.")
     add_beamer_footer(slide6, 6)
 
-    # 7. Difficulty 4: Multi-Column Commentary (with Dedicated Diagram)
+    # 7. Difficulty 4: Multi-Column Commentary (Real Folio Page 100)
     slide7 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide7, "Dataset Difficulty 4: Multi-Column Commentaries (Mula vs Tika)", "Failure Mode: Gutter Absence and Non-Linear Interleaved Reading Sequences", "SECTION 1: DATASET DIFFICULTIES")
-    img_diff4 = img_dir / "challenge_4_multicolumn_commentary.png"
+    add_beamer_header(slide7, "Dataset Difficulty 4: Multi-Column Commentaries (Mula vs Tika)", "Real Manuscript Failure Mode: Non-Linear Interleaved Reading Sequences", "SECTION 1: DATASET DIFFICULTIES")
+    img_diff4 = img_dir / "page_100_input.jpg"
     if img_diff4.exists():
-        slide7.shapes.add_picture(str(img_diff4), Inches(0.8), Inches(1.7), Inches(11.7), Inches(3.2))
-    add_beamer_block(slide7, Inches(0.8), Inches(5.0), Inches(11.7), Inches(1.9), "Layout Asymmetry & Reading Order Ambiguity",
+        slide7.shapes.add_picture(str(img_diff4), Inches(0.8), Inches(1.7), Inches(4.8), Inches(5.1))
+    add_beamer_block(slide7, Inches(6.0), Inches(1.7), Inches(6.5), Inches(5.1), "Layout Asymmetry & Margin Glosses",
                      ["Central sacred verse (Mula Shloka, large script) is framed by top, bottom, and side commentary glosses (Tika, small script).",
-                      "Standard single-column OCR reads horizontally across columns, interleaving commentary into sacred verses."],
-                     math_eq="V_norm(x) = (V * G_{sigma_c})(x) / max(V * G_{sigma_c}) < 0.02,   Reading Order: C_1 < C_2 < ... < C_k")
+                      "Standard single-column OCR reads horizontally across column boundaries (V_norm < 0.02), interleaving commentary glosses into sacred verses."],
+                     math_eq="V_norm(x) = (V * G_{sigma_c})(x) / max(V * G_{sigma_c}) < 0.02\nReading Order: C_1 < C_2 < ... < C_k")
     add_beamer_footer(slide7, 7)
 
-    # 8. Orthographic Summary
+    # 8. Orthographic Summary (with Challenge Demo)
     slide8 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide8, "Orthographic & Substrate Degradation Summary", "Combined Challenges Encountered Across 3,000+ Historical Manuscript Pages", "SECTION 1: DATASET DIFFICULTIES")
     img8 = img_dir / "shirorekha_challenge_demo.png"
@@ -361,7 +367,7 @@ def generate_archival_presentation():
                      math_eq="rho_ink = (1 / HW) Sum B(y,x),   nu_valley = N_valleys / (H/100)\nGraphicRegion if (rho_ink > 0.30 and nu < 1.5)")
     add_beamer_footer(slide15, 15)
 
-    # 16. Stage 2: OCR Surya (with Image)
+    # 16. Stage 2: OCR Surya (with Real Image)
     slide16 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide16, "Stage 2: Multilingual Text Recognition Engine (OCR / HTR)", "Transformer-Based Recognition, Recurrent Sequence Slicing, and CTC Loss", "SECTION 2: METHODOLOGY")
     img16 = img_dir / "stage2_ocr_surya_demo.png"
@@ -374,7 +380,7 @@ def generate_archival_presentation():
                      math_eq="h_t = [ Forward_LSTM(x_t); Backward_LSTM(x_t) ] in R^(2·D_hidden)\nP(Y|X) = Sum_{pi in B^(-1)(Y)} Product y_{pi_t}^t\nY_hat = argmax_Y [ log P_CTC + alpha·log P_LM + beta·|Y| ]")
     add_beamer_footer(slide16, 16)
 
-    # 17. Stage 2 Output Segmentation (with Image & Legend)
+    # 17. Stage 2 Output Segmentation (with Real Image & Legend)
     slide17 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide17, "Stage 2: Text Recognition Output Segmentation", "Acute Line and Word Bounding Polygon Overlays", "SECTION 2: METHODOLOGY")
     add_beamer_block(slide17, Inches(0.8), Inches(1.7), Inches(5.7), Inches(4.5), "Stage 2 Visual Output",
@@ -387,7 +393,7 @@ def generate_archival_presentation():
     add_color_legend(slide17)
     add_beamer_footer(slide17, 17)
 
-    # 18. Stage 3: Akshara Splitter (with Image)
+    # 18. Stage 3: Akshara Splitter (with Real Image)
     slide18 = prs.slides.add_slide(blank_layout)
     add_beamer_header(slide18, "Stage 3: Granular Word & Character (Akshara) Splitting", "Headline (Shirorekha) Slicing and 1D Gaussian Valley Tracking", "SECTION 2: METHODOLOGY")
     img18 = img_dir / "stage3_akshara_split_demo.png"
