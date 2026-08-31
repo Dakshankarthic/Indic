@@ -11,6 +11,7 @@
 \usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{csquotes}
+\usepackage{xcolor}
 
 \usetheme[
   workplace=arch,
@@ -31,6 +32,26 @@
 \setbeamertemplate{footline}{%
   \hfill\usebeamercolor[fg]{page number in head/foot}%
   \usebeamerfont{author in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace*{1.5em}\vspace*{0.3cm}%
+}
+
+% Custom Color Definitions for Segmentation Legend
+\definecolor{colorline}{RGB}{0, 180, 0}
+\definecolor{colorword}{RGB}{0, 100, 255}
+\definecolor{colorglyph}{RGB}{220, 0, 0}
+\definecolor{colorillus}{RGB}{0, 180, 200}
+\definecolor{colordamage}{RGB}{200, 160, 0}
+\definecolor{colormarg}{RGB}{180, 0, 180}
+
+\newcommand{\legendbox}{%
+  \begin{block}{Annotation Semantic Color Key}
+    \centering
+    \footnotesize
+    \textcolor{colorline}{$\blacksquare$ \textbf{Green:} \texttt{TextLine}} \quad
+    \textcolor{colorword}{$\blacksquare$ \textbf{Blue:} \texttt{Word}} \quad
+    \textcolor{colorglyph}{$\blacksquare$ \textbf{Red:} \texttt{Glyph (Akshara)}} \quad
+    \textcolor{colorillus}{$\blacksquare$ \textbf{Cyan:} \texttt{GraphicRegion}} \quad
+    \textcolor{colordamage}{$\blacksquare$ \textbf{Yellow:} \texttt{Damage Hole}}
+  \end{block}%
 }
 
 \begin{document}
@@ -137,7 +158,7 @@ Given raw digital capture $I \in \mathbb{R}^{H \times W \times 3}$, determine hi
 \]
 \end{block}
 \begin{itemize}
-  \item \textbf{Region Boundaries:} Represented as closed planar polygons $\mathcal{P} = \{(x_1, y_1), \dots, (x_V, y_V)\}$.
+  \item \textbf{Region Boundaries:} Closed planar polygons $\mathcal{P} = \{(x_1, y_1), \dots, (x_V, y_V)\} \subset \mathbb{R}^2$.
   \item \textbf{Reading Order Continuity:} Ordered column permutation $\mathcal{C}_1 \prec \mathcal{C}_2 \prec \dots \prec \mathcal{C}_C$.
   \item \textbf{Mathematical Continuity:} Every stage output directly feeds the subsequent stage's input.
 \end{itemize}
@@ -317,12 +338,11 @@ Contour $\mathcal{C}$ is classified as an illustration based on ink density $\rh
         \item Accurate boundary extraction on degraded paper and palm leaves.
       \end{itemize}
     \end{block}
+    \legendbox
   \end{column}
   \begin{column}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{stage2_output_segment.jpg}\\
-    \vspace{0.1cm}
-    \footnotesize\textbf{Verification Overlay:} Stage 2 Text Line Boundaries
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{stage2_output_segment.jpg}
   \end{column}
 \end{columns}
 \end{frame}
@@ -366,18 +386,18 @@ Contour $\mathcal{C}$ is classified as an illustration based on ink density $\rh
   \begin{column}{0.48\textwidth}
     \centering
     \textbf{(a) Acute Segmentations}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{stage3_acute_segment.jpg}
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{stage3_acute_segment.jpg}
   \end{column}
   \begin{column}{0.48\textwidth}
     \centering
     \textbf{(b) Final Granular PAGE-XML Output}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{stage3_final_output.jpg}
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{stage3_final_output.jpg}
   \end{column}
 \end{columns}
-\vspace{0.2cm}
-\footnotesize\textbf{Verification Overlay:} Granular extraction of word bounding boxes and Akshara glyph components.
+\vspace{0.15cm}
+\legendbox
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
@@ -406,64 +426,259 @@ An internal leaf contour $\mathcal{C}$ from nnU-Net channel 5 is strictly isolat
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 17: Visual Pipeline Progression Across All Stages
+% FRAME 17: Stage 3: RDP Polygon Simplification & Quality Scoring
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Stage 3: Polygon Simplification \& Quality Arbitration}{Douglas-Peucker Vector Reduction and Devanagari Scoring}
+\begin{block}{Devanagari Orthographic Objective Metric: $T \rightarrow \mathcal{S}_{\text{Dev}}(T)$}
+Evaluates candidate transcriptions autonomously:
+\[
+  \mathcal{S}_{\text{Dev}}(T) = \sum_{c \in T} \omega(c) - 8 \sum_{n \in \mathcal{N}} \text{count}(n, T) + 2 \min(|\text{words}(T)|, 12)
+\]
+\end{block}
+\begin{block}{Ramer-Douglas-Peucker (RDP) Polygon Simplification: $\mathcal{P} \rightarrow \mathcal{P}_{\text{simp}}$}
+Perpendicular distance threshold $\epsilon = 0.005 \cdot \text{ArcLength}(\mathcal{P})$:
+\[
+  d_\perp(p_i, \overline{p_1 p_n}) = \frac{|(y_n - y_1)x_i - (x_n - x_1)y_i + x_n y_1 - y_n x_1|}{\sqrt{(y_n - y_1)^2 + (x_n - x_1)^2}} \le \epsilon \implies p_i \text{ is removed}
+\]
+Reduces vertex count by \textbf{82.6\%} while preserving boundary IoU $> 0.98$.
+\end{block}
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 18: Visual Pipeline Progression Across All Stages
 % ─────────────────────────────────────────────────────────────
 \section{Visual Layout Output and Experimental Results}
 \subsection{Visual Inspection of Document Parsing}
 
 \begin{frame}{Visual Pipeline Progression Across All Stages}{End-to-End Processing: Raw Image $\rightarrow$ Layout Detection $\rightarrow$ OCR $\rightarrow$ Granular PAGE-XML}
 \centering
-\includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{output_all_stages_progression.png}\\
+\includegraphics[width=\textwidth,height=0.58\textheight,keepaspectratio]{output_all_stages_progression.png}\\
+\vspace{0.1cm}
+\legendbox
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 19: Visual Results: Palm-Leaf Manuscript (Page 1)
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Palm-Leaf Manuscript (Page 1)}{Side-by-Side Comparison of Input vs. Annotated Output}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Input Manuscript (Page 1)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_1_input.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Annotated Layout Overlay (Page 1)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_1_output.jpg}
+  \end{column}
+\end{columns}
 \vspace{0.15cm}
-\footnotesize\textbf{Pipeline Flow:} (1) Raw Input Capture $\rightarrow$ (2) DINOv2 \& nnU-Net Layout Regions $\rightarrow$ (3) Text Recognition $\rightarrow$ (4) Granular Word \& Akshara Bounding Boxes.
+\legendbox
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 18: Visual Results: Standard Text Page (Page 1)
+% FRAME 20: Visual Results: Degraded Lithographic Folio (Page 10)
 % ─────────────────────────────────────────────────────────────
-\begin{frame}{Visual Results: Standard Text Page (Page 1)}{Side-by-Side Comparison of Original Folio vs. Annotated Output}
+\begin{frame}{Visual Results: Degraded Lithographic Folio (Page 10)}{Side-by-Side Comparison of Input vs. Annotated Output}
 \begin{columns}
   \begin{column}{0.48\textwidth}
     \centering
-    \textbf{Original Capture (Page 1)}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page1_orig.jpg}
+    \textbf{Input Lithograph (Page 10)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_10_input.jpg}
   \end{column}
   \begin{column}{0.48\textwidth}
     \centering
-    \textbf{Annotated Output (Page 1)}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page1_annot.jpg}
+    \textbf{Annotated Layout Overlay (Page 10)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_10_output.jpg}
   \end{column}
 \end{columns}
-\vspace{0.2cm}
-\footnotesize\textbf{Figure 1.5:} Multi-level annotations for standard text folios showing region, line, and word boundaries.
+\vspace{0.15cm}
+\legendbox
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 19: Visual Results: Dense Multi-Script Page (Page 100)
+% FRAME 21: Visual Results: Dense Multi-Column Commentary (Page 100)
 % ─────────────────────────────────────────────────────────────
-\begin{frame}{Visual Results: Dense Multi-Script Page (Page 100)}{Side-by-Side Comparison on Complex Multi-Column Manuscript}
+\begin{frame}{Visual Results: Dense Multi-Column Commentary (Page 100)}{Accurate Separation of Shloka Verses, Tika Glosses, and Marginalia}
 \begin{columns}
   \begin{column}{0.48\textwidth}
     \centering
-    \textbf{Original Capture (Page 100)}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page100_orig.png}
+    \textbf{Input Manuscript (Page 100)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_100_input.jpg}
   \end{column}
   \begin{column}{0.48\textwidth}
     \centering
-    \textbf{Annotated Output (Page 100)}\\
-    \vspace{0.2cm}
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{result_page100_annot.png}
+    \textbf{Annotated Layout Overlay (Page 100)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_100_output.jpg}
   \end{column}
 \end{columns}
-\vspace{0.2cm}
-\footnotesize\textbf{Figure 1.6:} Accurate separation of commentary text, central verse columns, and marginal notations.
+\vspace{0.15cm}
+\legendbox
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 20: Quantitative Recognition & Transcription Metrics
+% FRAME 22: Visual Results: Illustrated Heritage Folio (Page 104)
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Illustrated Heritage Folio (Page 104)}{Graphic Artwork Region vs. Text Region Discrimination}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Input Illustrated Folio (Page 104)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_104_input.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Annotated Layout Overlay (Page 104)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_104_output.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.15cm}
+\legendbox
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 23: Visual Results: Heavy Ink Bleed-Through (Page 108)
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Heavy Ink Bleed-Through Folio (Page 108)}{Robust Text Line Extraction under Severe Corrosion}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Input Degraded Folio (Page 108)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_108_input.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Annotated Layout Overlay (Page 108)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_108_output.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.15cm}
+\legendbox
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 24: Visual Results: Dense Historical Manuscript (Page 110)
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Dense Historical Manuscript (Page 110)}{Side-by-Side Comparison of Raw Input vs. Full PAGE-XML Hierarchy}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Input Ancient Folio (Page 110)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_110_input.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Annotated Layout Overlay (Page 110)}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{page_110_output.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.15cm}
+\legendbox
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 25: Visual Results: Diverse Horizontal Palm Leaves (Set 2)
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Diverse Horizontal Palm-Leaf Folios}{Damage Hole Isolation and Line Extraction on Narrow Formats}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Annotated Palm Leaf A}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{wa_doc_img_2.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Annotated Palm Leaf B}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{wa_doc_img_8.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.15cm}
+\legendbox
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 26: Visual Results: Complex Multi-Column Commentaries (Set 3)
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Complex Multi-Column Commentaries}{Precise Reading Order Sorting across Column Gutters}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Multi-Column Commentary Folio A}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{wa_doc_img_12.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Multi-Column Commentary Folio B}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{wa_doc_img_21.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.15cm}
+\legendbox
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 27: Visual Results: Granular Akshara & Glyph Zoom Inspection
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Granular Akshara \& Word-Level Zoom Inspection}{Micro-Level Verification of Unicode Phonetic Grapheme Clusters}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Granular Layout Annotations}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{wa_doc_img_1.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{Line \& Word Boundary Verification}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{wa_doc_img_25.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.15cm}
+\legendbox
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 28: Visual Results: Open-Access Ancient Indic Manuscripts
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{Visual Results: Open-Access Ancient Indic Manuscript Corpus}{Evaluation on Standard Heritage Repositories (OpenN-Indic Collection)}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{OpenN Manuscript Sample A}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{ms101_1996_0001_web.jpg}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \textbf{OpenN Manuscript Sample B}\\
+    \vspace{0.15cm}
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{ms102_3305_0001_web.jpg}
+  \end{column}
+\end{columns}
+\vspace{0.15cm}
+\footnotesize\textbf{Dataset Verification:} Demonstrates generalization across distinct repositories without per-document parameter tuning.
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 29: Quantitative Recognition & Transcription Metrics
 % ─────────────────────────────────────────────────────────────
 \subsection{Quantitative Recognition and Layout Metrics}
 
@@ -491,7 +706,7 @@ An internal leaf contour $\mathcal{C}$ from nnU-Net channel 5 is strictly isolat
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 21: Semantic Layout F1-Scores & Human Effort Reduction
+% FRAME 30: Semantic Layout F1-Scores & Human Effort Reduction
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Semantic Layout Segmentation and Human Effort Evaluation}{Instance-Level F1-Scores and Paleographer Latency Reduction}
 \begin{table}
@@ -521,7 +736,35 @@ Reduces human correction time from \textbf{22.5 min/page down to 2.9 min/page} (
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
-% FRAME 22: Summary of Technical Contributions & Conclusion
+% FRAME 31: PAGE-XML Hierarchy & Production Scalability
+% ─────────────────────────────────────────────────────────────
+\begin{frame}{PAGE-XML 2013 Output Format \& Production Scalability}{PRImA Schema Conformance and Fast GPU Latency}
+\begin{columns}
+  \begin{column}{0.48\textwidth}
+    \begin{block}{PRImA PAGE-XML 2013 Hierarchy}
+      \texttt{PcGts (Root Archive)}\\
+      \quad $\llcorner$ \texttt{Page (Folio dimensions)}\\
+      \qquad $\llcorner$ \texttt{TextRegion (Column polygons)}\\
+      \qquad\quad $\llcorner$ \texttt{TextLine (Line coordinates)}\\
+      \qquad\qquad $\llcorner$ \texttt{Word (Word bounding box)}\\
+      \qquad\qquad\quad $\llcorner$ \texttt{Glyph (Akshara bbox)}\\
+      \qquad $\llcorner$ \texttt{GraphicRegion (Artworks)}
+    \end{block}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \begin{block}{Production Tool Compatibility}
+      \begin{itemize}
+        \item Fully compliant with \textbf{Aletheia, Transkribus, and eScriptorium}.
+        \item Vertex reduction via RDP prevents editor lag on high-res folios.
+        \item End-to-end inference latency: \textbf{350 ms per folio} on NVIDIA RTX GPU.
+      \end{itemize}
+    \end{block}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% ─────────────────────────────────────────────────────────────
+% FRAME 32: Summary of Technical Contributions & Conclusion
 % ─────────────────────────────────────────────────────────────
 \section{Conclusion}
 
