@@ -488,7 +488,12 @@ A_{ij}=\cos(\theta_{ij})
 % FRAME 14: Stage 1: 6-Channel nnU-Net Deep Semantic Segmentation
 % ─────────────────────────────────────────────────────────────
 \begin{frame}{Stage 1: 6-Channel nnU-Net Deep Semantic Segmentation}{Mathematical Formulations, Instance Normalization, and Multi-Scale Loss}
+\small
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+
 \begin{block}{Encoder-Decoder Feature Propagation \& Instance Normalization}
+\footnotesize
 \[
   \mathbf{x}^{(l)} = \text{LeakyReLU}_{\alpha=0.01}\left( \text{IN}\left( \mathbf{W}_2^{(l)} * \text{LeakyReLU}\left( \text{IN}\left( \mathbf{W}_1^{(l)} * \mathbf{x}^{(l-1)} \right) \right) \right) \right)
 \]
@@ -496,13 +501,19 @@ A_{ij}=\cos(\theta_{ij})
   \text{IN}(\mathbf{v}) = \gamma \left( \frac{\mathbf{v} - \mu(\mathbf{v})}{\sqrt{\sigma^2(\mathbf{v}) + \epsilon}} \right) + \beta, \quad \mu(\mathbf{v}) = \frac{1}{HW}\sum_{i,j} v_{i,j}, \quad \sigma^2(\mathbf{v}) = \frac{1}{HW}\sum_{i,j}(v_{i,j}-\mu)^2
 \]
 \end{block}
+
+\vspace{-1.5mm}
+
 \begin{block}{6-Channel Softmax Distribution \& Multi-Scale Compound Focal-Dice Loss}
+\footnotesize
 \[
   P(C = c \mid x, y) = \frac{\exp(z_c(x, y))}{\sum_{k=1}^{6} \exp(z_k(x, y))}, \quad \mathcal{L}_{\text{total}} = \sum_{s=0}^{2} w_s \left[ \lambda_1 \mathcal{L}_{\text{Focal}}^{(s)} + \lambda_2 \mathcal{L}_{\text{Dice}}^{(s)} \right]
 \]
 \[
   \mathcal{L}_{\text{Focal}} = -\frac{1}{N} \sum_{i=1}^N \alpha_t (1 - p_{t,i})^\gamma \log(p_{t,i}), \quad \mathcal{L}_{\text{Dice}} = 1 - \frac{2 \sum p_{t,i} y_{t,i} + \epsilon}{\sum p_{t,i}^2 + \sum y_{t,i}^2 + \epsilon}
 \]
+\vspace{1mm}
+\scriptsize
 Supervised at 3 decoder scales ($w = [1.0, 0.5, 0.25]$) for \texttt{TextRegion, Marginalia, Graphic, Frame, Damage, Line}.
 \end{block}
 \end{frame}
