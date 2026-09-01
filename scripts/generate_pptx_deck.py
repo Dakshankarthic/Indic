@@ -477,54 +477,73 @@ def generate_archival_presentation():
     add_side_by_side_slide(29, "Visual Results: Diverse Horizontal Palm Leaves (Set 2)", "Damage Hole Isolation and Line Extraction on Narrow Formats",
                            "wa_doc_img_2.jpg", "wa_doc_img_8.jpg", "Annotated Palm Leaf A", "Annotated Palm Leaf B")
 
-    add_side_by_side_slide(30, "Visual Results: Complex Multi-Column Commentaries (Set 3)", "Precise Reading Order Sorting across Column Gutters",
-                           "wa_doc_img_12.jpg", "wa_doc_img_21.jpg", "Commentary Folio A", "Commentary Folio B")
+    TOTAL_SLIDES = 37
 
-    add_side_by_side_slide(31, "Visual Results: Granular Akshara & Glyph Zoom Inspection", "Micro-Level Verification of Unicode Phonetic Grapheme Clusters",
+    def add_single_image_slide(frame_num, title, subtitle, img_name):
+        slide = prs.slides.add_slide(blank_layout)
+        add_beamer_header(slide, title, subtitle, "SECTION 3: VISUAL RESULTS")
+        img_p = img_dir / img_name
+        if img_p.exists():
+            slide.shapes.add_picture(str(img_p), Inches(1.2), Inches(1.7), Inches(10.9), Inches(4.6))
+        add_color_legend(slide)
+        add_beamer_footer(slide, frame_num)
+        return slide
+
+    # 30. Visual Results: Commentary Folio A (Dedicated Full Slide)
+    add_single_image_slide(30, "Visual Results: Complex Multi-Column Commentary (Folio A)",
+                           "Hierarchical Column Gutter Separation and Margin Gloss Parsing",
+                           "wa_doc_img_12.jpg")
+
+    # 31. Visual Results: Commentary Folio B (Dedicated Full Slide - 4-Quadrant Pipeline)
+    add_single_image_slide(31, "Visual Results: Multi-Column Commentary Folio B",
+                           "4-Quadrant Layout Analysis: Raw Folio -> TextRegion -> TextLines -> Words/Glyphs",
+                           "wa_doc_img_21.jpg")
+
+    add_side_by_side_slide(32, "Visual Results: Granular Akshara & Glyph Zoom Inspection", "Micro-Level Verification of Unicode Phonetic Grapheme Clusters",
                            "wa_doc_img_1.jpg", "wa_doc_img_25.jpg", "Granular Annotations", "Line & Word Verification")
 
-    add_side_by_side_slide(32, "Visual Results: Open-Access Ancient Indic Manuscript Corpus", "Evaluation on Standard Heritage Repositories (OpenN-Indic Collection)",
+    add_side_by_side_slide(33, "Visual Results: Open-Access Ancient Indic Manuscript Corpus", "Evaluation on Standard Heritage Repositories (OpenN-Indic Collection)",
                            "ms101_1996_0001_web.jpg", "ms102_3305_0001_web.jpg", "OpenN Manuscript A", "OpenN Manuscript B")
 
-    # 33. Quantitative Metrics
-    slide33 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide33, "Quantitative Transcription Results", "Benchmark Comparison on 1,054 Degraded Test Pages", "SECTION 3: EXPERIMENTAL RESULTS")
-    add_beamer_block(slide33, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1), "Error Metric Formulations",
+    # 34. Quantitative Metrics
+    slide34 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide34, "Quantitative Transcription Results", "Benchmark Comparison on 1,054 Degraded Test Pages", "SECTION 3: EXPERIMENTAL RESULTS")
+    add_beamer_block(slide34, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1), "Error Metric Formulations",
                      ["Character Error Rate (CER) and Word Error Rate (WER):",
                       "Computed via dynamic programming Levenshtein distance:",
                       "Accuracy = max(0, 1.0 - CER)."],
                      math_eq="CER = (Sum D_Lev(S_pred, S_gt)) / (Sum Length(S_gt))\nWER = (Sum D_Lev(W_pred, W_gt)) / (Sum |W_gt|)")
-    add_beamer_block(slide33, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1), "Benchmark Results (1,054 Pages)",
+    add_beamer_block(slide34, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1), "Benchmark Results (1,054 Pages)",
                      ["Proposed Framework: CER = 15.32%, WER = 9.97%, Accuracy = 84.50%",
                       "Tesseract 5 Baseline: CER = 47.82%, WER = 58.30%, Accuracy = 52.18%",
                       "Kraken HTR Baseline: CER = 38.60%, WER = 44.12%, Accuracy = 61.40%",
                       "Supervised LayoutLMv3: CER = 26.90%, WER = 31.85%, Accuracy = 73.10%",
                       "Demonstrates 3.12x error reduction over classical OCR."],
                      math_eq="Overall Accuracy: 84.50%\nZero Empty Predictions (0.00%) across test folios.")
-    add_beamer_footer(slide33, 33)
+    add_beamer_footer(slide34, 34)
 
-    # 34. Semantic F1 & Human Effort
-    slide34 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide34, "Semantic Layout Segmentation and Human Effort Evaluation", "Instance-Level F1-Scores and Paleographer Latency Reduction", "SECTION 3: EXPERIMENTAL RESULTS")
-    add_beamer_block(slide34, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1), "Semantic Layout F1-Scores",
+    # 35. Semantic F1 & Human Effort
+    slide35 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide35, "Semantic Layout Segmentation and Human Effort Evaluation", "Instance-Level F1-Scores and Paleographer Latency Reduction", "SECTION 3: EXPERIMENTAL RESULTS")
+    add_beamer_block(slide35, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1), "Semantic Layout F1-Scores",
                      ["TextRegion F1: 0.951 (Precision: 0.942, Recall: 0.961)",
                       "TextLine F1: 0.926 (Precision: 0.918, Recall: 0.935)",
                       "GraphicRegion F1: 0.907 (Precision: 0.925, Recall: 0.890)",
                       "Damage / Binder Hole F1: 0.954 (Precision: 0.968, Recall: 0.941)",
                       "PageFrame F1: 0.988 | Overall Layout Mean F1: 0.932"],
                      math_eq="F1 = 2 · (Precision · Recall) / (Precision + Recall)")
-    add_beamer_block(slide34, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1), "Human Correction Effort (PRImA)",
+    add_beamer_block(slide35, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1), "Human Correction Effort (PRImA)",
                      ["Manual Transcription (From Scratch): 22.5 min/page (Effort: 285.0)",
                       "Standard Automated Baseline: 11.8 min/page (Effort: 142.6)",
                       "Proposed Pre-Annotations: 2.9 min/page (Effort: 14.20)",
                       "Achieves 75.4% reduction in manual editing time."],
                      math_eq="E = 50·|Delta R| + Sum [ (1 - IoU)·100 + 0.5·|Delta V| ]")
-    add_beamer_footer(slide34, 34)
+    add_beamer_footer(slide35, 35)
 
-    # 35. PAGE-XML & Production Scalability
-    slide35 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide35, "PAGE-XML 2013 Output Format & Production Scalability", "PRImA Schema Conformance and Fast GPU Latency", "SECTION 4: CONCLUSION")
-    add_beamer_block(slide35, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1), "PRImA PAGE-XML 2013 Hierarchy",
+    # 36. PAGE-XML & Production Scalability
+    slide36 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide36, "PAGE-XML 2013 Output Format & Production Scalability", "PRImA Schema Conformance and Fast GPU Latency", "SECTION 4: CONCLUSION")
+    add_beamer_block(slide36, Inches(0.8), Inches(1.7), Inches(5.7), Inches(5.1), "PRImA PAGE-XML 2013 Hierarchy",
                      ["PcGts (Root Archive Container)",
                       "  └── Page (Folio dimensions)",
                       "       ├── TextRegion (Column polygons)",
@@ -533,24 +552,24 @@ def generate_archival_presentation():
                       "       │                 └── Glyph (Akshara bbox)",
                       "       └── GraphicRegion (Artworks)"],
                      math_eq="Full compliance with Aletheia & Transkribus.")
-    add_beamer_block(slide35, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1), "Production Tool Compatibility",
+    add_beamer_block(slide36, Inches(6.8), Inches(1.7), Inches(5.7), Inches(5.1), "Production Tool Compatibility",
                      ["Fully compliant with Aletheia, Transkribus, and eScriptorium.",
                       "Vertex reduction via RDP prevents editor lag on high-res folios.",
                       "End-to-end inference latency: 350 ms per folio on NVIDIA RTX GPU."],
                      math_eq="Zero per-document parameter tuning required.")
-    add_beamer_footer(slide35, 35)
+    add_beamer_footer(slide36, 36)
 
-    # 36. Conclusion
-    slide36 = prs.slides.add_slide(blank_layout)
-    add_beamer_header(slide36, "Summary of Technical Contributions and Conclusion", "Standardized Heritage Document Analysis Framework", "SECTION 4: CONCLUSION")
-    add_beamer_block(slide36, Inches(0.8), Inches(1.7), Inches(11.7), Inches(5.1), "Core Technical Contributions",
+    # 37. Conclusion
+    slide37 = prs.slides.add_slide(blank_layout)
+    add_beamer_header(slide37, "Summary of Technical Contributions and Conclusion", "Standardized Heritage Document Analysis Framework", "SECTION 4: CONCLUSION")
+    add_beamer_block(slide37, Inches(0.8), Inches(1.7), Inches(11.7), Inches(5.1), "Core Technical Contributions",
                      ["1. Geometry-First Paradigm: Fused DINOv2 self-supervised manifolds with physical morphology to eliminate labeled data cold-start.",
                       "2. Analytical Shirorekha Ablation: Formulated horizontal peak ablation and vertical Gaussian valley tracking for Akshara cut-points.",
                       "3. 6-Channel Deep Segmentation: nnU-Net with Instance Normalization and isoperimetric damage isolation (Psi > 0.85).",
                       "4. Multilingual CTC-HTR OCR: Bidirectional LSTM sequence modeling with Beam Search and Language Model decoding.",
                       "5. Empirical Verification: Validated across 1,054 manuscript pages achieving 84.50% Accuracy, 15.32% CER, and reducing manual annotation latency by 75.4% under the PRImA PAGE-XML 2013 standard."],
                      math_eq="Framework Status: Fully Reproducible  ·  Standard PRImA PAGE-XML 2013 Output  ·  Open Academic Release")
-    add_beamer_footer(slide36, 36)
+    add_beamer_footer(slide37, 37)
 
     output_path = Path(r"d:\indic_challenge\docs\AutoAnn_Indic_IIT_Presentation.pptx")
     output_path.parent.mkdir(parents=True, exist_ok=True)
